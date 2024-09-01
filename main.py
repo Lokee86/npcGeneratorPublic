@@ -44,7 +44,7 @@ def get_name_lists(client, creature):
 
     first_names = client.chat.completions.create(
     model = "",
-    messages = NAME_PAYLOAD + [{"role": "user", "content": f"Give me a list of 25 {creature.genre} setting first names for a {creature.gender}."}],
+    messages = NAME_PAYLOAD + [{"role": "user", "content": f"Give me a list of 25 {creature.species} {creature.genre} setting first names for a {creature.gender}."}],
     temperature = 1.0,
     top_p = 1.0,
     max_tokens = 500,
@@ -54,7 +54,7 @@ def get_name_lists(client, creature):
     
     last_names = client.chat.completions.create(
     model = "",
-    messages = NAME_PAYLOAD + [{"role": "user", "content": f"Give me a list of 25 {creature.genre} setting surnames."}],
+    messages = NAME_PAYLOAD + [{"role": "user", "content": f"Give me a list of 25 {creature.genre} setting {creature.species} surnames."}],
     temperature = 1.0,
     top_p = 1.0,
     max_tokens = 500,
@@ -68,26 +68,43 @@ def get_name_lists(client, creature):
     return first_posibilities, last_posibilities
 
 def generate_name(firsts, lasts):
+    
     name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
+    
     print(f"Your NPCs name is {name}")
+    
     satisfied = input("Would you like to roll for another name? ").strip().lower()
     if satisfied != "n":
-        generate_name(firsts, lasts)
+        return generate_name(firsts, lasts)
     else:
         return name
 
+def generate_details(client, creature):
+    
+    manual_check = input("Are there any details you would like to manually include[Y/n]? ").strip().lower()
+    if manual_check == "y":
+        for trait in creature.details:
+            if isinstance(trait, dict):
+                for subtrait in trait:
+                    print(f"    {subtrait.title()}")
+            print(trait.title())
 
+
+
+# MAIN FUNCTION BEGINS HERE
 def main():
     # Point to the local server
     client = OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
     
     creature = creature_type()
-
+    
     basic_info(client, creature)
     
     first_names, last_names = get_name_lists(client, creature)
     
     creature.name = generate_name(first_names, last_names)
+
+    generate_details(client,creature)
 
     print(creature)
     

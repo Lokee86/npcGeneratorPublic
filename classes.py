@@ -25,10 +25,10 @@ class Monster:
                 if isinstance(value, dict):
                     nested_output, is_non_empty = format_dict(value, indent + 4)
                     if is_non_empty:
-                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output}"
+                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output.title()}"
                         non_empty = True
                 elif value:  # Check for non-empty value
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}: {value}\n"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}: {value.title()}\n"
                     non_empty = True
             return formatted_output, non_empty
 
@@ -39,10 +39,10 @@ class Monster:
                 nested_output, is_non_empty = format_dict(value)
                 # Only add the attribute if is_non_empty returns False
                 if is_non_empty:  
-                    output += f"{attr.replace('_', ' ').title()}:\n{nested_output}"
+                    output += f"{attr.replace('_', ' ').title()}:\n{nested_output.title()}"
             # Only print non-empty fields
             elif value:  
-                output += f"{attr.replace('_', ' ').title()}: {value}\n"
+                output += f"{attr.replace('_', ' ').title()}: {value.title()}\n"
 
         return output
     

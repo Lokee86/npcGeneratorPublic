@@ -24,14 +24,13 @@ ROLE_PLAY = {"with_backup": "",
              "threatened": "",
              "high_defensive": ""}
 
-DETAILS = {"eyes" : {"colour" : "",
-                            "other" : ""},
-                     "hair" : {"colour" : "",
-                             "style" : ""},
-                     "height" : "",
-                     "weight" : "",
-                     "build" : "",
-                     "social_status" : ""
+DETAILS = {"eyes" : "",
+           "hair" : {"colour" : "",
+                     "style" : ""},
+           "height" : "",
+           "weight" : "",
+           "build" : "",
+           "social_status" : ""
           }
 MOTIVATIONS_NPC = {"likes" : [],
                    "dislikes" : [],
