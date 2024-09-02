@@ -25,9 +25,15 @@ class Monster:
                 if isinstance(value, dict):
                     nested_output, is_non_empty = format_dict(value, indent + 4)
                     if is_non_empty:
-                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output.title()}"
+                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output}"
                         non_empty = True
-                elif value:  # Check for non-empty value
+                elif isinstance(value, list):  # Handle lists separately
+                    if value:
+                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n"
+                        for item in value:
+                            formatted_output += f"{' ' * (indent + len(key))}- {item.title()}\n"
+                        non_empty = True
+                elif value:  # Check for non-empty string values
                     formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}: {value.title()}\n"
                     non_empty = True
             return formatted_output, non_empty
