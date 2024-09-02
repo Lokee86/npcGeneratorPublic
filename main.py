@@ -85,10 +85,10 @@ def manual_input_dict(trait_dict):
     if manual_check == "y":
         print("\nAvailable Traits and Subtraits:\n")
         for trait, value in trait_dict.items():
-            print(trait.title() + ":")
+            print(trait.title().replace("_", " ") + ":")
             if isinstance(value, dict):
                 for subtrait in value:
-                    print(f"    {subtrait.title()}: {value[subtrait]}")
+                    print(f"    {subtrait.title().replace('_', ' ')}: {value[subtrait]}")
 
         cancel = False
         while True:
@@ -115,16 +115,26 @@ def manual_input_dict(trait_dict):
                             break
                         else:
                             print("Invalid subtrait.")
+                elif isinstance(trait_dict[manual_input], list):
+                    new_value = input(f"Please enter your manual choice to append to the list for {manual_input}: ").strip().lower()
+                    trait_dict[manual_input].append(new_value)
+                    cancel = True
+                    continue                
                 else:
                     new_value = input(f"Please enter your manual choice for {manual_input}: ").strip().lower()
                     trait_dict[manual_input] = new_value
+                    cancel = True
                     continue  # Continue to re-check if further input is needed
 
             elif any(manual_input in subdict for subdict in trait_dict.values() if isinstance(subdict, dict)):
                 for trait, subtraits in trait_dict.items():
                     if isinstance(subtraits, dict) and manual_input in subtraits:
-                        new_value = input(f"Please enter your manual choice for {manual_input}: ").strip().lower()
-                        subtraits[manual_input] = new_value
+                        if isinstance(subtraits[manual_input], list):
+                            new_value = input(f"Please enter your manual choice to append to the list for {manual_input}: ").strip().lower()
+                            subtraits[manual_input].append(new_value)
+                        else:
+                            new_value = input(f"Please enter your manual choice for {manual_input}: ").strip().lower()
+                            subtraits[manual_input] = new_value
                         break
 
             else:
@@ -146,7 +156,7 @@ def main():
     # creature.name = generate_name(first_names, last_names)
 
     if type(creature) == NPC:
-        manual_input_dict(creature.details)
+        manual_input_dict(creature.motivations)
 
     print(creature)
     
