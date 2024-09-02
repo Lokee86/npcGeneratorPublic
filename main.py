@@ -84,10 +84,10 @@ def generate_details(client, creature):
     manual_check = input("Are there any details you would like to manually include[Y/n]? ").strip().lower()
     if manual_check == "y":
         for trait in creature.details:
-            if isinstance(trait, dict):
-                for subtrait in trait:
-                    print(f"    {subtrait.title()}")
-            print(trait.title())
+            if isinstance(creature.details[trait], dict):
+                for subtrait in creature.details[trait]:
+                    print(f"    {subtrait.title()}:")
+            print(trait.title() + ":")
 
 
 
@@ -97,7 +97,7 @@ def main():
     client = OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
     
     creature = creature_type()
-    
+
     basic_info(client, creature)
     
     first_names, last_names = get_name_lists(client, creature)
