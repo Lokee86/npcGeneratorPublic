@@ -79,15 +79,56 @@ def generate_name(firsts, lasts):
     else:
         return name
 
-def generate_details(client, creature):
+def manual_input_dict(trait_dict):
     
     manual_check = input("Are there any details you would like to manually include[Y/n]? ").strip().lower()
     if manual_check == "y":
-        for trait in creature.details:
-            if isinstance(creature.details[trait], dict):
-                for subtrait in creature.details[trait]:
-                    print(f"    {subtrait.title()}:")
+        print("\nAvailable Traits and Subtraits:\n")
+        for trait, value in trait_dict.items():
             print(trait.title() + ":")
+            if isinstance(value, dict):
+                for subtrait in value:
+                    print(f"    {subtrait.title()}: {value[subtrait]}")
+
+        cancel = False
+        while True:
+            if cancel:
+                manual_input = input("Would you like to manually input a different trait? [Type 'Cancel' to go back]").strip().lower()
+                if manual_input == "cancel":
+                    return
+                cancel = False  # Reset cancel after re-prompting
+
+            manual_input = input("Which trait would you like to manually enter? [Type 'Cancel' to go back] ").strip().lower()
+            if manual_input == "cancel":
+                break
+
+            if manual_input in trait_dict:
+                if isinstance(trait_dict[manual_input], dict):
+                    while True:
+                        sub_input = input(f"Which subtrait of {manual_input} would you like to enter? [Type 'Cancel' to go back] ").strip().lower()
+                        if sub_input == "cancel":
+                            cancel = True
+                            break
+                        if sub_input in trait_dict[manual_input]:
+                            new_value = input(f"Please enter your manual choice for {sub_input}: ").strip().lower()
+                            trait_dict[manual_input][sub_input] = new_value
+                            break
+                        else:
+                            print("Invalid subtrait.")
+                else:
+                    new_value = input(f"Please enter your manual choice for {manual_input}: ").strip().lower()
+                    trait_dict[manual_input] = new_value
+                    continue  # Continue to re-check if further input is needed
+
+            elif any(manual_input in subdict for subdict in trait_dict.values() if isinstance(subdict, dict)):
+                for trait, subtraits in trait_dict.items():
+                    if isinstance(subtraits, dict) and manual_input in subtraits:
+                        new_value = input(f"Please enter your manual choice for {manual_input}: ").strip().lower()
+                        subtraits[manual_input] = new_value
+                        break
+
+            else:
+                print("Invalid trait.")
 
 
 
@@ -98,13 +139,14 @@ def main():
     
     creature = creature_type()
 
-    basic_info(client, creature)
+    # basic_info(client, creature)
     
-    first_names, last_names = get_name_lists(client, creature)
+    # first_names, last_names = get_name_lists(client, creature)
     
-    creature.name = generate_name(first_names, last_names)
+    # creature.name = generate_name(first_names, last_names)
 
-    generate_details(client,creature)
+    if type(creature) == NPC:
+        manual_input_dict(creature.details)
 
     print(creature)
     

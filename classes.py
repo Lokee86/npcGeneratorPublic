@@ -33,7 +33,7 @@ class Monster:
             return formatted_output, non_empty
 
         # Main output string for the Monster class attributes
-        output = "Monster Information:\n"
+        output = "\nMonster Information:\n"
         for attr, value in self.__dict__.items():
             if isinstance(value, dict):
                 nested_output, is_non_empty = format_dict(value)
