@@ -81,7 +81,7 @@ def generate_name(firsts, lasts):
 
 def manual_trait_input(trait_dict):
     
-    manual_check = input("Are there any details you would like to manually include[Y/n]? ").strip().lower()
+    manual_check = input("Are there any details you would like to manually include? [Y/n] ").strip().lower()
     if manual_check == "y":
         print("\nAvailable Traits and Subtraits:\n")
         for trait, value in trait_dict.items():
@@ -93,8 +93,8 @@ def manual_trait_input(trait_dict):
         cancel = False
         while True:
             if cancel:
-                manual_input = input("Would you like to manually input a different trait? [Type 'Cancel' to go back]").strip().lower()
-                if manual_input == "cancel":
+                manual_input = input("Would you like to manually input a different trait? [Y/n] ").strip().lower()
+                if manual_input == "n":
                     return
                 cancel = False  # Reset cancel after re-prompting
 
@@ -114,6 +114,7 @@ def manual_trait_input(trait_dict):
                         if sub_input in trait_dict[manual_input]:
                             new_value = input(f"Please enter your manual choice for {sub_input.replace('_', ' ')}: ").strip().lower()
                             trait_dict[manual_input][sub_input] = new_value
+                            cancel = True
                             break
                         else:
                             print("Invalid subtrait.")
@@ -134,9 +135,11 @@ def manual_trait_input(trait_dict):
                         if isinstance(subtraits[manual_input], list):
                             new_value = input(f"Please enter your manual choice to append to the list for {manual_input.replace('_', ' ')}: ").strip().lower()
                             subtraits[manual_input].append(new_value)
+                            cancel = True
                         else:
                             new_value = input(f"Please enter your manual choice for {manual_input}: ").strip().lower()
                             subtraits[manual_input] = new_value
+                            cancel = True
                         break
 
             else:
@@ -158,7 +161,7 @@ def main():
     # creature.name = generate_name(first_names, last_names)
 
     if type(creature) == NPC:
-        manual_trait_input(creature.motivations)
+        manual_trait_input(creature.details)
 
     print(creature)
     
