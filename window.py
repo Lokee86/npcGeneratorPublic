@@ -1,4 +1,5 @@
 import tkinter
+import main
 from screeninfo import get_monitors
 
 root = tkinter.Tk()

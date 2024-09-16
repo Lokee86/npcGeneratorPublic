@@ -3,6 +3,8 @@ import random
 from constants import *
 from classes import *
 
+def initialize_client():
+    return OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
 
 def creature_type():
     creature = input("Would you like to generate a monster or an NPC? ").strip().lower()
@@ -44,7 +46,7 @@ def get_name_lists(client, creature):
 
     first_names = client.chat.completions.create(
     model = "",
-    messages = NAME_PAYLOAD + [{"role": "user", "content": f"Give me a list of 25 {creature.species} {creature.genre} setting first names for a {creature.gender}."}],
+    messages = NAME_PAYLOAD + FIRST_NAME(creature.species, creature.genre, creature.gender),
     temperature = 1.0,
     top_p = 1.0,
     max_tokens = 500,
@@ -54,7 +56,7 @@ def get_name_lists(client, creature):
     
     last_names = client.chat.completions.create(
     model = "",
-    messages = NAME_PAYLOAD + [{"role": "user", "content": f"Give me a list of 25 {creature.genre} setting {creature.species} surnames."}],
+    messages = NAME_PAYLOAD + LAST_NAME(creature.species, creature.genre),
     temperature = 1.0,
     top_p = 1.0,
     max_tokens = 500,
@@ -150,15 +152,15 @@ def manual_trait_input(trait_dict):
 # MAIN FUNCTION BEGINS HERE
 def main():
     # Point to the local server
-    client = OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
+    client = initialize_client()
     
     creature = creature_type()
 
-    # basic_info(client, creature)
+    basic_info(client, creature)
     
-    # first_names, last_names = get_name_lists(client, creature)
+    first_names, last_names = get_name_lists(client, creature)
     
-    # creature.name = generate_name(first_names, last_names)
+    creature.name = generate_name(first_names, last_names)
 
     if type(creature) == NPC:
         manual_trait_input(creature.details)
