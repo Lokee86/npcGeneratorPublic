@@ -1,3 +1,8 @@
+# GUI Constants
+
+INTRO_WIDTH_FACTOR = 0.2
+INTRO_HEIGHT_FACTOR = 0.1
+
 # SYTEM PROMPTS
 
 GENDER_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
