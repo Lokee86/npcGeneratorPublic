@@ -13,9 +13,7 @@ class CreatureCreatorApp:
         self.root = tk.Tk()
         self.root.title(WINDOW_TITLE(title))
         self.create_screen()    
-        self.choose_creature_type()
-        self.monster_window()
-        self.npc_window()
+        self.initiate_widgets()
 
     # Get the primary monitor's screen size
     def screen_parameters(self):
