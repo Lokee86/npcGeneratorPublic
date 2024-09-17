@@ -1,6 +1,8 @@
 import tkinter as tk
 from screeninfo import get_monitors
+from classes import *
 from constants import *
+import gui_functions as gfn
 import functionality as fn
 
 
@@ -36,15 +38,9 @@ class CreatureCreatorApp:
         y_position = (screen_height - window_height) // 2
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
-    def choose_creature_type(self):
+    def initiate_widgets(self):
         pass
 
-    def monster_window(self):
-        pass
-
-    def npc_window(self):
-        pass
-    
     def run(self):
         self.root.mainloop()
 
@@ -52,7 +48,7 @@ class ChooseCreature(CreatureCreatorApp):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
-    def choose_creature_type(self):
+    def initiate_widgets(self):
         # Labels
         self.intro = tk.Label(self.root, text="Welcome to Creature Creator", font=(DISPLAY_FONT, 20))
         self.intro.pack(pady="20")
@@ -71,21 +67,28 @@ class ChooseCreature(CreatureCreatorApp):
     def monster(self):
         self.root.destroy()
         app = WindowMonster(CREATION_WIDTH_FACTOR, CREATION_HEIGHT_FACTOR, MONSTER_TITLE)
+        app.creature = fn.creature_type("monster")
         app.run()
 
     def npc(self):
         self.root.destroy()
         app = WindowNPC(CREATION_WIDTH_FACTOR, CREATION_HEIGHT_FACTOR, NPC_TITLE)
+        app.creature = fn.creature_type("npc")
         app.run()
 
 class WindowMonster(CreatureCreatorApp):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
-    def monster_window(self):
+    def initiate_widgets(self):
+        # Create Name, Gender, and Genre inputs
+
+
         # Create Stat line labels & inputs
-        validate_cmd = self.root.register(fn.validate_stat_length)
-        
+        # Register length restriction function for stat fields
+        validate_cmd = self.root.register(gfn.validate_stat_length)
+      
+        # Frames for stats and Stat buttons
         self.stats = tk.Frame(self.root)
         self.stats.pack(pady='10')
 
@@ -105,8 +108,9 @@ class WindowMonster(CreatureCreatorApp):
             entry.grid(column=stat, row=1)
             self.stat_entries.append((STATS[stat], entry))
 
-        self.stat_gen_check = tk.Checkbutton(self.stats, text="Generate Stats")
-        self.stat_gen_check.grid(column=1, row=0)
+        self.stat_gen_check = tk.BooleanVar()
+        self.stat_gen_check_box = tk.Checkbutton(self.stats, text="Generate Stats", variable=self.stat_gen_check)
+        self.stat_gen_check_box.grid(column=1, row=0)
         
 
 class WindowNPC(WindowMonster):

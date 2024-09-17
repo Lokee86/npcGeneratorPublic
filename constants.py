@@ -50,31 +50,13 @@ ROLE_PLAY = {"with_backup": "",
              "threatened": "",
              "high_defensive": ""}
 
-DETAILS = {"eyes" : {"colour" : "",
-                     "pupils" : ""},
-           "hair" : {"colour" : "",
-                     "style" : ""},
-           "height" : "",
-           "weight" : "",
-           "build" : "",
-           "social_status" : ""
-          }
-
 MOTIVATIONS_NPC = {"likes" : [],
                    "dislikes" : [],
                    "wants" : [],
                    "needs" : [],
                    "goals" : {"short_term" : [],
-                               "long_term" : []
-                             }
-                  }
+                               "long_term" : []},}
 
-CHARACTER = {"habits" : [],
-             "vices" : [],
-             "problems" : [],
-             "secrets" : [],
-             "weaknesses" : [],
-            } 
 ROLE_PLAY_NPC = {"bargaining": "",
                  "with_backup": "",
                  "alone" : "",
@@ -82,14 +64,28 @@ ROLE_PLAY_NPC = {"bargaining": "",
                  "bribed": "",
                  "blackmailed": "",
                  "threatened": "",
-                 "high_defensive": ""
-                }
+                 "high_defensive": ""}
+
+DETAILS = {"eyes" : {"colour" : "",
+                     "pupils" : ""},
+           "hair" : {"colour" : "",
+                     "style" : ""},
+           "height" : "",
+           "weight" : "",
+           "build" : "",
+           "social_status" : ""}
+
+CHARACTER = {"habits" : [],
+             "vices" : [],
+             "problems" : [],
+             "secrets" : [],
+             "weaknesses" : [],}
+
 CONNECTIONS = {"parents" : [],
                "siblings" : [],
                "family" : [],
-               "legal_guardian(s)" : [],
+               "legal_guardianship" : [],
                "religion" : [],
                "ethnic" : "",
                "personal_associates": [],
-               "memberships" : [],
-              }
+               "memberships" : [],}

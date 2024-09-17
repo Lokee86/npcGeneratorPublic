@@ -9,6 +9,7 @@ class Monster:
         self.size_class: str = ""
         self.habitat: str = ""
 
+        self.stats = []
         self.skills = []
 
         self.stat_block: dict = {}
@@ -52,6 +53,36 @@ class Monster:
 
         return output
     
+
+    def show_all(self):
+        def format_dict_all(d, indent=0):
+            # Recursively formats nested dictionaries, including empty ones.
+            formatted_output = ""
+            for key, value in d.items():
+                if isinstance(value, dict):
+                    nested_output = format_dict_all(value, indent + 4)
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output}"
+                elif isinstance(value, list):  # Handle lists separately
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n"
+                    for item in value:
+                        formatted_output += f"{' ' * (indent + len(key))}- {item.title()}\n" if item else f"{' ' * (indent + len(key))}- [Empty]\n"
+                else:  # Include all string values, even empty ones
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}: {value.title() if value else '[Empty]'}\n"
+            return formatted_output
+
+        # Main output string for the Monster class attributes
+        output = "\nMonster Information (Including Empty Fields):\n"
+        for attr, value in self.__dict__.items():
+            if isinstance(value, dict):
+                nested_output = format_dict_all(value)
+                output += f"{attr.replace('_', ' ').title()}:\n{nested_output}"
+            # Print all fields, including empty ones
+            else:
+                output += f"{attr.replace('_', ' ').title()}: {value.title() if value else '[Empty]'}\n"
+
+        return output
+
+
 class NPC(Monster):
     def __init__(self):
         super().__init__()
@@ -69,4 +100,9 @@ class NPC(Monster):
         self.character: dict = CHARACTER
         self.roleplay: dict = ROLE_PLAY_NPC
         self.connections: dict = CONNECTIONS
-    
+
+if __name__ == "__main__":
+    monster = Monster()
+    npc = NPC()
+    print(monster.show_all())
+    print(npc.show_all())
