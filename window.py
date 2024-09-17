@@ -78,12 +78,14 @@ class WindowMonster(CreatureCreatorApp):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
-    def initiate_widgets(self):
-        # Create Name, Gender, and Genre inputs
+    def initiate_widgets(self):        
+        # Register validation functions for input fields
+        validate_lngth = self.root.register(gfn.validate_length)
+        validate_alpha = self.root.register(gfn.validate_alphabetic)
+
+        # Create Genre input
         self.basics_frame = tk.Frame(self.root)
         self.basics_frame.pack()
-
-        validate_alpha = self.root.register(gfn.validate_alphabetic)
 
         self.genre_label = tk.Label(self.basics_frame, padx='5', text='Genre: ', font=(DISPLAY_FONT, 14))
         self.genre_entry = tk.Entry(self.basics_frame,
@@ -92,17 +94,22 @@ class WindowMonster(CreatureCreatorApp):
                                     validatecommand=(validate_alpha, '%S'))
         self.genre_gen_check = tk.BooleanVar()
         self.genre_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Genre", variable=self.genre_gen_check)
-        self.genre_label.grid(column=0, row=0)
-        self.genre_entry.grid(column=1, row=0)
+        self.genre_label.grid(column=0, row=0, sticky=tk.E)
+        self.genre_entry.grid(column=1, row=0, sticky=tk.W)
         self.genre_gen_check_box.grid(column=2, row=0)
 
-        # self.name_label = tk.Label(self)
+        self.name_label = tk.Label(self.basics_frame, padx='5', text='Name: ', font=(DISPLAY_FONT, 14))
+        self.name_entry = tk.Entry(self.basics_frame, width=30,
+                                   validate='key',
+                                   validatecommand=(validate_lngth, '%P', 40))
+        self.name_gen_check = tk.BooleanVar()
+        self.name_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Name", variable=self.name_gen_check)
+        self.name_label.grid(column=0, row=1, sticky=tk.E)
+        self.name_entry.grid(column=1, row=1, sticky=tk.W)
+        self.name_gen_check_box.grid(column=2, row=1)
 
 
         # Create Stat line labels & inputs
-        # Register length restriction function for stat fields
-        validate_lngth = self.root.register(gfn.validate_stat_length)
-      
         # Frames for stats and Stat buttons
         self.stats = tk.Frame(self.root)
         self.stats.pack(pady='10')
