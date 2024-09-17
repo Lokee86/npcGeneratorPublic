@@ -4,11 +4,11 @@ from constants import *
 import functionality as fn
 
 class CreatureCreatorApp:
-    def __init__(self, width, height):
+    def __init__(self, width, height, title):
         self.width = width
         self.height = height        
         self.root = tk.Tk()
-        self.root.title("Creature Creator")
+        self.root.title(title)
         self.create_screen()    
         self.choose_creature_type()
 
@@ -40,8 +40,8 @@ class CreatureCreatorApp:
         self.root.mainloop()
 
 class ChooseCreature(CreatureCreatorApp):
-    def __init__(self, width, height):
-        super().__init__(width, height)
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
 
     def choose_creature_type(self):
         # Labels
@@ -54,12 +54,29 @@ class ChooseCreature(CreatureCreatorApp):
         self.button_frame = tk.Frame(self.root)
         self.button_frame.pack()
         
-        self.monster_button = tk.Button(self.button_frame, text="Creature", font=('Times', 13, "bold"))
+        self.monster_button = tk.Button(self.button_frame, text="Monster", font=('Times', 13, "bold"), command=self.monster)
         self.monster_button.grid(column=0, row=0)
-        self.npc_button = tk.Button(self.button_frame, text="NPC", font=('Times', 13, "bold"))
+        self.npc_button = tk.Button(self.button_frame, text="NPC", font=('Times', 13, "bold"), command=self.npc)
         self.npc_button.grid(column=1, row=0)
+    
+    def monster(self):
+        self.root.destroy()
+        app = WindowMonster(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR, MONSTER_TITLE)
+        app.run()
 
+    def npc(self):
+        self.root.destroy()
+        app = WindowNPC(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR, NPC_TITLE)
+        app.run()
+
+class WindowNPC(CreatureCreatorApp):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
+
+class WindowMonster(CreatureCreatorApp):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
 
 if __name__ == "__main__":
-    app = ChooseCreature(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR)
+    app = ChooseCreature(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR, INTRO_TITLE)
     app.run()

@@ -1,5 +1,9 @@
 # GUI Constants
 
+INTRO_TITLE = "Creature Creator"
+MONSTER_TITLE = "Creature Creator: Monster"
+NPC_TITLE = "Creature Creator : NPC"
+
 INTRO_WIDTH_FACTOR = 0.2
 INTRO_HEIGHT_FACTOR = 0.1
 
