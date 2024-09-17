@@ -3,7 +3,7 @@ import random
 from constants import *
 from classes import *
 
-def validate_length(char, current_text, max_length):
+def validate_stat_length(current_text, max_length):
     return len(current_text) <= int(max_length)
 
 def initialize_client():

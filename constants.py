@@ -1,5 +1,7 @@
 # GUI Constants
 
+DISPLAY_FONT = "Times"
+
 INTRO_TITLE = ""
 MONSTER_TITLE = "Monster"
 NPC_TITLE = "NPC"
@@ -8,6 +10,8 @@ CREATION_WIDTH_FACTOR = 0.5
 CREATION_HEIGHT_FACTOR = 0.5
 DIALOG_WIDTH_FACTOR = 0.2
 DIALOG_HEIGHT_FACTOR = 0.1
+
+STATS = ["Str", "Dex", "Con", "Wis", "Int", "Cha"]
 
 def WINDOW_TITLE(name):
   if not name:

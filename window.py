@@ -54,18 +54,18 @@ class ChooseCreature(CreatureCreatorApp):
 
     def choose_creature_type(self):
         # Labels
-        self.intro = tk.Label(self.root, text="Welcome to Creature Creator", font=('Times', 20))
+        self.intro = tk.Label(self.root, text="Welcome to Creature Creator", font=(DISPLAY_FONT, 20))
         self.intro.pack(pady="20")
-        self.choose_label = tk.Label(self.root, text="What kind of creature would you like to create?", font=('Times', 16))
+        self.choose_label = tk.Label(self.root, text="What kind of creature would you like to create?", font=(DISPLAY_FONT, 16))
         self.choose_label.pack(pady="10")
         
         # Buttons
         self.button_frame = tk.Frame(self.root)
         self.button_frame.pack()
         
-        self.monster_button = tk.Button(self.button_frame, text="Monster", font=('Times', 13, "bold"), command=self.monster)
+        self.monster_button = tk.Button(self.button_frame, text="Monster", font=(DISPLAY_FONT, 13, "bold"), command=self.monster)
         self.monster_button.grid(column=0, row=0)
-        self.npc_button = tk.Button(self.button_frame, text="NPC", font=('Times', 13, "bold"), command=self.npc)
+        self.npc_button = tk.Button(self.button_frame, text="NPC", font=(DISPLAY_FONT, 13, "bold"), command=self.npc)
         self.npc_button.grid(column=1, row=0)
     
     def monster(self):
@@ -83,16 +83,31 @@ class WindowMonster(CreatureCreatorApp):
         super().__init__(width, height, title)
 
     def monster_window(self):
-        validate_cmd = self.root.register(fn.validate_length)
+        # Create Stat line labels & inputs
+        validate_cmd = self.root.register(fn.validate_stat_length)
+        
         self.stats = tk.Frame(self.root)
         self.stats.pack(pady='10')
-        self.str = tk.Entry(self.stats,
-                            width=2,
-                            validate='key',
-                            validatecommand=(validate_cmd, '%S', '%P', 2))
-        self.str.pack()
+
+        self.stats_values = tk.Frame(self.stats)
+        self.stats_values.grid(column=0, row=0)
         
-        pass
+        # Create a list to track entry widgets for generation and input gathering
+        self.stat_entries = []
+        # Create the label and input widgets for stats
+        for stat in range(0, len(STATS)):
+            lbl = tk.Label(self.stats_values, padx='5', text=STATS[stat], font=(DISPLAY_FONT, 14))
+            lbl.grid(column=stat, row=0)
+            entry = tk.Entry(self.stats_values,
+                                width=2,
+                                validate='key',
+                                validatecommand=(validate_cmd, '%P', 2))
+            entry.grid(column=stat, row=1)
+            self.stat_entries.append((STATS[stat], entry))
+
+        self.stat_gen_check = tk.Checkbutton(self.stats, text="Generate Stats")
+        self.stat_gen_check.grid(column=1, row=0)
+        
 
 class WindowNPC(WindowMonster):
     def __init__(self, width, height, title):
