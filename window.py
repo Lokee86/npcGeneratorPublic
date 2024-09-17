@@ -80,11 +80,28 @@ class WindowMonster(CreatureCreatorApp):
 
     def initiate_widgets(self):
         # Create Name, Gender, and Genre inputs
+        self.basics_frame = tk.Frame(self.root)
+        self.basics_frame.pack()
+
+        validate_alpha = self.root.register(gfn.validate_alphabetic)
+
+        self.genre_label = tk.Label(self.basics_frame, padx='5', text='Genre: ', font=(DISPLAY_FONT, 14))
+        self.genre_entry = tk.Entry(self.basics_frame,
+                                    width=10,
+                                    validate='key',
+                                    validatecommand=(validate_alpha, '%S'))
+        self.genre_gen_check = tk.BooleanVar()
+        self.genre_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Genre", variable=self.genre_gen_check)
+        self.genre_label.grid(column=0, row=0)
+        self.genre_entry.grid(column=1, row=0)
+        self.genre_gen_check_box.grid(column=2, row=0)
+
+        # self.name_label = tk.Label(self)
 
 
         # Create Stat line labels & inputs
         # Register length restriction function for stat fields
-        validate_cmd = self.root.register(gfn.validate_stat_length)
+        validate_lngth = self.root.register(gfn.validate_stat_length)
       
         # Frames for stats and Stat buttons
         self.stats = tk.Frame(self.root)
@@ -102,7 +119,7 @@ class WindowMonster(CreatureCreatorApp):
             entry = tk.Entry(self.stats_values,
                                 width=2,
                                 validate='key',
-                                validatecommand=(validate_cmd, '%P', 2))
+                                validatecommand=(validate_lngth, '%P', 2))
             entry.grid(column=stat, row=1)
             self.stat_entries.append((STATS[stat], entry))
 

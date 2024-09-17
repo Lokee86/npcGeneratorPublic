@@ -11,6 +11,7 @@ CREATION_HEIGHT_FACTOR = 0.5
 DIALOG_WIDTH_FACTOR = 0.2
 DIALOG_HEIGHT_FACTOR = 0.1
 
+BASICS = ["Genre", "Name", "Species", "Category/Classification/Type", "Size", "Habitat"]
 STATS = ["Str", "Dex", "Con", "Wis", "Int", "Cha"]
 
 def WINDOW_TITLE(name):
