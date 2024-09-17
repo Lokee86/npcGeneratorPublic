@@ -34,6 +34,16 @@ class CreatureCreatorApp:
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
     def choose_creature_type(self):
+        pass        
+    
+    def run(self):
+        self.root.mainloop()
+
+class ChooseCreature(CreatureCreatorApp):
+    def __init__(self, width, height):
+        super().__init__(width, height)
+
+    def choose_creature_type(self):
         # Labels
         self.intro = tk.Label(self.root, text="Welcome to Creature Creator", font=('Times', 20))
         self.intro.pack(pady="20")
@@ -48,16 +58,8 @@ class CreatureCreatorApp:
         self.monster_button.grid(column=0, row=0)
         self.npc_button = tk.Button(self.button_frame, text="NPC", font=('Times', 13, "bold"))
         self.npc_button.grid(column=1, row=0)
-        
-    
-    def run(self):
-        self.root.mainloop()
-
-# class WindowNPC(CreatureCreatorApp):
-#     def __init__(self):
-#         super.__init__()
 
 
 if __name__ == "__main__":
-    app = CreatureCreatorApp(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR)
+    app = ChooseCreature(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR)
     app.run()
