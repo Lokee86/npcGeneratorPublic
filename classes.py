@@ -9,13 +9,11 @@ class Monster:
         self.size_class: str = ""
         self.habitat: str = ""
 
-        self.stats = []
         self.skills = []
 
         self.stat_block: dict = {}
         self.motivations: dict = MOTIVATIONS
-        self.role_play: dict = ROLE_PLAY
-        self.tactics : dict  = {}
+        self.tactics : dict  = TACTICS
 
     def __str__(self):
         def format_dict(d, indent=0):
@@ -98,7 +96,7 @@ class NPC(Monster):
         self.details: dict = DETAILS
         self.motivations: dict = MOTIVATIONS_NPC
         self.character: dict = CHARACTER
-        self.roleplay: dict = ROLE_PLAY_NPC
+        self.roleplay: dict = ROLE_PLAY
         self.connections: dict = CONNECTIONS
 
 if __name__ == "__main__":

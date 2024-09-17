@@ -6,8 +6,10 @@ INTRO_TITLE = ""
 MONSTER_TITLE = "Monster"
 NPC_TITLE = "NPC"
 
-CREATION_WIDTH_FACTOR = 0.5
-CREATION_HEIGHT_FACTOR = 0.5
+CREATURE_WIDTH_FACTOR = 0.23
+CREATURE_HEIGHT_FACTOR = 0.36
+NPC_WIDTH_FACTOR = 0.5
+NPC_HEIGHT_FACTOR = 0.5
 DIALOG_WIDTH_FACTOR = 0.2
 DIALOG_HEIGHT_FACTOR = 0.1
 
@@ -45,7 +47,7 @@ MOTIVATIONS = {"likes" : [],
                "wants" : [],
                "needs" : [],}
                                   
-ROLE_PLAY = {"with_backup": "",
+TACTICS = {"with_backup": "",
              "alone" : "",
              "cornered": "",
              "threatened": "",
@@ -58,7 +60,7 @@ MOTIVATIONS_NPC = {"likes" : [],
                    "goals" : {"short_term" : [],
                                "long_term" : []},}
 
-ROLE_PLAY_NPC = {"bargaining": "",
+ROLE_PLAY = {"bargaining": "",
                  "with_backup": "",
                  "alone" : "",
                  "cornered": "",
