@@ -3,14 +3,17 @@ from screeninfo import get_monitors
 from constants import *
 import functionality as fn
 
+
 class CreatureCreatorApp:
     def __init__(self, width, height, title):
         self.width = width
         self.height = height        
         self.root = tk.Tk()
-        self.root.title(title)
+        self.root.title(WINDOW_TITLE(title))
         self.create_screen()    
         self.choose_creature_type()
+        self.monster_window()
+        self.npc_window()
 
     # Get the primary monitor's screen size
     def screen_parameters(self):
@@ -34,7 +37,13 @@ class CreatureCreatorApp:
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
     def choose_creature_type(self):
-        pass        
+        pass
+
+    def monster_window(self):
+        pass
+
+    def npc_window(self):
+        pass
     
     def run(self):
         self.root.mainloop()
@@ -61,22 +70,37 @@ class ChooseCreature(CreatureCreatorApp):
     
     def monster(self):
         self.root.destroy()
-        app = WindowMonster(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR, MONSTER_TITLE)
+        app = WindowMonster(CREATION_WIDTH_FACTOR, CREATION_HEIGHT_FACTOR, MONSTER_TITLE)
         app.run()
 
     def npc(self):
         self.root.destroy()
-        app = WindowNPC(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR, NPC_TITLE)
+        app = WindowNPC(CREATION_WIDTH_FACTOR, CREATION_HEIGHT_FACTOR, NPC_TITLE)
         app.run()
-
-class WindowNPC(CreatureCreatorApp):
-    def __init__(self, width, height, title):
-        super().__init__(width, height, title)
 
 class WindowMonster(CreatureCreatorApp):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
+    def monster_window(self):
+        validate_cmd = self.root.register(fn.validate_length)
+        self.stats = tk.Frame(self.root)
+        self.stats.pack(pady='10')
+        self.str = tk.Entry(self.stats,
+                            width=2,
+                            validate='key',
+                            validatecommand=(validate_cmd, '%S', '%P', 2))
+        self.str.pack()
+        
+        pass
+
+class WindowNPC(WindowMonster):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
+
+    def npc_window(self):
+        pass
+
 if __name__ == "__main__":
-    app = ChooseCreature(INTRO_WIDTH_FACTOR, INTRO_HEIGHT_FACTOR, INTRO_TITLE)
+    app = ChooseCreature(DIALOG_WIDTH_FACTOR, DIALOG_HEIGHT_FACTOR, INTRO_TITLE)
     app.run()

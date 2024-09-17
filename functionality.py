@@ -3,6 +3,9 @@ import random
 from constants import *
 from classes import *
 
+def validate_length(char, current_text, max_length):
+    return len(current_text) <= int(max_length)
+
 def initialize_client():
     return OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
 

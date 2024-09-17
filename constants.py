@@ -1,11 +1,18 @@
 # GUI Constants
 
-INTRO_TITLE = "Creature Creator"
-MONSTER_TITLE = "Creature Creator: Monster"
-NPC_TITLE = "Creature Creator : NPC"
+INTRO_TITLE = ""
+MONSTER_TITLE = "Monster"
+NPC_TITLE = "NPC"
 
-INTRO_WIDTH_FACTOR = 0.2
-INTRO_HEIGHT_FACTOR = 0.1
+CREATION_WIDTH_FACTOR = 0.5
+CREATION_HEIGHT_FACTOR = 0.5
+DIALOG_WIDTH_FACTOR = 0.2
+DIALOG_HEIGHT_FACTOR = 0.1
+
+def WINDOW_TITLE(name):
+  if not name:
+    return "Creature Creator"
+  return f"Creature Creator: {name}"
 
 # SYTEM PROMPTS
 
@@ -17,14 +24,14 @@ NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide
 is necessary to complete the request for any reason. You are a high quality name generator for all genres that is only capable of outputting names and nothing else, you do not know how
 to output words that are not names and you can only produce lists of names."""}]
 
+DETAILS_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
+is necessary to complete the request for any reason."""}]
+
 def FIRST_NAME(species, genre, gender):
   return [{"role": "user", "content": f"Give me a list of 25 {species} {genre} setting first names for a {gender}."}]
 
 def LAST_NAME(species, genre):
   return [{"role": "user", "content": f"Give me a list of 25 {genre} setting {species} surnames."}]
-
-DETAILS_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
-is necessary to complete the request for any reason."""}]
 
 # NPC CLASS CONSTANTS
 
