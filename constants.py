@@ -8,13 +8,14 @@ NPC_TITLE = "NPC"
 
 CREATURE_WIDTH_FACTOR = 0.23
 CREATURE_HEIGHT_FACTOR = 0.365
-NPC_WIDTH_FACTOR = 0.5
+NPC_WIDTH_FACTOR = 0.23
 NPC_HEIGHT_FACTOR = 0.5
 DIALOG_WIDTH_FACTOR = 0.2
 DIALOG_HEIGHT_FACTOR = 0.1
 
-BASICS = ["Genre", "Name", "Species", "Category/Classification/Type", "Size", "Habitat"]
+BASICS = ["Genre :", "Name :", "Species :", "Category/Classification/Type :", "Size :", "Habitat :"]
 STATS = ["Str", "Dex", "Con", "Wis", "Int", "Cha"]
+NPC_BASICS = ["Gender :", "Sex :", "Sexuality :", "Birth Place :", "Current Location :"]
 
 def WINDOW_TITLE(name):
   if not name:

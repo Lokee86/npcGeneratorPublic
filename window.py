@@ -91,8 +91,8 @@ class WindowMonster(CreatureCreatorApp):
         
         # Generate Basics frames
         self.basics_frame = tk.Frame(self.master_frame)
-        self.basics_frame.grid(column=0, row=0)        
-        
+        self.basics_frame.grid(column=0, row=0)
+
         # Create Genre input
         self.genre_label = tk.Label(self.basics_frame, padx='5', text='Genre: ', font=(DISPLAY_FONT, 14))
         self.genre_entry = tk.Entry(self.basics_frame,
@@ -207,7 +207,12 @@ class WindowMonster(CreatureCreatorApp):
         self.motivations_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Motivations", variable=self.motivations_gen_check)
         self.motivations_label.grid(column=0, row=0, sticky=tk.NE)
         self.motivations_entry.grid(column=1, row=0, sticky=tk.W, pady='5')
-        self.motivations_gen_check_box.grid(column=3, row=0, sticky=tk.W)    
+        self.motivations_gen_check_box.grid(column=3, row=0, sticky=tk.W)
+
+        # Generate Scrollbar for skills, display when necessary
+        self.motivations_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.motivations_entry.yview)
+        self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.W)
+        self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)    
 
         # Create Tactics input
         self.tactics_label = tk.Label(self.play_info_frame, padx='5', text='Tactics: ', font=(DISPLAY_FONT, 14))
@@ -217,6 +222,11 @@ class WindowMonster(CreatureCreatorApp):
         self.tactics_label.grid(column=0, row=1, sticky=tk.NE)
         self.tactics_entry.grid(column=1, row=1, sticky=tk.W, pady='5')
         self.tactics_gen_check_box.grid(column=3, row=1, sticky=tk.W)
+
+        # Generate Scrollbar for skills, display when necessary
+        self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)
+        self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
+        self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
 
     def initiate_action_buttons(self):
         # Frame for buttons
@@ -234,7 +244,26 @@ class WindowNPC(WindowMonster):
         super().__init__(width, height, title)
 
     def initiate_widgets(self):
+        validate_lngth = self.root.register(gfn.validate_length)
+        validate_alpha = self.root.register(gfn.validate_alphabetic)
+
         super().initiate_widgets()
+        self.npc_basics = {}        
+        
+        for i in range(7, (7 + len(NPC_BASICS))):
+            self.label = tk.Label(self.basics_frame, padx='5', text=f"{NPC_BASICS[i-7]}: ", font=(DISPLAY_FONT, 14))
+            self.entry = tk.Entry(self.basics_frame, width=12,
+                                validate='key',
+                                validatecommand=(validate_lngth, '%P', 12))
+            self.gen_check = tk.BooleanVar()
+            self.check_box = tk.Checkbutton(self.basics_frame, text=f"Generate {NPC_BASICS[i-7]}", variable=self.gen_check)
+            self.label.grid(column=0, row=i, sticky=tk.E)
+            self.entry.grid(column=1, row=i, sticky=tk.W)
+            self.check_box.grid(column=3, row=i, sticky=tk.W)
+            self.npc_basics[NPC_BASICS[i-7]] = self.entry, self.gen_check
+
+
+        
 
 if __name__ == "__main__":
     app = ChooseCreature(DIALOG_WIDTH_FACTOR, DIALOG_HEIGHT_FACTOR, INTRO_TITLE)
