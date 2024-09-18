@@ -86,11 +86,13 @@ class WindowMonster(CreatureCreatorApp):
         self.basics_frame.grid(column=0, row=0)
 
         # Create Genre input
+        self.genre_var = tk.StringVar()
         self.genre_label = tk.Label(self.basics_frame, padx='5', text='Genre: ', font=(DISPLAY_FONT, 14))
         self.genre_entry = tk.Entry(self.basics_frame,
                                     width=14,
                                     validate='key',
-                                    validatecommand=(validate_alpha, '%S'))
+                                    validatecommand=(validate_alpha, '%S'),
+                                    textvariable=self.genre_var)
         self.genre_gen_check = tk.BooleanVar()
         self.genre_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Genre", variable=self.genre_gen_check)
         self.genre_label.grid(column=0, row=0, sticky=tk.E)
@@ -98,10 +100,12 @@ class WindowMonster(CreatureCreatorApp):
         self.genre_gen_check_box.grid(column=3, row=0, sticky=tk.W)
 
         # Generate Name input
+        self.name_var = tk.StringVar()
         self.name_label = tk.Label(self.basics_frame, padx='5', text='Name: ', font=(DISPLAY_FONT, 14))
         self.name_entry = tk.Entry(self.basics_frame, width=30,
                                    validate='key',
-                                   validatecommand=(validate_lngth, '%P', 40))
+                                   validatecommand=(validate_lngth, '%P', 40),
+                                   textvariable=self.name_var)
         self.name_gen_check = tk.BooleanVar()
         self.name_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Name", variable=self.name_gen_check)
         self.name_label.grid(column=0, row=1, sticky=tk.E)
@@ -173,14 +177,16 @@ class WindowMonster(CreatureCreatorApp):
         self.stat_entries = []
         # Create the label and input widgets for stats
         for stat in range(0, len(GSTATS)):
+            var = tk.StringVar()
             lbl = tk.Label(self.stats_values, padx='5', text=GSTATS[stat], font=(DISPLAY_FONT, 14))
             lbl.grid(column=stat, row=0)
             entry = tk.Entry(self.stats_values,
                                 width=2,
                                 validate='key',
-                                validatecommand=(validate_lngth, '%P', 2))
+                                validatecommand=(validate_lngth, '%P', 2),
+                                textvariable=var)
             entry.grid(column=stat, row=1)
-            self.stat_entries.append((GSTATS[stat], entry))
+            self.stat_entries.append((GSTATS[stat], entry, var))
 
         self.stat_gen_check = tk.BooleanVar()
         self.stat_gen_check_box = tk.Checkbutton(self.stats, text="Generate Stats", variable=self.stat_gen_check)
@@ -226,15 +232,11 @@ class WindowMonster(CreatureCreatorApp):
 
 
         # Save and Generate buttons
-        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: self.generate())
+        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
         self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.state_check(self))
         self.generate_button.grid(column=0, row=0, padx='5')
         self.save_button.grid(column=1, row=0)
 
-    def generate(self):
-        fn.main(self.creature, self)
-        self.genre_entry.delete(0, tk.END)
-        self.genre_entry.insert(0, self.creature.genre)
 
 
 class WindowNPC(WindowMonster):
