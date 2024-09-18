@@ -35,6 +35,7 @@ class CreatureCreatorApp:
         x_position = (screen_width - window_width) // 2
         y_position = (screen_height - window_height) // 2
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+        self.root.resizable(width=False, height=False)
 
     def initiate_widgets(self):
         pass
@@ -77,6 +78,7 @@ class ChooseCreature(CreatureCreatorApp):
 class WindowMonster(CreatureCreatorApp):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        self.initiate_action_buttons()
 
     def initiate_widgets(self):        
         # Register validation functions for input fields
@@ -196,23 +198,35 @@ class WindowMonster(CreatureCreatorApp):
         self.play_info_frame = tk.Frame(self.master_frame)
         self.play_info_frame.grid(column=0, row=2)
         
+        # Create Abilities input
+        
         # Create Motivations input
         self.motivations_label = tk.Label(self.play_info_frame, padx='5', text='Motivations: ', font=(DISPLAY_FONT, 14))
-        self.motivations_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=8)
+        self.motivations_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.motivations_gen_check = tk.BooleanVar()
         self.motivations_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Motivations", variable=self.motivations_gen_check)
         self.motivations_label.grid(column=0, row=0, sticky=tk.NE)
-        self.motivations_entry.grid(column=1, row=0, sticky=tk.W)
+        self.motivations_entry.grid(column=1, row=0, sticky=tk.W, pady='5')
         self.motivations_gen_check_box.grid(column=3, row=0, sticky=tk.W)    
 
         # Create Tactics input
         self.tactics_label = tk.Label(self.play_info_frame, padx='5', text='Tactics: ', font=(DISPLAY_FONT, 14))
-        self.tactics_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=8)
+        self.tactics_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.tactics_gen_check = tk.BooleanVar()
         self.tactics_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Tactics", variable=self.tactics_gen_check)
         self.tactics_label.grid(column=0, row=1, sticky=tk.NE)
-        self.tactics_entry.grid(column=1, row=1, sticky=tk.W)
+        self.tactics_entry.grid(column=1, row=1, sticky=tk.W, pady='5')
         self.tactics_gen_check_box.grid(column=3, row=1, sticky=tk.W)
+
+    def initiate_action_buttons(self):
+        # Frame for buttons
+        self.button_frame = tk.Frame(self.master_frame)
+        self.button_frame.grid(column=0, row=3, pady='5')
+
+        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1)
+        self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1)
+        self.generate_button.grid(column=0, row=0, padx='5')
+        self.save_button.grid(column=1, row=0)
 
 
 class WindowNPC(WindowMonster):

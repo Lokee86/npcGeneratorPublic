@@ -7,7 +7,7 @@ MONSTER_TITLE = "Monster"
 NPC_TITLE = "NPC"
 
 CREATURE_WIDTH_FACTOR = 0.23
-CREATURE_HEIGHT_FACTOR = 0.36
+CREATURE_HEIGHT_FACTOR = 0.365
 NPC_WIDTH_FACTOR = 0.5
 NPC_HEIGHT_FACTOR = 0.5
 DIALOG_WIDTH_FACTOR = 0.2
@@ -48,10 +48,10 @@ MOTIVATIONS = {"likes" : [],
                "needs" : [],}
                                   
 TACTICS = {"with_backup": "",
-             "alone" : "",
-             "cornered": "",
-             "threatened": "",
-             "high_defensive": ""}
+           "alone" : "",
+           "cornered": "",
+           "threatened": "",
+           "high_defensive": ""}
 
 MOTIVATIONS_NPC = {"likes" : [],
                    "dislikes" : [],
@@ -61,13 +61,13 @@ MOTIVATIONS_NPC = {"likes" : [],
                                "long_term" : []},}
 
 ROLE_PLAY = {"bargaining": "",
-                 "with_backup": "",
-                 "alone" : "",
-                 "cornered": "",
-                 "bribed": "",
-                 "blackmailed": "",
-                 "threatened": "",
-                 "high_defensive": ""}
+             "with_backup": "",
+             "alone" : "",
+             "cornered": "",
+             "bribed": "",
+             "blackmailed": "",
+             "threatened": "",
+             "high_defensive": ""}
 
 DETAILS = {"eyes" : {"colour" : "",
                      "pupils" : ""},

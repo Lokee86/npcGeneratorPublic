@@ -14,6 +14,7 @@ class Monster:
         self.stat_block: dict = {}
         self.motivations: dict = MOTIVATIONS
         self.tactics : dict  = TACTICS
+        self.abilities: str = {}
 
     def __str__(self):
         def format_dict(d, indent=0):
