@@ -92,6 +92,7 @@ class NPC(Monster):
         self.birth_place: str = ""
         self.current_location: str = ""
 
+        self.personality: str = ""
         self.accomplishments = []
         self.associated_locations: list = []
 

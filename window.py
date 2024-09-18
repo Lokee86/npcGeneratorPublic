@@ -224,8 +224,10 @@ class WindowMonster(CreatureCreatorApp):
         self.button_frame = tk.Frame(self.master_frame)
         self.button_frame.grid(column=0, row=3, pady='5')
 
+
+        # Save and Generate buttons
         self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
-        self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1)
+        self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.state_check(self))
         self.generate_button.grid(column=0, row=0, padx='5')
         self.save_button.grid(column=1, row=0)
 
