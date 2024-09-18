@@ -70,7 +70,7 @@ def generate_creature_name(client, gui):
 
 def generate_stats(creature):
     for stat in creature.stat_block:
-        creature.stat_block[stat] = random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6)
+        creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
 def state_check(gui):
     print(gui.name_gen_check.get())
@@ -83,17 +83,31 @@ def main(creature, gui):
     client = initialize_client()
     
     if gui.name_gen_check.get():
-        if type(creature) == NPC:
-            name, firsts, lasts = generate_name(client, creature, gui)        
-            creature.random_names["first"] = firsts
-            creature.random_names["lasts"] = lasts
+        if not creature.random_names["firsts"]:
+            if type(creature) == NPC:
+                name, firsts, lasts = generate_name(client, creature, gui)        
+                creature.random_names["firsts"] = firsts
+                creature.random_names["lasts"] = lasts
 
-        if type(creature) == Monster:
-            name, other_names = generate_creature_name(client, gui)
-            creature.random_names["first"] = other_names
-        
-        gui.name_entry.delete(0, tk.END)
-        gui.name_entry.insert(0, name)
+            if type(creature) == Monster:
+                name, other_names = generate_creature_name(client, gui)
+                creature.random_names["firsts"] = other_names
+            
+            gui.name_entry.delete(0, tk.END)
+            gui.name_entry.insert(0, name)
+        else:
+            if type(creature) == NPC:
+                firsts = []
+                lasts = []
+                firsts = creature.random_names['firsts']
+                lasts = creature.random_names['lasts']
+                name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
+            if type(creature) == Monster:
+                other_names = firsts = creature.random_names['firsts']
+                name = other_names[random.randint(0, len(other_names)-1)]
+
+            gui.name_entry.delete(0, tk.END)
+            gui.name_entry.insert(0, name)
     
     if gui.stat_gen_check.get():
         generate_stats(creature)

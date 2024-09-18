@@ -38,7 +38,7 @@ is necessary to complete the request for any reason."""}]
 MONSTER_NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality monster generator for all genres that is only capable of outputting monster names and nothing else, you do not know how
 to output words that are not monster names and you can only produce lists of monster names.
-EXAMPLE MONSTER NAMES NOT TO BE RE-USE: Hydra
+EXAMPLE MONSTER NAMES: Hydra
 Medusa
 Torrasque
 Shengin
