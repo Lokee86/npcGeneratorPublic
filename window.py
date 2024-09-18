@@ -12,8 +12,7 @@ class CreatureCreatorApp:
         self.height = height        
         self.root = tk.Tk()
         self.root.title(WINDOW_TITLE(title))
-        self.create_screen()    
-        self.initiate_widgets()
+        self.create_screen()
 
     # Get the primary monitor's screen size
     def screen_parameters(self):
@@ -37,17 +36,12 @@ class CreatureCreatorApp:
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
         self.root.resizable(width=False, height=False)
 
-    def initiate_widgets(self):
-        pass
-
     def run(self):
         self.root.mainloop()
 
 class ChooseCreature(CreatureCreatorApp):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
-
-    def initiate_widgets(self):
         # Labels
         self.intro = tk.Label(self.root, text="Welcome to Creature Creator", font=(DISPLAY_FONT, 20))
         self.intro.pack(pady="20")
@@ -78,11 +72,7 @@ class ChooseCreature(CreatureCreatorApp):
 class WindowMonster(CreatureCreatorApp):
     def __init__(self, width, height, title, creature):
         super().__init__(width, height, title)
-        self.creature = creature
-        self.initiate_action_buttons()
-        
-
-    def initiate_widgets(self):        
+        self.creature = creature 
         # Register validation functions for input fields
         validate_lngth = self.root.register(gfn.validate_length)
         validate_alpha = self.root.register(gfn.validate_alphabetic)
@@ -182,15 +172,15 @@ class WindowMonster(CreatureCreatorApp):
         # Create a list to track entry widgets for generation and input gathering
         self.stat_entries = []
         # Create the label and input widgets for stats
-        for stat in range(0, len(STATS)):
-            lbl = tk.Label(self.stats_values, padx='5', text=STATS[stat], font=(DISPLAY_FONT, 14))
+        for stat in range(0, len(GSTATS)):
+            lbl = tk.Label(self.stats_values, padx='5', text=GSTATS[stat], font=(DISPLAY_FONT, 14))
             lbl.grid(column=stat, row=0)
             entry = tk.Entry(self.stats_values,
                                 width=2,
                                 validate='key',
                                 validatecommand=(validate_lngth, '%P', 2))
             entry.grid(column=stat, row=1)
-            self.stat_entries.append((STATS[stat], entry))
+            self.stat_entries.append((GSTATS[stat], entry))
 
         self.stat_gen_check = tk.BooleanVar()
         self.stat_gen_check_box = tk.Checkbutton(self.stats, text="Generate Stats", variable=self.stat_gen_check)
@@ -230,12 +220,11 @@ class WindowMonster(CreatureCreatorApp):
         self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
 
-    def initiate_action_buttons(self):
         # Frame for buttons
         self.button_frame = tk.Frame(self.master_frame)
         self.button_frame.grid(column=0, row=3, pady='5')
 
-        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self.name_entry))
+        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
         self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1)
         self.generate_button.grid(column=0, row=0, padx='5')
         self.save_button.grid(column=1, row=0)
@@ -244,12 +233,9 @@ class WindowMonster(CreatureCreatorApp):
 class WindowNPC(WindowMonster):
     def __init__(self, width, height, title, creature):
         super().__init__(width, height, title, creature)
-
-    def initiate_widgets(self):
         validate_lngth = self.root.register(gfn.validate_length)
         validate_alpha = self.root.register(gfn.validate_alphabetic)
 
-        super().initiate_widgets()
         self.npc_basics = {}        
         
         for i in range(7, (7 + len(NPC_BASICS))):

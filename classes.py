@@ -5,6 +5,7 @@ class Monster:
         self.genre: str = ""
         self.gender: str = ""
         self.name: str = ""
+        self.random_names: list = {"firsts": [], "lasts": []}
         self.species: str = ""
         self.category: str  = ""
         self.size_class: str = ""
@@ -12,7 +13,7 @@ class Monster:
 
         self.skills = []
 
-        self.stat_block: dict = {}
+        self.stat_block: dict = STATS
         self.motivations: dict = MOTIVATIONS
         self.tactics : dict  = TACTICS
         self.abilities: str = {}
