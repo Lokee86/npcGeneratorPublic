@@ -88,7 +88,7 @@ class WindowMonster(CreatureCreatorApp):
         # Create Genre input
         self.genre_label = tk.Label(self.basics_frame, padx='5', text='Genre: ', font=(DISPLAY_FONT, 14))
         self.genre_entry = tk.Entry(self.basics_frame,
-                                    width=10,
+                                    width=14,
                                     validate='key',
                                     validatecommand=(validate_alpha, '%S'))
         self.genre_gen_check = tk.BooleanVar()

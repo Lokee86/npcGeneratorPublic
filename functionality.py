@@ -72,6 +72,10 @@ def generate_stats(creature):
     for stat in creature.stat_block:
         creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
+def generate_genre(creature):
+    name = GENRES[random.randint(0, len(GENRES) - 1)]
+    return name
+
 def state_check(gui):
     print(gui.name_gen_check.get())
 
@@ -81,6 +85,13 @@ def state_check(gui):
 def main(creature, gui):
 
     client = initialize_client()
+    
+    if gui.genre_gen_check.get():
+        creature.genre = generate_genre(creature)
+        gui.genre_entry.delete(0, tk.END)
+        gui.genre_entry.insert(0, creature.genre)
+        print(creature.genre)
+        
     
     if gui.name_gen_check.get():
         if not creature.random_names["firsts"]:
