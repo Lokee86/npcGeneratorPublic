@@ -16,7 +16,7 @@ def creature_type(creature_type):
         creature_type = NPC()
         return creature_type   
 
-def get_name_lists(client, creature):
+def generate_npc_name_lists(client, creature):
 
     first_names = client.chat.completions.create(
     model = "",
@@ -38,18 +38,17 @@ def get_name_lists(client, creature):
     presence_penalty = 2
     )
 
-    first_posibilities = first_names.choices[0].message.content.split()
-    last_posibilities = last_names.choices[0].message.content.split()
+    creature.random_names["firsts"] = first_names.choices[0].message.content.split()
+    creature.random_names["lasts"] = last_names.choices[0].message.content.split()
 
-    return first_posibilities, last_posibilities
-
-def generate_name(client, creature, gui):
-
-    firsts, lasts = get_name_lists(client, creature, gui)
-
-    name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
-    
-    return name, firsts, lasts
+def generate_name(creature):
+    firsts = creature.random_names["firsts"]
+    if creature.random_names["lasts"]:
+        lasts = creature.random_names["lasts"]
+        name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
+    else:
+        name = firsts[random.randint(0, len(firsts) - 1)]
+    return name
     
 def generate_creature_name(client, gui):
     
@@ -72,12 +71,8 @@ def generate_stats(creature):
     for stat in creature.stat_block:
         creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
-def generate_genre(creature, gui):
-    def update_delay(gui, genre):
-        gui.genre_entry.delete(0, tk.END)
-        gui.genre_entry.insert(2, genre)
+def generate_genre():
     genre = random.randint(0, len(GENRES) - 1)
-    gui.genre_entry.after(50, lambda: update_delay(gui, creature.genre))
     return GENRES[genre]
 
 
@@ -90,42 +85,25 @@ def state_check(gui):
 def main(creature, gui):
 
     client = initialize_client()
-    
     if gui.genre_gen_check.get():
-        creature.genre = generate_genre(creature, gui)
-        
-        print(creature.genre)
-        
+        creature.genre = generate_genre()
     
     if gui.name_gen_check.get():
         if not creature.random_names["firsts"]:
-            if type(creature) == NPC:
-                name, firsts, lasts = generate_name(client, creature, gui)        
-                creature.random_names["firsts"] = firsts
-                creature.random_names["lasts"] = lasts
+            if isinstance(creature, NPC):
+                generate_npc_name_lists(client, creature)
+            else:
+                generate_creature_name(client, creature)
+        
+        name = generate_name(creature)
 
-            if type(creature) == Monster:
-                name, other_names = generate_creature_name(client, gui)
-                creature.random_names["firsts"] = other_names
-            
-            gui.name_entry.delete(0, tk.END)
-            gui.name_entry.insert(0, name)
-        else:
-            if type(creature) == NPC:
-                firsts = []
-                lasts = []
-                firsts = creature.random_names['firsts']
-                lasts = creature.random_names['lasts']
-                name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
-            if type(creature) == Monster:
-                other_names = firsts = creature.random_names['firsts']
-                name = other_names[random.randint(0, len(other_names)-1)]
-
-            gui.name_entry.delete(0, tk.END)
-            gui.name_entry.insert(0, name)
+        gui.name_entry.delete(0, tk.END)
+        gui.name_entry.insert(0, name)
     
     if gui.stat_gen_check.get():
         generate_stats(creature)
         for i in range(0, len(creature.stat_block)):
             gui.stat_entries[i][1].delete(0, tk.END)
             gui.stat_entries[i][1].insert(0, creature.stat_block[gui.stat_entries[i][0]])
+
+    

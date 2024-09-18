@@ -226,10 +226,15 @@ class WindowMonster(CreatureCreatorApp):
 
 
         # Save and Generate buttons
-        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
+        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: self.generate())
         self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.state_check(self))
         self.generate_button.grid(column=0, row=0, padx='5')
         self.save_button.grid(column=1, row=0)
+
+    def generate(self):
+        fn.main(self.creature, self)
+        self.genre_entry.delete(0, tk.END)
+        self.genre_entry.insert(0, self.creature.genre)
 
 
 class WindowNPC(WindowMonster):
