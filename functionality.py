@@ -72,9 +72,14 @@ def generate_stats(creature):
     for stat in creature.stat_block:
         creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
-def generate_genre(creature):
-    name = GENRES[random.randint(0, len(GENRES) - 1)]
-    return name
+def generate_genre(creature, gui):
+    def update_delay(gui, genre):
+        gui.genre_entry.delete(0, tk.END)
+        gui.genre_entry.insert(2, genre)
+    genre = random.randint(0, len(GENRES) - 1)
+    gui.genre_entry.after(50, lambda: update_delay(gui, creature.genre))
+    return GENRES[genre]
+
 
 def state_check(gui):
     print(gui.name_gen_check.get())
@@ -87,9 +92,8 @@ def main(creature, gui):
     client = initialize_client()
     
     if gui.genre_gen_check.get():
-        creature.genre = generate_genre(creature)
-        gui.genre_entry.delete(0, tk.END)
-        gui.genre_entry.insert(0, creature.genre)
+        creature.genre = generate_genre(creature, gui)
+        
         print(creature.genre)
         
     
