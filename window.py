@@ -65,20 +65,22 @@ class ChooseCreature(CreatureCreatorApp):
     
     def monster(self):
         self.root.destroy()
-        app = WindowMonster(CREATURE_WIDTH_FACTOR, CREATURE_HEIGHT_FACTOR, MONSTER_TITLE)
-        app.creature = fn.creature_type("monster")
+        creature = fn.creature_type("monster")
+        app = WindowMonster(CREATURE_WIDTH_FACTOR, CREATURE_HEIGHT_FACTOR, MONSTER_TITLE, creature)
         app.run()
 
     def npc(self):
         self.root.destroy()
-        app = WindowNPC(NPC_WIDTH_FACTOR, NPC_HEIGHT_FACTOR, NPC_TITLE)
-        app.creature = fn.creature_type("npc")
+        creature = fn.creature_type("npc")
+        app = WindowNPC(NPC_WIDTH_FACTOR, NPC_HEIGHT_FACTOR, NPC_TITLE, creature)
         app.run()
 
 class WindowMonster(CreatureCreatorApp):
-    def __init__(self, width, height, title):
+    def __init__(self, width, height, title, creature):
         super().__init__(width, height, title)
+        self.creature = creature
         self.initiate_action_buttons()
+        
 
     def initiate_widgets(self):        
         # Register validation functions for input fields
@@ -117,13 +119,13 @@ class WindowMonster(CreatureCreatorApp):
         self.name_gen_check_box.grid(column=3, row=1, sticky=tk.W)
 
         # Generate Species input
-        self.name_label = tk.Label(self.basics_frame, padx='5', text='Species: ', font=(DISPLAY_FONT, 14))
-        self.name_entry = tk.Entry(self.basics_frame, width=12)
-        self.name_gen_check = tk.BooleanVar()
-        self.name_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Species", variable=self.name_gen_check)
-        self.name_label.grid(column=0, row=2, sticky=tk.E)
-        self.name_entry.grid(column=1, row=2, sticky=tk.W)
-        self.name_gen_check_box.grid(column=3, row=2, sticky=tk.W)
+        self.species_label = tk.Label(self.basics_frame, padx='5', text='Species: ', font=(DISPLAY_FONT, 14))
+        self.species_entry = tk.Entry(self.basics_frame, width=12)
+        self.species_gen_check = tk.BooleanVar()
+        self.species_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Species", variable=self.species_gen_check)
+        self.species_label.grid(column=0, row=2, sticky=tk.E)
+        self.species_entry.grid(column=1, row=2, sticky=tk.W)
+        self.species_gen_check_box.grid(column=3, row=2, sticky=tk.W)
 
         # Generate Category input
         self.category_label = tk.Label(self.basics_frame, padx='5', text='Category: ', font=(DISPLAY_FONT, 14))
@@ -233,15 +235,15 @@ class WindowMonster(CreatureCreatorApp):
         self.button_frame = tk.Frame(self.master_frame)
         self.button_frame.grid(column=0, row=3, pady='5')
 
-        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1)
+        self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self.name_entry))
         self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1)
         self.generate_button.grid(column=0, row=0, padx='5')
         self.save_button.grid(column=1, row=0)
 
 
 class WindowNPC(WindowMonster):
-    def __init__(self, width, height, title):
-        super().__init__(width, height, title)
+    def __init__(self, width, height, title, creature):
+        super().__init__(width, height, title, creature)
 
     def initiate_widgets(self):
         validate_lngth = self.root.register(gfn.validate_length)

@@ -7,13 +7,13 @@ from classes import *
 def initialize_client():
     return OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
 
-def creature_type(creature):
-    if creature == "monster":
-        creature = Monster()
-        return creature
-    elif creature == "npc":
-        creature = NPC()
-        return creature   
+def creature_type(creature_type):
+    if creature_type == "monster":
+        creature_type = Monster()
+        return creature_type
+    elif creature_type == "npc":
+        creature_type = NPC()
+        return creature_type   
 
 def get_name_lists(client, creature):
 
@@ -42,17 +42,18 @@ def get_name_lists(client, creature):
 
     return first_posibilities, last_posibilities
 
-def generate_name(firsts, lasts):
-    
+def generate_name(client, creature):
+
+    firsts, lasts = get_name_lists(client, creature)
+
     name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
     
-    print(f"Your NPCs name is {name}")
+    return name, firsts, lasts
     
-    satisfied = input("Would you like to roll for another name? ").strip().lower()
-    if satisfied != "n":
-        return generate_name(firsts, lasts)
-    else:
-        return name
-    
-def main():
+def generate_creature_name(client, creature):
     pass
+
+def main(creature, test_widget):
+    client = initialize_client()
+    name, firsts, lasts = generate_name(client, creature)
+    test_widget.insert(0, name)

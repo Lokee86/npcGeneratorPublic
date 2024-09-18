@@ -3,6 +3,7 @@ from constants import *
 class Monster:
     def __init__(self):
         self.genre: str = ""
+        self.gender: str = ""
         self.name: str = ""
         self.species: str = ""
         self.category: str  = ""
@@ -85,7 +86,6 @@ class Monster:
 class NPC(Monster):
     def __init__(self):
         super().__init__()
-        self.gender: str = ""
         self.sex: str = ""
         self.sexuality: str = ""
         self.birth_place: str = ""
