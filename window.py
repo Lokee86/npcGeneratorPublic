@@ -66,7 +66,7 @@ class ChooseCreature(CreatureCreatorApp):
     def npc(self):
         self.root.destroy()
         creature = fn.creature_type("npc")
-        app = WindowNPC(NPC_WIDTH_FACTOR, NPC_HEIGHT_FACTOR, NPC_TITLE, creature)
+        app = WindowNPC(NPC_WIDTH_FACTOR, NPC_HEIGHT_FACTOR, NPC_TITLE)
         app.run()
 
 class WindowMonster(CreatureCreatorApp):
@@ -197,16 +197,30 @@ class WindowMonster(CreatureCreatorApp):
         
         # Create Abilities input
         
+        self.abilities_label = tk.Label(self.play_info_frame, padx='5', text='Abilities: ', font=(DISPLAY_FONT, 14))
+        self.abilities_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
+        self.abilities_gen_check = tk.BooleanVar()
+        self.abilities_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Abilities", variable=self.abilities_gen_check)
+        self.abilities_label.grid(column=0, row=0, sticky=tk.NE)
+        self.abilities_entry.grid(column=1, row=0, sticky=tk.W, pady='5')
+        self.abilities_gen_check_box.grid(column=3, row=0, sticky=tk.W)
+
+        # Generate Scrollbar for abilities, display when necessary
+        self.abilities_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.abilities_entry.yview)
+        self.abilities_scroll_bar.grid(column=2, row=0, sticky=tk.W)
+        self.abilities_entry.config(yscrollcommand=self.abilities_scroll_bar.set)
+        gfn.check_scrollbar_visibility(self.abilities_entry, self.abilities_scroll_bar, 7, 2, 0)  
+
         # Create Motivations input
         self.motivations_label = tk.Label(self.play_info_frame, padx='5', text='Motivations: ', font=(DISPLAY_FONT, 14))
         self.motivations_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.motivations_gen_check = tk.BooleanVar()
         self.motivations_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Motivations", variable=self.motivations_gen_check)
-        self.motivations_label.grid(column=0, row=0, sticky=tk.NE)
-        self.motivations_entry.grid(column=1, row=0, sticky=tk.W, pady='5')
-        self.motivations_gen_check_box.grid(column=3, row=0, sticky=tk.W)
+        self.motivations_label.grid(column=0, row=1, sticky=tk.NE)
+        self.motivations_entry.grid(column=1, row=1, sticky=tk.W, pady='5')
+        self.motivations_gen_check_box.grid(column=3, row=1, sticky=tk.W)
 
-        # Generate Scrollbar for skills, display when necessary
+        # Generate Scrollbar for motivations, display when necessary
         self.motivations_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.motivations_entry.yview)
         self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.W)
         self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)
@@ -217,11 +231,11 @@ class WindowMonster(CreatureCreatorApp):
         self.tactics_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.tactics_gen_check = tk.BooleanVar()
         self.tactics_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Tactics", variable=self.tactics_gen_check)
-        self.tactics_label.grid(column=0, row=1, sticky=tk.NE)
-        self.tactics_entry.grid(column=1, row=1, sticky=tk.W, pady='5')
-        self.tactics_gen_check_box.grid(column=3, row=1, sticky=tk.W)
+        self.tactics_label.grid(column=0, row=2, sticky=tk.NE)
+        self.tactics_entry.grid(column=1, row=2, sticky=tk.W, pady='5')
+        self.tactics_gen_check_box.grid(column=3, row=2, sticky=tk.W)
 
-        # Generate Scrollbar for skills, display when necessary
+        # Generate Scrollbar for tactics, display when necessary
         self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)
         self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
@@ -240,25 +254,28 @@ class WindowMonster(CreatureCreatorApp):
 
 
 
-class WindowNPC(WindowMonster):
-    def __init__(self, width, height, title, creature):
-        super().__init__(width, height, title, creature)
-        validate_lngth = self.root.register(gfn.validate_length)
-        validate_alpha = self.root.register(gfn.validate_alphabetic)
-
-        self.npc_basics = {}        
+class WindowNPC(CreatureCreatorApp):
+    def __init__(self, width, height, title):
         
-        for i in range(7, (7 + len(NPC_BASICS))):
-            self.label = tk.Label(self.basics_frame, padx='5', text=f"{NPC_BASICS[i-7]}: ", font=(DISPLAY_FONT, 14))
-            self.entry = tk.Entry(self.basics_frame, width=12,
-                                validate='key',
-                                validatecommand=(validate_lngth, '%P', 12))
-            self.gen_check = tk.BooleanVar()
-            self.check_box = tk.Checkbutton(self.basics_frame, text=f"Generate {NPC_BASICS[i-7]}", variable=self.gen_check)
-            self.label.grid(column=0, row=i, sticky=tk.E)
-            self.entry.grid(column=1, row=i, sticky=tk.W)
-            self.check_box.grid(column=3, row=i, sticky=tk.W)
-            self.npc_basics[NPC_BASICS[i-7]] = self.entry, self.gen_check
+        super().__init__(width, height, title)
+        self.label = tk.Label(self.root, text="Under Development.", font=(DISPLAY_FONT, 30, "bold"))
+        self.label.pack(pady="30")
+        # validate_lngth = self.root.register(gfn.validate_length)
+        # validate_alpha = self.root.register(gfn.validate_alphabetic)
+
+        # self.npc_basics = {}        
+        
+        # for i in range(7, (7 + len(NPC_BASICS))):
+        #     self.label = tk.Label(self.basics_frame, padx='5', text=f"{NPC_BASICS[i-7]}: ", font=(DISPLAY_FONT, 14))
+        #     self.entry = tk.Entry(self.basics_frame, width=12,
+        #                         validate='key',
+        #                         validatecommand=(validate_lngth, '%P', 12))
+        #     self.gen_check = tk.BooleanVar()
+        #     self.check_box = tk.Checkbutton(self.basics_frame, text=f"Generate {NPC_BASICS[i-7]}", variable=self.gen_check)
+        #     self.label.grid(column=0, row=i, sticky=tk.E)
+        #     self.entry.grid(column=1, row=i, sticky=tk.W)
+        #     self.check_box.grid(column=3, row=i, sticky=tk.W)
+        #     self.npc_basics[NPC_BASICS[i-7]] = self.entry, self.gen_check
 
 
         

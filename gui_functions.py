@@ -7,10 +7,8 @@ def validate_length(current_text, max_length):
 def validate_alphabetic(current_letter):
     return current_letter.isalpha()
 
-
-## Function not working properly, reason unkown.
 def check_scrollbar_visibility(text_widget, scrollbar, widget_height, bar_column, bar_row, interval=100):
-    content_height = int(text_widget.index(tk.END).split(".")[0])
+    content_height = int(float(text_widget.index(tk.END)))
 
     if content_height > (widget_height + 1):
         if not scrollbar.winfo_ismapped():

@@ -8,8 +8,8 @@ NPC_TITLE = "NPC"
 
 CREATURE_WIDTH_FACTOR = 0.23
 CREATURE_HEIGHT_FACTOR = 0.365
-NPC_WIDTH_FACTOR = 0.23
-NPC_HEIGHT_FACTOR = 0.5
+NPC_WIDTH_FACTOR = 0.1
+NPC_HEIGHT_FACTOR = 0.05
 DIALOG_WIDTH_FACTOR = 0.2
 DIALOG_HEIGHT_FACTOR = 0.1
 
@@ -81,7 +81,7 @@ and return either 'yes' or 'no' exclusively. Add no punctuation, use only these 
 
 NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality name generator for all genres that is only capable of outputting names and nothing else, you do not know how
-to output words that are not names and you can only produce lists of names."""}]
+to output words that are not names and you can only produce lists of names. This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed items."""}]
 
 DETAILS_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason."""}]
@@ -159,7 +159,7 @@ Pirate Captain, First Mate, Quartermaster, Boatswain, Gunner, Powder Monkey, Coo
 Ghost, Zombie, Vampire, Werewolf, Mummy, Skeleton, Poltergeist, Demon, Banshee, Wraith, Reaper, Ghoul, Specter, Witch, Warlock, Lich, Succubus, Incubus, Wendigo, Skinwalker, Bogeyman, Changeling, Doppelganger, Headless Horseman, Scarecrow, Swamp Creature, Cursed Doll, Possessed Child, Haunted Armor, Undead Knight, Evil Clown, Flesh Golem, Serial Killer, Cannibal, Plague Doctor, Vampire Lord, Zombie Horde, Evil Puppet, Dark Sorcerer, Grim Reaper, Mad Scientist, Shadow Monster, Mutant, Alien Parasite, Possessed Object, Dark Spirit, Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride
                 
 Decline the use of any sort of word or token that resembles a proper noun or personal name, do not include titles of any kind."""},
-{"role": "user", "content": "Provide a list of 25 creative and original monster names to strike fear and awe in to the hearts of adventurers."}]
+{"role": "user", "content": "Provide a list of 25 creative and original monster names to strike fear and awe in to the hearts of adventurers. Provide this list in a line per name, unmarked format with a single newline character after each name and unprefixed items."}]
 
 SPECIES_EXAMPLES = """Human, Cat, Dog, Horse, Rabbit, Cow, Sheep, Chicken, Goat, Pig, Pigeon, Dolphin, Deer, Mouse, Bear, Wolf, Fox, Owl, Eagle, Frog, Lion, Tiger, Elephant, Giraffe, Monkey, Kangaroo, Zebra, Fish, Bee, Ant, Duck, Whale, Shark, Bat, Snake, Crocodile, Lizard, Turtle, Squirrel, Skunk, Beaver, Moose, Bison, Camel, Hedgehog, Hamster, Ferret, Raccoon, Hedgehog, Chimpanzee
 
@@ -171,7 +171,9 @@ Netrunner, Street Samurai, Corporate Drone, Synth, Cyborg, Android, Rogue AI, Fi
 
 Pirate Captain, First Mate, Quartermaster, Boatswain, Gunner, Powder Monkey, Cook, Surgeon, Navigator, Swashbuckler, Privateer, Corsair, Buccaneer, Shipwright, Cabin Boy, Deckhand, Cartographer, Sailmaker, Marine, Mutineer, Scurvy Dog, Parrot, Cutthroat, Sea Monster Hunter, Shipwreck Survivor, Treasure Hunter, Pirate King, Smuggler, Rogue Pirate, Ghost Ship Crew, Cannoneer, Pirate Lord, Sea Witch, Siren, Kraken Tamer, Pirate Assassin, Pirate Queen, Ship Saboteur, Ship's Cook, Shore Raider, Prisoner, Sea Serpent Hunter, Desert Island Survivor, Rum Runner, Buccaneer King, Pirate Spy, Pirate Scholar, Shipbuilder, Pirate Healer, Rogue Buccaneer
 
-Ghost, Zombie, Vampire, Werewolf, Mummy, Skeleton, Poltergeist, Demon, Banshee, Wraith, Reaper, Ghoul, Specter, Witch, Warlock, Lich, Succubus, Incubus, Wendigo, Skinwalker, Bogeyman, Changeling, Doppelganger, Headless Horseman, Scarecrow, Swamp Creature, Cursed Doll, Possessed Child, Haunted Armor, Undead Knight, Evil Clown, Flesh Golem, Serial Killer, Cannibal, Plague Doctor, Vampire Lord, Zombie Horde, Evil Puppet, Dark Sorcerer, Grim Reaper, Mad Scientist, Shadow Monster, Mutant, Alien Parasite, Possessed Object, Dark Spirit, Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride"""
+Ghost, Zombie, Vampire, Werewolf, Mummy, Skeleton, Poltergeist, Demon, Banshee, Wraith, Reaper, Ghoul, Specter, Witch, Warlock, Lich, Succubus, Incubus, Wendigo, Skinwalker, Bogeyman, Changeling, Doppelganger, Headless Horseman, Scarecrow, Swamp Creature, Cursed Doll, Possessed Child, Haunted Armor, Undead Knight, Evil Clown, Flesh Golem, Serial Killer, Cannibal, Plague Doctor, Vampire Lord, Zombie Horde, Evil Puppet, Dark Sorcerer, Grim Reaper, Mad Scientist, Shadow Monster, Mutant, Alien Parasite, Possessed Object, Dark Spirit, Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride
+
+This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed items."""
 
 ABILITY_EXAMPLES = """Multiattack. The Monster makes two attacks.
 

@@ -38,8 +38,31 @@ def generate_npc_name_lists(client, creature):
     presence_penalty = 2
     )
 
-    creature.random_names["firsts"] = first_names.choices[0].message.content.split()
-    creature.random_names["lasts"] = last_names.choices[0].message.content.split()
+    names = first_names.choices[0].message.content.split()
+    for name in names:
+        if name:
+            creature.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
+    names = last_names.choices[0].message.content.split()
+    for name in names:
+        if name:
+            creature.random_names["lasts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
+
+def generate_creature_name(client, creature):
+    
+    names = client.chat.completions.create(
+    model = "",
+    messages = MONSTER_NAME_PAYLOAD,
+    temperature = 1.0,
+    top_p = 1.0,
+    max_tokens = 500,
+    frequency_penalty = 2,
+    presence_penalty = 2
+    )
+
+    names = names.choices[0].message.content.split("\n")
+    for name in names:
+        if name:
+            creature.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
 
 def generate_name(creature):
     firsts = creature.random_names["firsts"]
@@ -50,34 +73,6 @@ def generate_name(creature):
         name = firsts[random.randint(0, len(firsts) - 1)]
     return name
     
-def generate_creature_name(client, creature):
-    
-    rough_names = client.chat.completions.create(
-    model = "",
-    messages = MONSTER_NAME_PAYLOAD,
-    temperature = 1.0,
-    top_p = 1.0,
-    max_tokens = 500,
-    frequency_penalty = 2,
-    presence_penalty = 2
-    )
-
-    names = client.chat.completions.create(
-    model = "",
-    messages = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
-is necessary to complete the request for any reason. Analyze the following prompt, and return a json formatted list of names from the input, remove any superfluous punctuation, symbols or titles."""},
-{"role": "user", "content": f"{rough_names.choices[0].message.content.split()}"}],
-    temperature = 1.0,
-    top_p = 1.0,
-    max_tokens = 500,
-    frequency_penalty = 2,
-    presence_penalty = 2
-    )
-    print(names.choices[0].message.content.split(","))
-    names = names.choices[0].message.content.split(",")
-    for name in names:
-        creature.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,1234567890'))
-
 
 def generate_genre(creature, gui):
     genre = random.randint(0, len(GENRES) - 1)
@@ -141,6 +136,7 @@ def main(creature, gui):
                 generate_creature_name(client, creature)
         
         name = generate_name(creature)
+
         creature.name = name
         gui.name_var.set(name)
 
@@ -170,7 +166,7 @@ def main(creature, gui):
     if gui.motivations_gen_check.get():
         pass
 
-    if gui.tactics_get_check.get():
+    if gui.tactics_gen_check.get():
         pass
 
     
