@@ -112,13 +112,16 @@ def generate_tactics(client, creature, gui):
 
 def state_check(gui):
     
-    info = gui.skills_entry.dlineinfo("1.0")
-    
-    if info:
-        x, y, width, height, baseline = info
-        print(f"Line display info: x={x}, y={y}, width={width}, baseline={baseline}")
-    else:
-        print("The line at index '1.0' is not visible or doesn't exist.")
+    info = gui.motivations_entry.index(tk.END)
+    content_height = int(gui.motivations_entry.index(tk.END).split(".")[0])
+    print(content_height, info)
+
+
+    # if info:
+    #     x, y, width, height, baseline = info
+    #     print(f"Line display info: x={x}, y={y}, width={width}, baseline={baseline}")
+    # else:
+    #     print("The line at index '1.0' is not visible or doesn't exist.")
 
 
 

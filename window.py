@@ -162,8 +162,7 @@ class WindowMonster(CreatureCreatorApp):
         self.skills_scroll_bar = tk.Scrollbar(self.basics_frame, command=self.skills_entry.yview)
         self.skills_scroll_bar.grid(column=2, row=6, sticky=tk.W)
         self.skills_entry.config(yscrollcommand=self.skills_scroll_bar.set)
-        ## Hiding scrollbar functionality isn't working, reason unknown.
-        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 6)
+        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 2, 6)
 
         # Create Stat line labels & inputs
         # Frames for stats and Stat buttons
@@ -210,7 +209,8 @@ class WindowMonster(CreatureCreatorApp):
         # Generate Scrollbar for skills, display when necessary
         self.motivations_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.motivations_entry.yview)
         self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.W)
-        self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)    
+        self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)
+        gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 2, 0)  
 
         # Create Tactics input
         self.tactics_label = tk.Label(self.play_info_frame, padx='5', text='Tactics: ', font=(DISPLAY_FONT, 14))
@@ -225,6 +225,7 @@ class WindowMonster(CreatureCreatorApp):
         self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)
         self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
+        gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 2, 1)
 
         # Frame for buttons
         self.button_frame = tk.Frame(self.master_frame)

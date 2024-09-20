@@ -9,16 +9,14 @@ def validate_alphabetic(current_letter):
 
 
 ## Function not working properly, reason unkown.
-def check_scrollbar_visibility(text_widget, scrollbar, bar_column, bar_row, interval=100):
-    text_widget.update_idletasks()
+def check_scrollbar_visibility(text_widget, scrollbar, widget_height, bar_column, bar_row, interval=100):
+    content_height = int(text_widget.index(tk.END).split(".")[0])
 
-    info = text_widget.dlineinfo("1.0")
-
-    if info:
-        if scrollbar.winfo_ismapped():
-            scrollbar.grid_remove()
-    else:
+    if content_height > (widget_height + 1):
         if not scrollbar.winfo_ismapped():
             scrollbar.grid(column=bar_column, row=bar_row, sticky=tk.W)
+    else:
+        if scrollbar.winfo_ismapped():
+            scrollbar.grid_remove()
 
-    text_widget.after(interval, check_scrollbar_visibility, text_widget, scrollbar, bar_column, bar_row, interval)
+    text_widget.after(interval, check_scrollbar_visibility, text_widget, scrollbar, widget_height, bar_column, bar_row, interval)
