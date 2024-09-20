@@ -162,8 +162,8 @@ class WindowMonster(CreatureCreatorApp):
         self.skills_scroll_bar = tk.Scrollbar(self.basics_frame, command=self.skills_entry.yview)
         self.skills_scroll_bar.grid(column=2, row=6, sticky=tk.W)
         self.skills_entry.config(yscrollcommand=self.skills_scroll_bar.set)
-        ### Hiding scrollbar functionality isn't working, reason unknown.
-        # gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 6)
+        ## Hiding scrollbar functionality isn't working, reason unknown.
+        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 6)
 
         # Create Stat line labels & inputs
         # Frames for stats and Stat buttons

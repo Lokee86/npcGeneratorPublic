@@ -78,9 +78,6 @@ is necessary to complete the request for any reason. Analyze the following promp
     for name in names:
         creature.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,1234567890'))
 
-def generate_stats(creature):
-    for stat in creature.stat_block:
-        creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
 def generate_genre(creature, gui):
     genre = random.randint(0, len(GENRES) - 1)
@@ -90,8 +87,39 @@ def generate_genre(creature, gui):
 def generate_species(client, creature, gui):
     pass
 
+def generate_category(creature, gui):
+    pass
+
+def generate_size(creature, gui):
+    pass
+
+def generate_habitat(creature, gui):
+    pass
+
+def generate_skills(client, creature, gui):
+    pass
+
+def generate_stats(creature):
+    for stat in creature.stat_block:
+        creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
+
+def generate_motivations(client, creature, gui):
+    pass
+
+def generate_tactics(client, creature, gui):
+    pass
+
+
 def state_check(gui):
-    print(gui.name_gen_check.get())
+    
+    info = gui.skills_entry.dlineinfo("1.0")
+    
+    if info:
+        x, y, width, height, baseline = info
+        print(f"Line display info: x={x}, y={y}, width={width}, baseline={baseline}")
+    else:
+        print("The line at index '1.0' is not visible or doesn't exist.")
+
 
 
 
@@ -110,11 +138,36 @@ def main(creature, gui):
                 generate_creature_name(client, creature)
         
         name = generate_name(creature)
+        creature.name = name
         gui.name_var.set(name)
+
+    if gui.species_gen_check.get():
+        pass
+
+    if gui.category_gen_check.get():
+        pass
+
+    if gui.size_gen_check.get():
+        pass
+
+    if gui.habitat_gen_check.get():
+        pass
+
+    if gui.skills_gen_check.get():
+        pass
     
     if gui.stat_gen_check.get():
         generate_stats(creature)
         for i in range(0, len(creature.stat_block)):
             gui.stat_entries[i][2].set(creature.stat_block[gui.stat_entries[i][0]])
+
+    if gui.abilities_gen_check.get():
+        pass
+    
+    if gui.motivations_gen_check.get():
+        pass
+
+    if gui.tactics_get_check.get():
+        pass
 
     
