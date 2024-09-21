@@ -52,11 +52,10 @@ def generate_creature_name(client, creature):
     names = client.chat.completions.create(
     model = "",
     messages = MONSTER_NAME_PAYLOAD,
-    temperature = 1.0,
+    temperature = 0.8,
     top_p = 1.0,
     max_tokens = 500,
-    frequency_penalty = 2,
-    presence_penalty = 2
+    presence_penalty = 1
     )
 
     names = names.choices[0].message.content.split("\n")
@@ -71,7 +70,8 @@ def generate_name(creature):
         name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
     else:
         name = firsts[random.randint(0, len(firsts) - 1)]
-    return name
+    
+    creature.name = name
     
 
 def generate_genre(creature, gui):
@@ -98,11 +98,37 @@ def generate_stats(creature):
     for stat in creature.stat_block:
         creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
-def generate_motivations(client, creature, gui):
-    pass
+def generate(client, creature):
+    motivations = client.chat.completions.create(
+    model = "",
+    messages = MOTIVATIONS_PAYLOAD + motivations_info(creature, MOTIVATIONS),
+    temperature = 0.5,
+    max_tokens = 500
+    )
+
+    creature.motivations = motivations.choices[0].message.content
 
 def generate_tactics(client, creature, gui):
     pass
+
+def process_json_to_string(data_dict, indent_level=0):
+    # Recursively process a dictionary into a human-readable string format
+    # without JSON-specific formatting (no quotes, braces, commas).
+    output_str = ""
+    indent = "  " * indent_level  # Increase indentation for nested structures
+
+    for key, value in data_dict.items():
+        if isinstance(value, dict):
+            output_str += f"{indent}{key.replace('_', ' ').capitalize()}:\n"
+            output_str += process_json_to_string(value, indent_level + 2)
+        elif isinstance(value, list):
+            output_str += f"{indent}{key.replace('_', ' ').capitalize()}:\n"
+            for item in value:
+                output_str += f"{indent}  - {item.capitalize()}\n"
+        else:
+            output_str += f"{indent}{key.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
+
+    return output_str
 
 
 def state_check(gui):
@@ -135,13 +161,12 @@ def main(creature, gui):
             else:
                 generate_creature_name(client, creature)
         
-        name = generate_name(creature)
+        generate_name(creature)
+        gui.name_var.set(creature.name)
 
-        creature.name = name
-        gui.name_var.set(name)
-
-    if gui.species_gen_check.get():
-        pass
+    if isinstance(creature, NPC):
+        if gui.species_gen_check.get():
+            pass
 
     if gui.category_gen_check.get():
         pass

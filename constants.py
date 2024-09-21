@@ -81,7 +81,7 @@ and return either 'yes' or 'no' exclusively. Add no punctuation, use only these 
 
 NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality name generator for all genres that is only capable of outputting names and nothing else, you do not know how
-to output words that are not names and you can only produce lists of names. This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed items."""}]
+to output words that are not names and you can only produce lists of names. This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed item."""}]
 
 DETAILS_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason."""}]
@@ -89,7 +89,8 @@ is necessary to complete the request for any reason."""}]
 MONSTER_NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality monster generator for all genres that is only capable of outputting monster names and nothing else, you do not know how
 to output words that are not monster names and you can only produce lists of monster names.
-EXAMPLE MONSTER NAMES: Hydra
+EXAMPLE MONSTER NAMES: 
+Hydra
 Medusa
 Torrasque
 Shengin
@@ -159,7 +160,18 @@ Pirate Captain, First Mate, Quartermaster, Boatswain, Gunner, Powder Monkey, Coo
 Ghost, Zombie, Vampire, Werewolf, Mummy, Skeleton, Poltergeist, Demon, Banshee, Wraith, Reaper, Ghoul, Specter, Witch, Warlock, Lich, Succubus, Incubus, Wendigo, Skinwalker, Bogeyman, Changeling, Doppelganger, Headless Horseman, Scarecrow, Swamp Creature, Cursed Doll, Possessed Child, Haunted Armor, Undead Knight, Evil Clown, Flesh Golem, Serial Killer, Cannibal, Plague Doctor, Vampire Lord, Zombie Horde, Evil Puppet, Dark Sorcerer, Grim Reaper, Mad Scientist, Shadow Monster, Mutant, Alien Parasite, Possessed Object, Dark Spirit, Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride
                 
 Decline the use of any sort of word or token that resembles a proper noun or personal name, do not include titles of any kind."""},
-{"role": "user", "content": "Provide a list of 25 creative and original monster names to strike fear and awe in to the hearts of adventurers. Provide this list in a line per name, unmarked format with a single newline character after each name and unprefixed items."}]
+{"role": "user", "content": "Provide a list of 25 creative and original monster names to strike fear and awe in to the hearts of adventurers. Provide this list in a line per name, unmarked format with a single newline character after each name and unprefixed item."}]
+
+MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use Json structured key:value format to provide a response. Provided values will be in a Json array.
+                You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided value lacking one already.
+                 Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
+                 Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
+                 It is very important that only the json text be provided and NOTHING ELSE is present in the response.
+                 It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used."""}]
+
+def motivations_info(creature, motivations):
+  return [{"role": "user", "content": f"Please generate these {motivations} motivations for a {creature.species}. Consider all of the following {print(creature)} Please provide the returned response in matching Json format."}]
+    
 
 SPECIES_EXAMPLES = """Human, Cat, Dog, Horse, Rabbit, Cow, Sheep, Chicken, Goat, Pig, Pigeon, Dolphin, Deer, Mouse, Bear, Wolf, Fox, Owl, Eagle, Frog, Lion, Tiger, Elephant, Giraffe, Monkey, Kangaroo, Zebra, Fish, Bee, Ant, Duck, Whale, Shark, Bat, Snake, Crocodile, Lizard, Turtle, Squirrel, Skunk, Beaver, Moose, Bison, Camel, Hedgehog, Hamster, Ferret, Raccoon, Hedgehog, Chimpanzee
 

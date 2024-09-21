@@ -112,15 +112,6 @@ class WindowMonster(CreatureCreatorApp):
         self.name_entry.grid(column=1, row=1, sticky=tk.W)
         self.name_gen_check_box.grid(column=3, row=1, sticky=tk.W)
 
-        # Generate Species input
-        self.species_label = tk.Label(self.basics_frame, padx='5', text='Species: ', font=(DISPLAY_FONT, 14))
-        self.species_entry = tk.Entry(self.basics_frame, width=12)
-        self.species_gen_check = tk.BooleanVar()
-        self.species_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Species", variable=self.species_gen_check)
-        self.species_label.grid(column=0, row=2, sticky=tk.E)
-        self.species_entry.grid(column=1, row=2, sticky=tk.W)
-        self.species_gen_check_box.grid(column=3, row=2, sticky=tk.W)
-
         # Generate Category input
         self.category_label = tk.Label(self.basics_frame, padx='5', text='Category: ', font=(DISPLAY_FONT, 14))
         self.category_entry = tk.Entry(self.basics_frame, width=12)
@@ -277,6 +268,14 @@ class WindowNPC(CreatureCreatorApp):
         #     self.check_box.grid(column=3, row=i, sticky=tk.W)
         #     self.npc_basics[NPC_BASICS[i-7]] = self.entry, self.gen_check
 
+        # # Generate Species input
+        # self.species_label = tk.Label(self.basics_frame, padx='5', text='Species: ', font=(DISPLAY_FONT, 14))
+        # self.species_entry = tk.Entry(self.basics_frame, width=12)
+        # self.species_gen_check = tk.BooleanVar()
+        # self.species_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Species", variable=self.species_gen_check)
+        # self.species_label.grid(column=0, row=2, sticky=tk.E)
+        # self.species_entry.grid(column=1, row=2, sticky=tk.W)
+        # self.species_gen_check_box.grid(column=3, row=2, sticky=tk.W)
 
         
 

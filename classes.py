@@ -28,16 +28,16 @@ class Monster:
                 if isinstance(value, dict):
                     nested_output, is_non_empty = format_dict(value, indent + 4)
                     if is_non_empty:
-                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output}"
+                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}:\n{nested_output}"
                         non_empty = True
                 elif isinstance(value, list):  # Handle lists separately
                     if value:
-                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n"
+                        formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}:\n"
                         for item in value:
-                            formatted_output += f"{' ' * (indent + len(key))}- {item.title()}\n"
+                            formatted_output += f"{' ' * (indent + 4)}- {item.capitalize()}\n"
                         non_empty = True
                 elif value:  # Check for non-empty string values
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}: {value.title()}\n"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
                     non_empty = True
             return formatted_output, non_empty
 
@@ -48,10 +48,10 @@ class Monster:
                 nested_output, is_non_empty = format_dict(value)
                 # Only add the attribute if is_non_empty returns False
                 if is_non_empty:  
-                    output += f"{attr.replace('_', ' ').title()}:\n{nested_output.title()}"
+                    output += f"{attr.replace('_', ' ').capitalize()}:\n{nested_output}"
             # Only print non-empty fields
             elif value:  
-                output += f"{attr.replace('_', ' ').title()}: {value.title()}\n"
+                output += f"{attr.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
 
         return output
     
