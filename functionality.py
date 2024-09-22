@@ -3,7 +3,7 @@ import random
 import tkinter as tk
 from constants import *
 from classes import *
-
+import json as jn
 
 def initialize_client():
     return OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
@@ -47,21 +47,22 @@ def generate_npc_name_lists(client, creature):
         if name:
             creature.random_names["lasts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
 
-def generate_creature_name(client, creature):
+def generate_name_list(client, creature):
     
     names = client.chat.completions.create(
     model = "",
     messages = MONSTER_NAME_PAYLOAD,
-    temperature = 0.8,
-    top_p = 1.0,
+    response_format = LIST_SHCEMA,
+    temperature = 1.0,
     max_tokens = 500,
     presence_penalty = 1
     )
 
-    names = names.choices[0].message.content.split("\n")
-    for name in names:
-        if name:
-            creature.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
+    try:
+        creature.random_names["firsts"] = jn.loads(names.choices[0].message.content)
+    except jn.JSONDecodeError as e:
+        print(f"Error: {e}.\nBad json format: Attepmting generation again")
+        generate_name_list(client, creature)
 
 def generate_name(creature):
     firsts = creature.random_names["firsts"]
@@ -98,15 +99,20 @@ def generate_stats(creature):
     for stat in creature.stat_block:
         creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
 
-def generate(client, creature):
+def generate_motivations(client, creature):
     motivations = client.chat.completions.create(
     model = "",
     messages = MOTIVATIONS_PAYLOAD + motivations_info(creature, MOTIVATIONS),
+    response_format = MOTIVATIONS_SCHEMA,
     temperature = 0.5,
-    max_tokens = 500
+    max_tokens = 500,
     )
 
-    creature.motivations = motivations.choices[0].message.content
+    try:
+        creature.motivations = jn.loads(motivations.choices[0].message.content)
+    except jn.JSONDecodeError as e:
+        print(f"Error: {e}.\nBad json format: Attepmting generation again")
+        generate_motivations(creature, client)
 
 def generate_tactics(client, creature, gui):
     pass
@@ -159,7 +165,7 @@ def main(creature, gui):
             if isinstance(creature, NPC):
                 generate_npc_name_lists(client, creature)
             else:
-                generate_creature_name(client, creature)
+                generate_name_list(client, creature)
         
         generate_name(creature)
         gui.name_var.set(creature.name)
