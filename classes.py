@@ -69,13 +69,13 @@ class Monster:
             for key, value in d.items():
                 if isinstance(value, dict):
                     nested_output = format_dict_all(value, indent + 4)
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n{nested_output}"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}:\n{nested_output}"
                 elif isinstance(value, list):  # Handle lists separately
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}:\n"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}:\n"
                     for item in value:
-                        formatted_output += f"{' ' * (indent + len(key))}- {item.title()}\n" if item else f"{' ' * (indent + len(key))}- [Empty]\n"
+                        formatted_output += f"{' ' * (indent + len(key))}- {item.capitalize()}\n" if item else f"{' ' * (indent + len(key))}- [Empty]\n"
                 else:  # Include all string values, even empty ones
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').title()}: {value.title() if value else '[Empty]'}\n"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}: {value.capitalize() if value else '[Empty]'}\n"
             return formatted_output
 
         # Main output string for the Monster class attributes
@@ -83,10 +83,10 @@ class Monster:
         for attr, value in self.__dict__.items():
             if isinstance(value, dict):
                 nested_output = format_dict_all(value)
-                output += f"{attr.replace('_', ' ').title()}:\n{nested_output}"
+                output += f"{attr.replace('_', ' ').capitalize()}:\n{nested_output}"
             # Print all fields, including empty ones
             else:
-                output += f"{attr.replace('_', ' ').title()}: {value.title() if value else '[Empty]'}\n"
+                output += f"{attr.replace('_', ' ').capitalize()}: {value.capitalize() if value else '[Empty]'}\n"
 
         return output
 

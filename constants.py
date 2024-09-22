@@ -119,12 +119,12 @@ Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride
 Be certain to use non-specific, original, and creative monster names, declining the use of any kind of titles."""},
 {"role": "user", "content": "Provide a list of 25 creative and original monster names in provided the json schema."}]
 
-MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use Json structured key:value format to provide a response. Provided values will be in a Json array.
+MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
                 You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided value lacking one already.
-                 Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
-                 Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
-                 It is very important that only the json text be provided and NOTHING ELSE is present in the response.
-                 It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used."""}]
+                Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
+                Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
+                It is very important that only the json text be provided and NOTHING ELSE is present in the response.
+                It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used."""}]
 
 def MOTIVATIONS_INFO(creature, species, motivations):
   return [{"role": "user", "content": f"Please generate these {motivations} motivations for a {species}. Consider all of the following {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
@@ -232,36 +232,39 @@ def LAST_NAME(species, genre):
 
 LIST_SHCEMA = {"type": "array", "items": {"type": "string"}}
 
-MOTIVATIONS_SCHEMA = {
-  "type": "object",
-  "properties": {
-    "likes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+MOTIVATIONS_SCHEMA = """{
+    "type": "object",
+    "properties": {
+        "likes": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+        },
+        "dislikes": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+        },
+        "wants": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+        },
+        "needs": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+        }
     },
-    "dislikes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "wants": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "needs": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    }
-  },
-  "additionalProperties": False
-}
+    "additionalProperties": False
+},
+"additionalProperties": False
+"""
+
 
 
 # NPC CLASS CONSTANTS

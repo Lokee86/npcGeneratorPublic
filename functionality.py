@@ -16,7 +16,9 @@ def creature_type(creature_type):
         creature_type = NPC()
         return creature_type   
 
-def generate_npc_name_lists(client, creature, gui):
+# To be refactored using if-statements for type diffentiation. Refactoring into generate_name_list()
+# Will be done when NPC generation is implemented.
+def generate_npc_name_lists(client, creature, gui): 
 
     first_names = client.chat.completions.create(
     model = "",
@@ -96,11 +98,13 @@ def generate_habitat(creature, gui):
 def generate_skills(client, creature, gui):
     pass
 
-def generate_stats(creature):
+def generate_stats(creature, gui):
     for stat in creature.stat_block:
         creature.stat_block[stat] = str(random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10))
+    for i in range(0, len(creature.stat_block)):
+        gui.stat_entries[i][2].set(creature.stat_block[gui.stat_entries[i][0]])
 
-def generate_motivations(client, creature):
+def generate_motivations(client, creature, gui):
     if isinstance(creature, NPC):
         species = creature.species
     else:
@@ -118,6 +122,9 @@ def generate_motivations(client, creature):
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
         generate_motivations(creature, client)
+    
+    motivations_string = process_json_to_string(creature.motivations)
+    gui.motivations_var.set(motivations_string)
 
 def generate_tactics(client, creature, gui):
     pass
@@ -156,10 +163,7 @@ def main(creature, gui):
     
     if gui.name_gen_check.get():
         if not gui.random_names["firsts"]:
-            if isinstance(creature, NPC):
-                generate_npc_name_lists(client, creature, gui)
-            else:
-                generate_name_list(client, creature, gui)
+            generate_name_list(client, creature, gui)
         
         generate_name(creature, gui)
 
@@ -180,17 +184,13 @@ def main(creature, gui):
         pass
     
     if gui.stat_gen_check.get():
-        generate_stats(creature)
-        for i in range(0, len(creature.stat_block)):
-            gui.stat_entries[i][2].set(creature.stat_block[gui.stat_entries[i][0]])
+        generate_stats(creature, gui)
 
     if gui.abilities_gen_check.get():
         pass
     
     if gui.motivations_gen_check.get():
-        generate_motivations(client, creature)
-        motivations_string = process_json_to_string(creature.motivations)
-        gui.motivations_var.set(motivations_string)
+        generate_motivations(client, creature, gui)
 
     if gui.tactics_gen_check.get():
         pass
