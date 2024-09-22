@@ -19,8 +19,14 @@ class Monster:
         self.actions: dict = ACTIONS
 
     def __str__(self):
+        return self._generate_str()
+
+    def formatted_str(self, *args):
+        return self._generate_str(*args)
+
+    def _generate_str(self, *ignore_attrs):
+        # recursively formats and prints nested dictionaries and ignores empty ones.
         def format_dict(d, indent=0):
-            # Recursively formats nested dictionaries, skipping empty ones.
             formatted_output = ""
             non_empty = False
             for key, value in d.items():
@@ -43,13 +49,14 @@ class Monster:
         # Main output string for the Monster class attributes
         output = "\nMonster Information:\n"
         for attr, value in self.__dict__.items():
+            # Skip attributes that are in the ignore list
+            if attr in ignore_attrs:
+                continue
             if isinstance(value, dict):
                 nested_output, is_non_empty = format_dict(value)
-                # Only add the attribute if is_non_empty returns False
-                if is_non_empty:  
+                if is_non_empty:
                     output += f"{attr.replace('_', ' ').capitalize()}:\n{nested_output}"
-            # Only print non-empty fields
-            elif value:  
+            elif value:
                 output += f"{attr.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
 
         return output

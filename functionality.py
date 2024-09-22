@@ -107,7 +107,7 @@ def generate_motivations(client, creature):
         species = creature.name
     motivations = client.chat.completions.create(
     model = "",
-    messages = MOTIVATIONS_PAYLOAD + motivations_info(creature, species, MOTIVATIONS),
+    messages = MOTIVATIONS_PAYLOAD + MOTIVATIONS_INFO(creature, species, MOTIVATIONS),
     response_format = MOTIVATIONS_SCHEMA,
     temperature = 1.0,
     max_tokens = 500,
