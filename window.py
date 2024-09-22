@@ -203,6 +203,7 @@ class WindowMonster(CreatureCreatorApp):
         gfn.check_scrollbar_visibility(self.abilities_entry, self.abilities_scroll_bar, 7, 2, 0)  
 
         # Create Motivations input
+        self.motivations_var = tk.StringVar()
         self.motivations_label = tk.Label(self.play_info_frame, padx='5', text='Motivations: ', font=(DISPLAY_FONT, 14))
         self.motivations_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.motivations_gen_check = tk.BooleanVar()
@@ -210,12 +211,15 @@ class WindowMonster(CreatureCreatorApp):
         self.motivations_label.grid(column=0, row=1, sticky=tk.NE)
         self.motivations_entry.grid(column=1, row=1, sticky=tk.W, pady='5')
         self.motivations_gen_check_box.grid(column=3, row=1, sticky=tk.W)
+        self.motivations_entry.bind("<<Modified>>", lambda event: gfn.update_variable_from_widget(self.motivations_var, event))
+        self.motivations_var.trace_add("write", lambda *args: gfn.update_widget_from_variable(self.motivations_var, self.motivations_entry))
+
 
         # Generate Scrollbar for motivations, display when necessary
         self.motivations_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.motivations_entry.yview)
         self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.W)
         self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 2, 0)  
+        gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 2, 1)  
 
         # Create Tactics input
         self.tactics_label = tk.Label(self.play_info_frame, padx='5', text='Tactics: ', font=(DISPLAY_FONT, 14))
@@ -230,7 +234,7 @@ class WindowMonster(CreatureCreatorApp):
         self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)
         self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 2, 1)
+        gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 2, 2)
 
         # Frame for buttons
         self.button_frame = tk.Frame(self.master_frame)
@@ -239,7 +243,7 @@ class WindowMonster(CreatureCreatorApp):
 
         # Save and Generate buttons
         self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
-        self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.state_check(self))
+        self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.state_check(self.creature, self))
         self.generate_button.grid(column=0, row=0, padx='5')
         self.save_button.grid(column=1, row=0)
 

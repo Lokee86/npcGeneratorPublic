@@ -137,20 +137,9 @@ def process_json_to_string(data_dict, indent_level=0):
     return output_str
 
 
-def state_check(gui):
+def state_check(creature, gui):
     
-    info = gui.motivations_entry.index(tk.END)
-    content_height = int(gui.motivations_entry.index(tk.END).split(".")[0])
-    print(content_height, info)
-
-
-    # if info:
-    #     x, y, width, height, baseline = info
-    #     print(f"Line display info: x={x}, y={y}, width={width}, baseline={baseline}")
-    # else:
-    #     print("The line at index '1.0' is not visible or doesn't exist.")
-
-
+    print(creature)
 
 
 
@@ -195,7 +184,9 @@ def main(creature, gui):
         pass
     
     if gui.motivations_gen_check.get():
-        pass
+        generate_motivations(client, creature)
+        motivations_string = process_json_to_string(creature.motivations)
+        gui.motivations_var.set(motivations_string)
 
     if gui.tactics_gen_check.get():
         pass
