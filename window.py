@@ -8,6 +8,7 @@ import functionality as fn
 
 class CreatureCreatorApp:
     def __init__(self, width, height, title):
+        self.random_names: dict = {"firsts": [], "lasts": []}
         self.width = width
         self.height = height        
         self.root = tk.Tk()

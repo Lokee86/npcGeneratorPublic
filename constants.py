@@ -126,8 +126,8 @@ MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use Json str
                  It is very important that only the json text be provided and NOTHING ELSE is present in the response.
                  It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used."""}]
 
-def motivations_info(creature, motivations):
-  return [{"role": "user", "content": f"Please generate these {motivations} motivations for a {creature.species}. Consider all of the following {str(creature)} Please provide the returned response in matching Json format."}]
+def motivations_info(creature, species, motivations):
+  return [{"role": "user", "content": f"Please generate these {motivations} motivations for a {species}. Consider all of the following {str(creature)} Please provide the returned response in matching Json format."}]
     
 
 SPECIES_EXAMPLES = """Human, Cat, Dog, Horse, Rabbit, Cow, Sheep, Chicken, Goat, Pig, Pigeon, Dolphin, Deer, Mouse, Bear, Wolf, Fox, Owl, Eagle, Frog, Lion, Tiger, Elephant, Giraffe, Monkey, Kangaroo, Zebra, Fish, Bee, Ant, Duck, Whale, Shark, Bat, Snake, Crocodile, Lizard, Turtle, Squirrel, Skunk, Beaver, Moose, Bison, Camel, Hedgehog, Hamster, Ferret, Raccoon, Hedgehog, Chimpanzee

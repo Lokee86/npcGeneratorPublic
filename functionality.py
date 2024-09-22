@@ -16,7 +16,7 @@ def creature_type(creature_type):
         creature_type = NPC()
         return creature_type   
 
-def generate_npc_name_lists(client, creature):
+def generate_npc_name_lists(client, creature, gui):
 
     first_names = client.chat.completions.create(
     model = "",
@@ -41,13 +41,13 @@ def generate_npc_name_lists(client, creature):
     names = first_names.choices[0].message.content.split()
     for name in names:
         if name:
-            creature.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
+            gui.random_names["firsts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
     names = last_names.choices[0].message.content.split()
     for name in names:
         if name:
-            creature.random_names["lasts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
+            gui.random_names["lasts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
 
-def generate_name_list(client, creature):
+def generate_name_list(client, creature, gui):
     
     names = client.chat.completions.create(
     model = "",
@@ -59,20 +59,21 @@ def generate_name_list(client, creature):
     )
 
     try:
-        creature.random_names["firsts"] = jn.loads(names.choices[0].message.content)
+        gui.random_names["firsts"] = jn.loads(names.choices[0].message.content)
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
-        generate_name_list(client, creature)
+        generate_name_list(client, creature, gui)
 
-def generate_name(creature):
-    firsts = creature.random_names["firsts"]
-    if creature.random_names["lasts"]:
+def generate_name(creature, gui):
+    firsts = gui.random_names["firsts"]
+    if gui.random_names["lasts"]:
         lasts = creature.random_names["lasts"]
         name = f"{firsts[random.randint(0, len(firsts) - 1)]} {lasts[random.randint(0, len(lasts) - 1)]}"
     else:
         name = firsts[random.randint(0, len(firsts) - 1)]
     
     creature.name = name
+    gui.name_var.set(creature.name)
     
 
 def generate_genre(creature, gui):
@@ -97,14 +98,18 @@ def generate_skills(client, creature, gui):
 
 def generate_stats(creature):
     for stat in creature.stat_block:
-        creature.stat_block[stat] = random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10)
+        creature.stat_block[stat] = str(random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10))
 
 def generate_motivations(client, creature):
+    if isinstance(creature, NPC):
+        species = creature.species
+    else:
+        species = creature.name
     motivations = client.chat.completions.create(
     model = "",
-    messages = MOTIVATIONS_PAYLOAD + motivations_info(creature, MOTIVATIONS),
+    messages = MOTIVATIONS_PAYLOAD + motivations_info(creature, species, MOTIVATIONS),
     response_format = MOTIVATIONS_SCHEMA,
-    temperature = 0.5,
+    temperature = 1.0,
     max_tokens = 500,
     )
 
@@ -150,14 +155,13 @@ def main(creature, gui):
         creature.genre = generate_genre(creature, gui)
     
     if gui.name_gen_check.get():
-        if not creature.random_names["firsts"]:
+        if not gui.random_names["firsts"]:
             if isinstance(creature, NPC):
-                generate_npc_name_lists(client, creature)
+                generate_npc_name_lists(client, creature, gui)
             else:
-                generate_name_list(client, creature)
+                generate_name_list(client, creature, gui)
         
-        generate_name(creature)
-        gui.name_var.set(creature.name)
+        generate_name(creature, gui)
 
     if isinstance(creature, NPC):
         if gui.species_gen_check.get():

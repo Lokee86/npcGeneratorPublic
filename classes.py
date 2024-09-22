@@ -6,7 +6,6 @@ class Monster:
         self.gender: str = ""
         self.species: str = ""
         self.name: str = ""
-        self.random_names: dict = {"firsts": [], "lasts": []}
         self.category: str  = ""
         self.size_class: str = ""
         self.habitat: str = ""
