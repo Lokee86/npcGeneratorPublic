@@ -17,11 +17,16 @@ def update_widget_from_variable(string_var, widget, *args):
 
 def check_scrollbar_visibility(text_widget, scrollbar, widget_height, widget_width, bar_column, bar_row, interval=100):
     
-    content = text_widget.index(f"{tk.END}-1c").split(".")
-    content_height = int(content[0])
-    content_length = int(content[1])
+    content_index = text_widget.index(f"{tk.END}-1c").split(".")
+    content_length = int(content_index[1])
 
-    if content_height > (widget_height) or content_length > (widget_height * widget_width):
+    line_search = text_widget.get("1.0", f"{tk.END}-1c").split("\n")
+    content_height = 0
+    for line in line_search:
+        visible_lines = (len(line) // widget_width) + 1
+        content_height += visible_lines
+
+    if content_height > widget_height:
         if not scrollbar.winfo_ismapped():
             scrollbar.grid(column=bar_column, row=bar_row, sticky=tk.W)
     else:
