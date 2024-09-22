@@ -141,20 +141,24 @@ class WindowMonster(CreatureCreatorApp):
         self.habitat_gen_check_box.grid(column=3, row=5, sticky=tk.W)
 
         # Generate Skills input
+        self.skills_var = tk.StringVar()
         self.skills_label = tk.Label(self.basics_frame, padx='5', text='Skills: ', font=(DISPLAY_FONT, 14))
         self.skills_entry = tk.Text(self.basics_frame, wrap='word', width=30, height=2)
         self.skills_gen_check = tk.BooleanVar()
-        self.skills_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Skills", variable=self.habitat_gen_check)
+        self.skills_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Skills", variable=self.skills_gen_check)
         self.skills_label.grid(column=0, row=6, sticky=tk.E)
         self.skills_entry.grid(column=1, row=6, sticky=tk.W)
         self.skills_gen_check_box.grid(column=3, row=6, sticky=tk.W)
+        self.skills_entry.bind("<<Modified>>", lambda event: gfn.update_variable_from_widget(self.skills_var, event))
+        self.skills_var.trace_add("write", lambda *args: gfn.update_widget_from_variable(self.skills_var, self.skills_entry))
+
 
         # Generate Scrollbar for skills, display when necessary
 
         self.skills_scroll_bar = tk.Scrollbar(self.basics_frame, command=self.skills_entry.yview)
         self.skills_scroll_bar.grid(column=2, row=6, sticky=tk.W)
         self.skills_entry.config(yscrollcommand=self.skills_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 2, 6)
+        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 30, 2, 6)
 
         # Create Stat line labels & inputs
         # Frames for stats and Stat buttons
@@ -201,7 +205,7 @@ class WindowMonster(CreatureCreatorApp):
         self.abilities_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.abilities_entry.yview)
         self.abilities_scroll_bar.grid(column=2, row=0, sticky=tk.W)
         self.abilities_entry.config(yscrollcommand=self.abilities_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.abilities_entry, self.abilities_scroll_bar, 7, 2, 0)  
+        gfn.check_scrollbar_visibility(self.abilities_entry, self.abilities_scroll_bar, 7, 45, 2, 0)  
 
         # Create Motivations input
         self.motivations_var = tk.StringVar()
@@ -220,7 +224,7 @@ class WindowMonster(CreatureCreatorApp):
         self.motivations_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.motivations_entry.yview)
         self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.W)
         self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 2, 1)  
+        gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 45, 2, 1)  
 
         # Create Tactics input
         self.tactics_label = tk.Label(self.play_info_frame, padx='5', text='Tactics: ', font=(DISPLAY_FONT, 14))
@@ -235,7 +239,7 @@ class WindowMonster(CreatureCreatorApp):
         self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)
         self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 2, 2)
+        gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 45, 2, 2)
 
         # Frame for buttons
         self.button_frame = tk.Frame(self.master_frame)

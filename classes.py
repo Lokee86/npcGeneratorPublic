@@ -25,7 +25,7 @@ class Monster:
         return self._generate_str(*args)
 
     def _generate_str(self, *ignore_attrs):
-        # recursively formats and prints nested dictionaries and ignores empty ones.
+        # Recursively formats and prints nested dictionaries and ignores empty ones.
         def format_dict(d, indent=0):
             formatted_output = ""
             non_empty = False
@@ -35,14 +35,18 @@ class Monster:
                     if is_non_empty:
                         formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}:\n{nested_output}"
                         non_empty = True
-                elif isinstance(value, list):  # Handle lists separately
+                elif isinstance(value, list):  # Handle lists of dictionaries
                     if value:
                         formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}:\n"
                         for item in value:
-                            formatted_output += f"{' ' * (indent + 4)}- {item.capitalize()}\n"
+                            if isinstance(item, dict):
+                                nested_output, _ = format_dict(item, indent + 4)
+                                formatted_output += nested_output  # Recursively process dictionary items
+                            else:
+                                formatted_output += f"{' ' * (indent + 4)}- {item.capitalize()}\n"
                         non_empty = True
                 elif value:  # Check for non-empty string values
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}: {str(value).capitalize()}\n"
                     non_empty = True
             return formatted_output, non_empty
 
@@ -57,9 +61,10 @@ class Monster:
                 if is_non_empty:
                     output += f"{attr.replace('_', ' ').capitalize()}:\n{nested_output}"
             elif value:
-                output += f"{attr.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
+                output += f"{attr.replace('_', ' ').capitalize()}: {str(value).capitalize()}\n"
 
         return output
+
     
 
     def show_all(self):

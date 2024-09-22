@@ -15,15 +15,18 @@ def update_widget_from_variable(string_var, widget, *args):
     widget.delete("1.0", tk.END)
     widget.insert("1.0", string_var.get())
 
-def check_scrollbar_visibility(text_widget, scrollbar, widget_height, bar_column, bar_row, interval=100):
-    content_height = int(float(text_widget.index(tk.END)))
+def check_scrollbar_visibility(text_widget, scrollbar, widget_height, widget_width, bar_column, bar_row, interval=100):
+    
+    content = text_widget.index(f"{tk.END}-1c").split(".")
+    content_height = int(content[0])
+    content_length = int(content[1])
 
-    if content_height > (widget_height + 1):
+    if content_height > (widget_height) or content_length > (widget_height * widget_width):
         if not scrollbar.winfo_ismapped():
             scrollbar.grid(column=bar_column, row=bar_row, sticky=tk.W)
     else:
         if scrollbar.winfo_ismapped():
             scrollbar.grid_remove()
 
-    text_widget.after(interval, check_scrollbar_visibility, text_widget, scrollbar, widget_height, bar_column, bar_row, interval)
+    text_widget.after(interval, check_scrollbar_visibility, text_widget, scrollbar, widget_height, widget_width, bar_column, bar_row, interval)
 

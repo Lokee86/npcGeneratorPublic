@@ -95,8 +95,20 @@ def generate_size(creature, gui):
 def generate_habitat(creature, gui):
     pass
 
-def generate_skills(client, creature, gui):
-    pass
+def generate_skills(creature, gui):
+    skill_count = random.randint(0, 5)
+    skills = 0
+    creature.skills = []
+    while skills < skill_count:
+        new_skill = random.choice(SKILLS)
+        if new_skill not in creature.skills:
+            creature.skills.append(new_skill)
+            skills += 1
+
+    skills_string = process_json_to_string(creature.skills)
+    gui.skills_var.set(skills_string)
+    
+
 
 def generate_stats(creature, gui):
     for stat in creature.stat_block:
@@ -109,6 +121,7 @@ def generate_motivations(client, creature, gui):
         species = creature.species
     else:
         species = creature.name
+
     motivations = client.chat.completions.create(
     model = "",
     messages = MOTIVATIONS_PAYLOAD + MOTIVATIONS_INFO(creature, species, MOTIVATIONS),
@@ -129,22 +142,42 @@ def generate_motivations(client, creature, gui):
 def generate_tactics(client, creature, gui):
     pass
 
-def process_json_to_string(data_dict, indent_level=0):
+def process_json_to_string(json_object, indent_level=0):
     # Recursively process a dictionary into a human-readable string format
     # without JSON-specific formatting (no quotes, braces, commas).
     output_str = ""
     indent = "  " * indent_level  # Increase indentation for nested structures
 
-    for key, value in data_dict.items():
-        if isinstance(value, dict):
-            output_str += f"{indent}{key.replace('_', ' ').capitalize()}:\n"
-            output_str += process_json_to_string(value, indent_level + 2)
-        elif isinstance(value, list):
-            output_str += f"{indent}{key.replace('_', ' ').capitalize()}:\n"
-            for item in value:
-                output_str += f"{indent}  - {item.capitalize()}\n"
+    # Check if the json_object is a dictionary
+    if isinstance(json_object, dict):
+        for key, value in json_object.items():
+            if isinstance(value, dict):
+                output_str += f"{indent}{key.replace('_', ' ').capitalize()}:\n"
+                output_str += process_json_to_string(value, indent_level + 2)
+            elif isinstance(value, list):
+                output_str += f"{indent}{key.replace('_', ' ').capitalize()}:\n"
+                for item in value:
+                    if isinstance(item, dict):  # Recursively process dict items in the list
+                        output_str += process_json_to_string(item, indent_level + 4)
+                    else:
+                        output_str += f"{' ' * (indent_level + 4)}- {str(item).capitalize()}\n"
+            else:
+                output_str += f"{indent}{key.replace('_', ' ').capitalize()}: {str(value).capitalize()}\n"
+
+    # Check if the json_object is a list
+    elif isinstance(json_object, list):
+        if any(isinstance(item, dict) for item in json_object):
+            for item in json_object:
+                if isinstance(item, dict):
+                    output_str += process_json_to_string(item, indent_level + 2)
+                else:
+                    output_str += f"{' ' * indent_level}- {str(item).capitalize()}\n"
         else:
-            output_str += f"{indent}{key.replace('_', ' ').capitalize()}: {value.capitalize()}\n"
+            for index, item in enumerate(json_object):
+                if index < len(json_object) - 1:
+                    output_str += f"{item}, "
+                else:
+                    output_str += item
 
     return output_str
 
@@ -152,6 +185,7 @@ def process_json_to_string(data_dict, indent_level=0):
 def state_check(creature, gui):
     
     print(creature)
+    print(gui.skills_entry.index(f"{tk.END}-1c"))
 
 
 
@@ -181,7 +215,7 @@ def main(creature, gui):
         pass
 
     if gui.skills_gen_check.get():
-        pass
+        generate_skills(creature, gui)
     
     if gui.stat_gen_check.get():
         generate_stats(creature, gui)

@@ -22,7 +22,7 @@ def WINDOW_TITLE(name):
     return "Creature Creator"
   return f"Creature Creator: {name}"
 
-# SYTEM PROMPTS
+# PREDETERMINED GEN-LISTS
 
 GENRES = ["Fantasy",
           "Science Fiction",
@@ -74,6 +74,28 @@ GENRES = ["Fantasy",
           "Dungeon Crawl",
           "Gritty Realism",
           "Space Western"]
+
+SKILLS = ["Acrobatics",
+          "Animal Handling",
+          "Arcana",
+          "Athletics",
+          "Deception",
+          "History",
+          "Insight",
+          "Intimidation",
+          "Investigation",
+          "Medicine",
+          "Nature",
+          "Perception",
+          "Performance",
+          "Persuasion",
+          "Religion",
+          "Sleight of Hand",
+          "Stealth",
+          "Survival"]
+
+
+# SYTEM PROMPTS
 
 GENDER_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. Assess the users input opinion to the question 'would you like to combine the character's sex and gender?' 
