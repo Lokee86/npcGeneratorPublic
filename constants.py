@@ -106,6 +106,7 @@ SPECIES = ["Elf", "Dwarf", "Orc", "Goblin", "Troll", "Dragon", "Gnome", "Ogre", 
     "Goblin", "Hobgoblin", "Redcap", "Trollkin", "Firbolg", "Fomorian", "Sidhe", "Tuatha Dé Danann", "Bean Nighe", "Cat Sith", "Cu Sith", "Nuckelavee", 
     "Kelpie", "Selkie", "Finfolk", "Sasquatch", "Yowie"]
 
+ENEMY_CLASSES = ["minions", "normal_enemy", "elite_enemy", "super_eliy", "boss_enemy", "epic_boss", "legendary_boss", "non_combatant"]
 
 # SYTEM PROMPTS
 
@@ -246,16 +247,82 @@ ABILITY_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured j
                     It is very important that only the json text be provided and NOTHING ELSE is present in the response.
                     It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used.
                     Return only a json obect in the format of { "<Ability Name>" : "<Ability Description>" } for a random number of DnD creature abilities for the provided creature profile.
-                    Choose a power level randomly, both in damage output, and style. Keep the nature of the abilites consistent with each other.
-                    High power level creatures should posess more abilites with a broader damage profile. Simpler creatures should have less, but not always just one or two abilites.
-                    Choose between minions, normal enemies, elite enemies, super-elites, boss enemies, epic boss, and legendary boss for power levels. Don't record this in the response, use it as a guide. If you find one of these terms int he profile, choose that.
+                    Every creature MUST have a single basic attack in addition to abilities within the guidelines below.
+                    Of critical note, ALWAYS include at least one attack, and ANY attack you mention in the multi-attack option if present. Maintain consistency in power level, both in damage output, and style. Keep the nature of the abilites consistent with each other.
+                    High power level creatures should posess more abilites with a broader damage profile. Simpler creatures should have less. Use the Following guidelines non-combatant: 0-2, minion: 0-2, normal enemies: 0-2, elite enemies: 1-3, super-elites: 2-4, boss enemies: 3-7, epic boss: 4-10, and legendary boss: 6+
+                    Lower CR creatures should have less abilities than higher CR creatures would.
                     Also decide on a general theme based on the provided profile. Pick standard bruiser, soldeir, ranged, etc., etc. roles for minion to super elite enemies. Present more unique powers and options for higer tier enemies.
                     The following is a list of abilites. For basic abilites, simply imitate the list closely, simply filling in the blanks and altering for flavour only. For higher tier abilities be more creative and use these mostly as a format guide.
-                    Of critical note, always include at least one attack. and ANY attack you mention in the multi-attack option if present.
                     """+ABILITY_EXAMPLES}]
 
 def ABILITY_INFO(creature):
-  return [{"role": "user", "content": f"Please generate abilities for this creature {str(creature)}. Respond in the json format directed in the system message."}]
+  return [{"role": "user", "content": f"Please generate abilities for this creature {str(creature.formatted_str('abilities'))}. Respond in the json format directed in the system message."}]
+
+TACTICS_EXAMPLES = """With Backup: Use guerrilla tactics. Strike quickly, retreat, and regroup with allies to overwhelm enemies.
+Alone: Prioritize survival by fleeing or hiding. This creature prefers not to engage directly when isolated.
+Cornered: Bargain or deceive to escape, relying on cleverness to survive.
+Threatened: Look for weaknesses or distractions, then escape if possible. Avoids direct conflict unless a clear advantage exists.
+High Defensive: Use the environment and set traps to defend their home or young. Avoids direct confrontation, relying on clever tactics to repel intruders.
+
+With Backup: Charge into combat with aggression, using brute strength to overwhelm enemies. Allies can distract, allowing the creature to focus on dealing damage.
+Alone: Focus on single-target attacks, aiming to eliminate threats quickly. This creature is relentless and won’t back down.
+Cornered: Fight fiercely, using multi-attacks to strike hard and fast. This creature will not surrender.
+Threatened: Lash out at the nearest threat with full force, using all available might to eliminate the danger.
+High Defensive: Guard the nest aggressively, attacking anything that gets too close. Will not retreat if its young are at risk.
+
+With Backup: Rely on mind-altering abilities and any minions to control the battlefield, disabling or dominating enemies.
+Alone: Avoid direct confrontation by using mind control or teleportation to escape when outnumbered.
+Cornered: Use mind powers to turn enemies against each other or create opportunities for escape.
+Threatened: Confuse and manipulate opponents, sowing chaos to gain an advantage.
+High Defensive: Use psychic barriers and mental domination to create a defense around its lair, relying on traps and minions to slow down attackers.
+
+With Backup: Coordinate with any minions, using powerful magic to support or obliterate enemies while staying out of direct combat.
+Alone: Focus on high-damage spells to eliminate foes before they can get close. This creature will prioritize its own safety with defensive spells.
+Cornered: Use teleportation or other contingencies to escape. If escape is impossible, it will cast powerful last-resort spells.
+Threatened: Summon reinforcements or undead to create a buffer while preparing powerful counter-attacks.
+High Defensive: Layer defenses around important areas, using minions and traps to ensure its secrets or valuables remain hidden and safe. Avoids direct confrontation if what is being protected is threatened.
+
+With Backup: Stay at range, supporting ground forces from a distance, using special abilities or breath weapons to control the battlefield.
+Alone: Attack from range, using movement or flight to retreat if necessary. This creature won’t risk injury without reason.
+Cornered: Fight with full force, using every available resource to destroy immediate threats.
+Threatened: Intimidate foes with roars or displays of power before striking decisively.
+High Defensive: Defend its nest or hoard with aggression, using its most potent attacks to keep intruders away from what it values most.
+
+With Backup: Slowly advance behind more mobile allies, attempting to engulf weakened or distracted enemies.
+Alone: Rely on surprise and environmental advantages, slowly pursuing targets with the aim of engulfing.
+Cornered: Continue advancing without retreat, showing no fear and attempting to overwhelm whatever is in its path.
+Threatened: Its slow movement forces it to push forward, absorbing whatever it can. It does not flee.
+High Defensive: Block narrow passages or entrances, using its body as a living wall to protect whatever it holds dear.
+
+With Backup: Use ranged attacks and abilities to control the battlefield from afar, letting allies handle physical threats.
+Alone: Stay at range, systematically eliminating threats while avoiding close combat.
+Cornered: Use powerful ranged attacks to quickly eliminate the most dangerous threats.
+Threatened: Use anti-magic abilities or suppressive powers to limit enemy options while repositioning.
+High Defensive: Stay near key defensive points, using the environment and abilities to prevent intruders from reaching important areas.
+
+With Backup: Charge into the front lines, using regeneration or other resilience to endure long battles while allies provide support.
+Alone: Attack relentlessly, relying on innate resilience to stay in the fight until the enemy is dead.
+Cornered: Fight to the death, attacking wildly without concern for defense.
+Threatened: Focus on one target to quickly eliminate it, then turn to the next. This creature is ferocious when backed into a corner.
+High Defensive: Defend its lair or territory fiercely, using regeneration or resilience to hold off invaders. Prioritizes threats to its home or offspring.
+
+With Backup: Use devastating area effects or incapacitating abilities, letting allies take advantage of the weakened enemies.
+Alone: Use a powerful opening move to incapacitate or scare off attackers, then retreat into an unreachable location.
+Cornered: Use any available means to escape through walls or obstacles, or deal massive damage before retreating.
+Threatened: Stay out of reach, attacking from a distance and avoiding direct conflict where possible.
+High Defensive: Haunt its lair with illusions and eerie effects, making it difficult for intruders to advance toward its most valuable or vulnerable possessions.
+
+With Backup: Lead from the front, charging into enemies with overwhelming physical force to break their ranks.
+Alone: Use speed and strength to eliminate foes one at a time, retreating into complex terrain if needed to regain the advantage.
+Cornered: Fight aggressively, using brute strength to overcome enemies in close quarters.
+Threatened: Charge head-on at the biggest threat, attempting to crush it with sheer power.
+High Defensive: Use its knowledge of complex terrain to set traps and ambushes, defending its lair or offspring with ferocity, never allowing enemies to advance easily."""
+
+TACTICS_PAYLOAD = []
+
+def TACTICS_INFOR(creature):
+  return
+
 
 
 def FIRST_NAME(species, genre, gender):

@@ -248,10 +248,34 @@ class MonsterWindow(CreatureCreatorApp):
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
         gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 45, 2, 2)
 
+        # Radio button frame
+        self.select_enemy_frame = tk.Frame(self.master_frame)
+        self.select_enemy_frame.grid(column=0, row=3, pady='5')
+        
+        # Creature style selection
+        self.select_enemy_var = tk.StringVar()
+        self.select_non_combatant = tk.Radiobutton(self.select_enemy_frame, text="Non-Combatant", variable=self.select_enemy_var, value="non_combatant")
+        self.select_minions = tk.Radiobutton(self.select_enemy_frame, text="Minions", variable=self.select_enemy_var, value="minions")
+        self.select_normal_enemy = tk.Radiobutton(self.select_enemy_frame, text="Normal Enemy", variable=self.select_enemy_var, value="normal_enemy")
+        self.select_elite_enemy = tk.Radiobutton(self.select_enemy_frame, text="Elite Enemy", variable=self.select_enemy_var, value="elite_enemy")
+        self.select_super_elites = tk.Radiobutton(self.select_enemy_frame, text="Super Elites", variable=self.select_enemy_var, value="super_eliy")
+        self.select_boss_enemy = tk.Radiobutton(self.select_enemy_frame, text="Boss Enemy", variable=self.select_enemy_var, value="boss_enemy")
+        self.select_epic_boss = tk.Radiobutton(self.select_enemy_frame, text="Epic Boss", variable=self.select_enemy_var, value="epic_boss")
+        self.select_legendary_boss = tk.Radiobutton(self.select_enemy_frame, text="Legendary Boss", variable=self.select_enemy_var, value="legendary_boss")
+
+        self.select_non_combatant.grid(column=1, row=1, pady='5', padx='5')
+        self.select_minions.grid(column=1, row=2, pady='5', padx='5')
+        self.select_normal_enemy.grid(column=2, row=1, pady='5', padx='5')
+        self.select_elite_enemy.grid(column=2, row=2, pady='5', padx='5')
+        self.select_super_elites.grid(column=3, row=1, pady='5', padx='5')
+        self.select_boss_enemy.grid(column=3, row=2, pady='5', padx='5')
+        self.select_epic_boss.grid(column=4, row=1, pady='5', padx='5')
+        self.select_legendary_boss.grid(column=4, row=2, pady='5', padx='5')
+
+
         # Frame for buttons
         self.button_frame = tk.Frame(self.master_frame)
-        self.button_frame.grid(column=0, row=3, pady='5')
-
+        self.button_frame.grid(column=0, row=4, pady='5')
 
         # Save and Generate buttons
         self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))

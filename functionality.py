@@ -10,6 +10,10 @@ token_usage = {"total_tokens" : 0,
                "completion_tokens" : 0,
                "prompt_tokens" : 0}
 
+session_tokens = {"session_totals" : {"total_tokens" : 0,
+                                      "completion_tokens" : 0,
+                                      "prompt_tokens" : 0}}
+
 def initialize_client():
     return OpenAI(base_url="https://api.openai.com/v1/", api_key=os.environ.get("API_KEY"))
 
@@ -87,10 +91,10 @@ def generate_name(creature, gui):
     gui.name_var.set(creature.name)
     
 
-def list_picker(creature_field, variable, choices): # Will only work for *entry* fields with a list to pick from.
+def list_picker(creature, field_name, variable, choices): # Will only work for *entry* fields with a list to pick from.
     picked = random.randint(0, len(choices) - 1)
-    creature_field = choices[picked]
-    variable.set(GENRES[picked])
+    setattr(creature, field_name, choices[picked])
+    variable.set(choices[picked])
 
 def generate_species(client, creature, gui): # Not required for monster generation, implement with NPCs
     pass
@@ -130,7 +134,7 @@ def generate_dict_to_text_field(client, payload, payload_info, creature, creatur
     messages = payload + payload_info(creature),
     # response_format = {"type": "json_object", "schema": MOTIVATIONS_SCHEMA},
     temperature = 1.0,
-    max_tokens = 500,
+    max_tokens = 2000,
     )
 
     try:
@@ -198,13 +202,23 @@ def state_check(creature, gui): # This is just being used for building and debug
         stats += f"{stat[2].get()} "
     
     print(stats)
-    print(creature.stat_block)
+    print(creature.genre)
+    print(creature)
+
 
 def main(creature, gui):
 
     client = initialize_client()
+    for total in token_usage:
+        token_usage[total] = 0
+
+    if gui.select_enemy_var.get():
+        creature.NPC_class = gui.select_enemy_var.get()
+    else:
+        list_picker(creature, "NPC_class", gui.select_enemy_var, ENEMY_CLASSES)
+
     if gui.genre_gen_check.get():
-        list_picker(creature.genre, gui.genre_var, GENRES)
+        list_picker(creature, "genre", gui.genre_var, GENRES)
     else:
         creature.genre = gui.genre_var.get()
 
@@ -261,5 +275,9 @@ def main(creature, gui):
     else:
         pass
 
+    for total in token_usage:
+        session_tokens["session_totals"][total] += token_usage[total]
+
     print(token_usage)
+    print(session_tokens)
     
