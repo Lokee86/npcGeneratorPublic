@@ -61,16 +61,16 @@ class ChooseCreature(CreatureCreatorApp):
     def monster(self):
         self.root.destroy()
         creature = fn.creature_type("monster")
-        app = WindowMonster(CREATURE_WIDTH_FACTOR, CREATURE_HEIGHT_FACTOR, MONSTER_TITLE, creature)
+        app = MonsterWindow(CREATURE_WIDTH_FACTOR, CREATURE_HEIGHT_FACTOR, MONSTER_TITLE, creature)
         app.run()
 
     def npc(self):
         self.root.destroy()
         creature = fn.creature_type("npc")
-        app = WindowNPC(NPC_WIDTH_FACTOR, NPC_HEIGHT_FACTOR, NPC_TITLE)
+        app = NPCWindow(NPC_WIDTH_FACTOR, NPC_HEIGHT_FACTOR, NPC_TITLE)
         app.run()
 
-class WindowMonster(CreatureCreatorApp):
+class MonsterWindow(CreatureCreatorApp):
     def __init__(self, width, height, title, creature):
         super().__init__(width, height, title)
         self.creature = creature 
@@ -115,8 +115,9 @@ class WindowMonster(CreatureCreatorApp):
         self.name_gen_check_box.grid(column=3, row=1, sticky=tk.W)
 
         # Generate Category input
+        self.category_var = tk.StringVar()
         self.category_label = tk.Label(self.basics_frame, padx='5', text='Category: ', font=(DISPLAY_FONT, 14))
-        self.category_entry = tk.Entry(self.basics_frame, width=12)
+        self.category_entry = tk.Entry(self.basics_frame, width=12, textvariable=self.category_var)
         self.category_gen_check = tk.BooleanVar()
         self.category_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Category", variable=self.category_gen_check)
         self.category_label.grid(column=0, row=3, sticky=tk.E)
@@ -196,6 +197,7 @@ class WindowMonster(CreatureCreatorApp):
         
         # Create Abilities input
         
+        self.abilities_var = tk.StringVar()
         self.abilities_label = tk.Label(self.play_info_frame, padx='5', text='Abilities: ', font=(DISPLAY_FONT, 14))
         self.abilities_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.abilities_gen_check = tk.BooleanVar()
@@ -203,6 +205,8 @@ class WindowMonster(CreatureCreatorApp):
         self.abilities_label.grid(column=0, row=0, sticky=tk.NE)
         self.abilities_entry.grid(column=1, row=0, sticky=tk.W, pady='5')
         self.abilities_gen_check_box.grid(column=3, row=0, sticky=tk.W)
+        self.abilities_entry.bind("<<Modified>>", lambda event: gfn.update_variable_from_widget(self.abilities_var, event))
+        self.abilities_var.trace_add("write", lambda *args: gfn.update_widget_from_variable(self.abilities_var, self.abilities_entry))
 
         # Generate Scrollbar for abilities, display when necessary
         self.abilities_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.abilities_entry.yview)
@@ -257,7 +261,7 @@ class WindowMonster(CreatureCreatorApp):
 
 
 
-class WindowNPC(CreatureCreatorApp):
+class NPCWindow(CreatureCreatorApp): # This will inherit from the MonsterWindow when released
     def __init__(self, width, height, title):
         
         super().__init__(width, height, title)

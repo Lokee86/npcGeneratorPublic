@@ -109,13 +109,11 @@ SPECIES = ["Elf", "Dwarf", "Orc", "Goblin", "Troll", "Dragon", "Gnome", "Ogre", 
 
 # SYTEM PROMPTS
 
-GENDER_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
-is necessary to complete the request for any reason. Assess the users input opinion to the question 'would you like to combine the character's sex and gender?' 
-and return either 'yes' or 'no' exclusively. Add no punctuation, use only these words exactly. Yes means yes and no means no. If the user responds with a question, pay close attention."""}]
+
 
 NAME_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality name generator for all genres that is only capable of outputting names and nothing else, you do not know how
-to output words that are not names and you can only produce lists of names. This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed item."""}]
+to output words that are not names and you can only produce lists of names. This list is always provided in a json array format."""}]
 
 DETAILS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason."""}]
@@ -154,19 +152,14 @@ Be certain to use non-specific, original, and creative monster names, declining 
 {"role": "user", "content": "Provide a list of 25 creative and original monster names in provided the json schema."}]
 
 MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
-                You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided value lacking one already.
+                You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided key lacking one already.
                 Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
                 Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
                 It is very important that only the json text be provided and NOTHING ELSE is present in the response.
                 It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used."""}]
 
-def MOTIVATIONS_INFO(creature, species, motivations):
-  return [{"role": "user", "content": f"Please generate these {motivations} motivations for a {species}. Consider all of the following {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
-    
-
-
-
-
+def MOTIVATIONS_INFO(creature):
+  return [{"role": "user", "content": f"Please generate these {MOTIVATIONS} motivations for a creature or NPC. Consider all of the following profile {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
 
 ABILITY_EXAMPLES = """Multiattack. The Monster makes two attacks.
 
@@ -245,6 +238,25 @@ Death Burst. When the Monster dies, it explodes in a burst of ???. Each creature
 Detect. The Monster makes a Wisdom (Perception) check.
 
 Devil's Sight. Magical darkness doesn't impede the devil's darkvision."""
+    
+ABILITY_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
+                    You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided key lacking one already.
+                    Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
+                    Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
+                    It is very important that only the json text be provided and NOTHING ELSE is present in the response.
+                    It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used.
+                    Return only a json obect in the format of { "<Ability Name>" : "<Ability Description>" } for a random number of DnD creature abilities for the provided creature profile.
+                    Choose a power level randomly, both in damage output, and style. Keep the nature of the abilites consistent with each other.
+                    High power level creatures should posess more abilites with a broader damage profile. Simpler creatures should have less, but not always just one or two abilites.
+                    Choose between minions, normal enemies, elite enemies, super-elites, boss enemies, epic boss, and legendary boss for power levels. Don't record this in the response, use it as a guide. If you find one of these terms int he profile, choose that.
+                    Also decide on a general theme based on the provided profile. Pick standard bruiser, soldeir, ranged, etc., etc. roles for minion to super elite enemies. Present more unique powers and options for higer tier enemies.
+                    The following is a list of abilites. For basic abilites, simply imitate the list closely, simply filling in the blanks and altering for flavour only. For higher tier abilities be more creative and use these mostly as a format guide.
+                    Of critical note, always include at least one attack. and ANY attack you mention in the multi-attack option if present.
+                    """+ABILITY_EXAMPLES}]
+
+def ABILITY_INFO(creature):
+  return [{"role": "user", "content": f"Please generate abilities for this creature {str(creature)}. Respond in the json format directed in the system message."}]
+
 
 def FIRST_NAME(species, genre, gender):
   return [{"role": "user", "content": f"Give me a list of 25 {species} {genre} setting first names for a {gender}."}]

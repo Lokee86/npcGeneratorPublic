@@ -6,6 +6,8 @@ from classes import *
 import json as jn
 import os
 
+token_usage = {}
+
 def initialize_client():
     return OpenAI(base_url="https://api.openai.com/v1/", api_key=os.environ.get("API_KEY"))
 
@@ -49,6 +51,8 @@ def generate_npc_name_lists(client, creature, gui):
     for name in names:
         if name:
             gui.random_names["lasts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
+    
+    token_usage["total_tokens"] = first_names
 
 def generate_name_list(client, creature, gui):
     
@@ -79,7 +83,7 @@ def generate_name(creature, gui):
     gui.name_var.set(creature.name)
     
 
-def list_picker(creature_field, variable, choices):
+def list_picker(creature_field, variable, choices): # Will only work for *entry* fields with a list to pick from.
     picked = random.randint(0, len(choices) - 1)
     creature_field = choices[picked]
     variable.set(GENRES[picked])
@@ -115,31 +119,25 @@ def generate_stats(creature, gui):
     for i in range(0, len(creature.stat_block)):
         gui.stat_entries[i][2].set(creature.stat_block[gui.stat_entries[i][0]])
 
-def generate_abilities(client, creture, gui):
-    pass
+def generate_dict_to_text_field(client, payload, payload_info, creature, creature_field, gui_variable):
 
-def generate_motivations(client, creature, gui):
-    if isinstance(creature, NPC):
-        species = creature.species
-    else:
-        species = creature.name
-
-    motivations = client.chat.completions.create(
+    generations = client.chat.completions.create(
     model = "gpt-4o-mini",
-    messages = MOTIVATIONS_PAYLOAD + MOTIVATIONS_INFO(creature, species, MOTIVATIONS),
+    messages = payload + payload_info(creature),
     # response_format = {"type": "json_object", "schema": MOTIVATIONS_SCHEMA},
     temperature = 1.0,
     max_tokens = 500,
     )
 
     try:
-        creature.motivations = jn.loads(motivations.choices[0].message.content)
+        creature_field = jn.loads(generations.choices[0].message.content)
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
-        generate_motivations(creature, client)
+        print(generations.choices[0].message.content)
+        # generate_dict_to_text_field(client, payload, payload_info, creature, creature_field, gui_variable)
     
-    motivations_string = process_json_to_string(creature.motivations)
-    gui.motivations_var.set(motivations_string)
+    dict_string = process_json_to_string(creature_field)
+    gui_variable.set(dict_string)
 
 def generate_tactics(client, creature, gui):
     pass
@@ -184,11 +182,26 @@ def process_json_to_string(json_object, indent_level=0):
     return output_str
 
 
-def state_check(creature, gui):
+def state_check(creature, gui): # This is just being used for building and debugging. Currently tied to the save button.
     
-    print(gui.motivations_var.get())
-    print()
+    stats = ""
+    for stat in gui.stat_entries:
+        stats += f"{stat[2].get()} "
+    
+    print(stats)
+    print(creature.stat_block)
 
+def generate_dict_to_text_field2(client, payload, payload_info, creature):
+
+    generation = client.chat.completions.create(
+    model = "gpt-4o-mini",
+    messages = payload + payload_info(creature),
+    temperature = 1.0,
+    max_tokens = 500,
+    )
+
+    testing =  jn.loads(generation.choices[0].message.content)
+    return testing
 
 
 def main(creature, gui):
@@ -197,13 +210,7 @@ def main(creature, gui):
     if gui.genre_gen_check.get():
         list_picker(creature.genre, gui.genre_var, GENRES)
     else:
-        pass
-
-    if gui.name_gen_check.get():
-        if not gui.random_names["firsts"]:
-            generate_name_list(client, creature, gui)
-        
-        generate_name(creature, gui)
+        creature.genre = gui.genre_var.get()
 
     # if isinstance(creature, NPC):  ## NPC function not enabled.
     #     if gui.species_gen_check.get():
@@ -212,7 +219,7 @@ def main(creature, gui):
     if gui.category_gen_check.get():
         pass
     else:
-        pass
+        creature.category = gui.category_var.get()
 
     if gui.size_gen_check.get():
         pass
@@ -229,18 +236,27 @@ def main(creature, gui):
     else:
         pass
     
+    if gui.name_gen_check.get():
+        if not gui.random_names["firsts"]:
+            generate_name_list(client, creature, gui)
+        
+        generate_name(creature, gui)
+    else:
+        creature.genre = gui.name_var.get()
+
     if gui.stat_gen_check.get():
         generate_stats(creature, gui)
     else:
-        pass
+        for stat in gui.stat_entries:
+            creature.stat_block[stat[0]] = stat[2].get()
 
     if gui.abilities_gen_check.get():
-        pass
+        generate_dict_to_text_field(client, ABILITY_PAYLOAD, ABILITY_INFO, creature, creature.abilities, gui.abilities_var)
     else:
         pass
     
     if gui.motivations_gen_check.get():
-        generate_motivations(client, creature, gui)
+        generate_dict_to_text_field(client, MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, creature.motivations, gui.motivations_var)
     else:
         pass
 
