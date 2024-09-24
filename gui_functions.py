@@ -8,8 +8,13 @@ def validate_alphabetic(current_letter):
     return current_letter.isalpha()
 
 def update_variable_from_widget(string_var, event):
-    content = event.widget.get("1.0", tk.END)
-    string_var.set(content)
+    if event.widget.edit_modified():
+        cursor_position = event.widget.index(tk.INSERT)
+        content = event.widget.get("1.0", f"{tk.END}-1c")
+        string_var.set(content)
+        event.widget.edit_modified(False)
+        event.widget.mark_set(tk.INSERT, cursor_position)
+        event.widget.see(tk.INSERT)
 
 def update_widget_from_variable(string_var, widget, *args):
     widget.delete("1.0", tk.END)

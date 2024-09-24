@@ -94,6 +94,18 @@ SKILLS = ["Acrobatics",
           "Stealth",
           "Survival"]
 
+SPECIES = ["Elf", "Dwarf", "Orc", "Goblin", "Troll", "Dragon", "Gnome", "Ogre", "Faerie", "Vampire", "Werewolf", "Centaur", "Minotaur", "Merfolk", "Dryad", "Nymph", 
+    "Wraith", "Djinn", "Succubus", "Incubus", "Sprite", "Banshee", "Ghost", "Witch", "Warlock", "Shapeshifter", "Giant", "Harpy", "Demon", "Angel", "Gorgon", 
+    "Siren", "Satyr", "Brownie", "Kobold", "Kitsune", "Oni", "Tengu", "Kappa", "Sylph", "Undine", "Naga", "Rakshasa", "Valkyrie", "Selkie", "Leprechaun", 
+    "Kelpie", "Pixie", "Wendigo", "Doppelgänger", "Sphinx", "Golem", "Mummy", "Lizardfolk", "Ifrit", "Marid", "Ghoul", "Werecat", "Yōkai", "Asura", 
+    "Sylvan Spirit", "Astral Being", "Naiad", "Lamia", "Eidolon", "Yaksha", "Garuda", "Gandharva", "Kapre", "Manananggal", "Aswang", "Duende", "Encantado", 
+    "Caipora", "Behemoth", "Dybbuk", "Einherjar", "Draugr", "Jotunn", "Norn", "Fury", "Erinyes", "Nereid", "Oceanid", "Muse", "Moira", "Tarasque", "Onryō", 
+    "Shinigami", "Khepri", "Sekhmet", "Sobek", "Bastet", "Thoth", "Ma'at", "Ammit", "Set", "Atlantean", "Reptilian", "Etherial", "Fae Dragon", 
+    "Crystal Golem", "Stone Giant", "Cloud Giant", "Storm Giant", "Fire Giant", "Frost Giant", "Water Nymph", "Fire Spirit", "Ice Elemental", "Shadow Demon",
+    "Mind Flayer", "Revenant", "Bansidhe", "Thunder Being", "Skin-walker", "Changeling", "Hag", "Bogeyman", "Nightmare", "Sandman", "Gremlin", 
+    "Goblin", "Hobgoblin", "Redcap", "Trollkin", "Firbolg", "Fomorian", "Sidhe", "Tuatha Dé Danann", "Bean Nighe", "Cat Sith", "Cu Sith", "Nuckelavee", 
+    "Kelpie", "Selkie", "Finfolk", "Sasquatch", "Yowie"]
+
 
 # SYTEM PROMPTS
 
@@ -152,19 +164,9 @@ def MOTIVATIONS_INFO(creature, species, motivations):
   return [{"role": "user", "content": f"Please generate these {motivations} motivations for a {species}. Consider all of the following {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
     
 
-SPECIES_EXAMPLES = """Human, Cat, Dog, Horse, Rabbit, Cow, Sheep, Chicken, Goat, Pig, Pigeon, Dolphin, Deer, Mouse, Bear, Wolf, Fox, Owl, Eagle, Frog, Lion, Tiger, Elephant, Giraffe, Monkey, Kangaroo, Zebra, Fish, Bee, Ant, Duck, Whale, Shark, Bat, Snake, Crocodile, Lizard, Turtle, Squirrel, Skunk, Beaver, Moose, Bison, Camel, Hedgehog, Hamster, Ferret, Raccoon, Hedgehog, Chimpanzee
 
-Martian, Andromedan, Vulcan, Klingon, Cybernetic Organism, Grey Alien, Sentient AI, Replicant, Synthetic, Energy Being, Hive Mind, Exo-biosuit, Quantum Traveler, Time Displacer, Xenomorph, Asteroid Miner, Plasma Being, Genetic Hybrid, Symbiote, Galactic Trader, Terraformer, Void Dweller, Nanobot Swarm, Bioengineered Lifeform, Robot Overlord, Space Pirate, Cryogenic Survivor, Mutant, Void Serpent, Android, Space Marine, Gravity Shifter, Alien Diplomat, Fungal Colonizer, Telepathic Species, Hyper-Evolved Human, Astro-Mechanic, Jovian, Black Hole Entity, Interdimensional Traveler, Wormhole Navigator, Space Mercenary, Galactic Researcher, Cloning Experiment, Bio-Synthetic Hybrid, Telekinetic, Quantum Parasite, Transhuman, Star Harvester, Solar Entity
 
-Elf, Dwarf, Orc, Goblin, Troll, Dragon, Gnome, Ogre, Faerie, Vampire, Werewolf, Centaur, Minotaur, Griffin, Phoenix, Chimera, Unicorn, Merfolk, Dryad, Nymph, Basilisk, Hydra, Cyclops, Wraith, Djinn, Yeti, Kraken, Leviathan, Lich, Specter, Zombie, Necromancer, Succubus, Incubus, Sprite, Banshee, Ghost, Witch, Warlock, Shape-shifter, Giant, Manticore, Harpy, Imp, Demon, Archangel, Gorgon, Pegasus, Beholder, Hobgoblin, Wyvern
 
-Netrunner, Street Samurai, Corporate Drone, Synth, Cyborg, Android, Rogue AI, Fixer, Biohacker, Nano-Surgeon, Combat Medic, Neuromancer, MegaCorp Exec, Data Thief, Cyber Soldier, Clone, Smuggler, Cyber Monk, Tech Priest, Drone Operator, Augmented Mercenary, Virtual Reality Gamer, Street Racer, Hacktivist, Neuro-Engineer, Memory Dealer, Cyber Criminal, Biotech Designer, Black Market Trader, VR Junkie, Neural Network Architect, Net Diver, Synth Cop, Crime Lord, Genetically Enhanced Assassin, Sleeper Agent, Augment Dealer, AI Rights Activist, Cyber Gladiator, Drone Swarm Controller, VR Detective, Quantum Programmer, Network Enforcer, Info Broker, Cybernetic Animal, Deep Web Explorer, Brainhacker, Ex-Corp Agent, Psionic Cyber Warrior
-
-Pirate Captain, First Mate, Quartermaster, Boatswain, Gunner, Powder Monkey, Cook, Surgeon, Navigator, Swashbuckler, Privateer, Corsair, Buccaneer, Shipwright, Cabin Boy, Deckhand, Cartographer, Sailmaker, Marine, Mutineer, Scurvy Dog, Parrot, Cutthroat, Sea Monster Hunter, Shipwreck Survivor, Treasure Hunter, Pirate King, Smuggler, Rogue Pirate, Ghost Ship Crew, Cannoneer, Pirate Lord, Sea Witch, Siren, Kraken Tamer, Pirate Assassin, Pirate Queen, Ship Saboteur, Ship's Cook, Shore Raider, Prisoner, Sea Serpent Hunter, Desert Island Survivor, Rum Runner, Buccaneer King, Pirate Spy, Pirate Scholar, Shipbuilder, Pirate Healer, Rogue Buccaneer
-
-Ghost, Zombie, Vampire, Werewolf, Mummy, Skeleton, Poltergeist, Demon, Banshee, Wraith, Reaper, Ghoul, Specter, Witch, Warlock, Lich, Succubus, Incubus, Wendigo, Skinwalker, Bogeyman, Changeling, Doppelganger, Headless Horseman, Scarecrow, Swamp Creature, Cursed Doll, Possessed Child, Haunted Armor, Undead Knight, Evil Clown, Flesh Golem, Serial Killer, Cannibal, Plague Doctor, Vampire Lord, Zombie Horde, Evil Puppet, Dark Sorcerer, Grim Reaper, Mad Scientist, Shadow Monster, Mutant, Alien Parasite, Possessed Object, Dark Spirit, Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride
-
-This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed items."""
 
 ABILITY_EXAMPLES = """Multiattack. The Monster makes two attacks.
 

@@ -79,10 +79,10 @@ def generate_name(creature, gui):
     gui.name_var.set(creature.name)
     
 
-def generate_genre(creature, gui):
-    genre = random.randint(0, len(GENRES) - 1)
-    creature.genre = GENRES[genre]
-    gui.genre_var.set(GENRES[genre])
+def list_picker(creature_field, variable, choices):
+    picked = random.randint(0, len(choices) - 1)
+    creature_field = choices[picked]
+    variable.set(GENRES[picked])
 
 def generate_species(client, creature, gui): # Not required for monster generation, implement with NPCs
     pass
@@ -186,8 +186,8 @@ def process_json_to_string(json_object, indent_level=0):
 
 def state_check(creature, gui):
     
-    print(creature)
-    print(gui.skills_entry.index(f"{tk.END}-1c"))
+    print(gui.motivations_var.get())
+    print()
 
 
 
@@ -195,40 +195,58 @@ def main(creature, gui):
 
     client = initialize_client()
     if gui.genre_gen_check.get():
-        creature.genre = generate_genre(creature, gui)
-    
+        list_picker(creature.genre, gui.genre_var, GENRES)
+    else:
+        pass
+
     if gui.name_gen_check.get():
         if not gui.random_names["firsts"]:
             generate_name_list(client, creature, gui)
         
         generate_name(creature, gui)
 
-    if isinstance(creature, NPC):
-        if gui.species_gen_check.get():
-            pass
+    # if isinstance(creature, NPC):  ## NPC function not enabled.
+    #     if gui.species_gen_check.get():
+    #         list_picker(creature.species, gui.species_var, SPECIES)
 
     if gui.category_gen_check.get():
+        pass
+    else:
         pass
 
     if gui.size_gen_check.get():
         pass
+    else:
+        pass
 
     if gui.habitat_gen_check.get():
+        pass
+    else:
         pass
 
     if gui.skills_gen_check.get():
         generate_skills(creature, gui)
+    else:
+        pass
     
     if gui.stat_gen_check.get():
         generate_stats(creature, gui)
+    else:
+        pass
 
     if gui.abilities_gen_check.get():
+        pass
+    else:
         pass
     
     if gui.motivations_gen_check.get():
         generate_motivations(client, creature, gui)
+    else:
+        pass
 
     if gui.tactics_gen_check.get():
+        pass
+    else:
         pass
 
     
