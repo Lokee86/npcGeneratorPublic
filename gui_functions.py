@@ -17,9 +17,6 @@ def update_widget_from_variable(string_var, widget, *args):
 
 def check_scrollbar_visibility(text_widget, scrollbar, widget_height, widget_width, bar_column, bar_row, interval=100):
     
-    content_index = text_widget.index(f"{tk.END}-1c").split(".")
-    content_length = int(content_index[1])
-
     line_search = text_widget.get("1.0", f"{tk.END}-1c").split("\n")
     content_height = 0
     for line in line_search:

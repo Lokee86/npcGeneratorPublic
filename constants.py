@@ -7,7 +7,7 @@ MONSTER_TITLE = "Monster"
 NPC_TITLE = "NPC"
 
 CREATURE_WIDTH_FACTOR = 0.23
-CREATURE_HEIGHT_FACTOR = 0.365
+CREATURE_HEIGHT_FACTOR = 0.44
 NPC_WIDTH_FACTOR = 0.1
 NPC_HEIGHT_FACTOR = 0.05
 DIALOG_WIDTH_FACTOR = 0.2
@@ -101,14 +101,14 @@ GENDER_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provid
 is necessary to complete the request for any reason. Assess the users input opinion to the question 'would you like to combine the character's sex and gender?' 
 and return either 'yes' or 'no' exclusively. Add no punctuation, use only these words exactly. Yes means yes and no means no. If the user responds with a question, pay close attention."""}]
 
-NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
+NAME_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality name generator for all genres that is only capable of outputting names and nothing else, you do not know how
 to output words that are not names and you can only produce lists of names. This list is always provided in a line per name, unmarked format with a single newline character after each name and unprefixed item."""}]
 
-DETAILS_PAYLOAD = [{"role": "system", "content": """ [Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
+DETAILS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason."""}]
 
-MONSTER_NAME_PAYLOAD = [{"role": "system", "content": """ [Instruct]: You are a high-quality monster generator. 
+MONSTER_NAME_PAYLOAD = [{"role": "system", "content": """[Instruct]: You are a high-quality monster generator. 
 Your only task is to generate a list of original and creative monster names in JSON array format. 
 Do not include any extra words, comments, explanations, or punctuation beyond the monster names.
 Only output monster names as a JSON array of strings.
@@ -254,7 +254,7 @@ def LAST_NAME(species, genre):
 
 LIST_SHCEMA = {"type": "array", "items": {"type": "string"}}
 
-MOTIVATIONS_SCHEMA = """{
+MOTIVATIONS_SCHEMA = {
     "type": "object",
     "properties": {
         "likes": {
@@ -283,9 +283,7 @@ MOTIVATIONS_SCHEMA = """{
         }
     },
     "additionalProperties": False
-},
-"additionalProperties": False
-"""
+}
 
 
 

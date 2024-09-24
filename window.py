@@ -85,6 +85,7 @@ class WindowMonster(CreatureCreatorApp):
         # Generate Basics frames
         self.basics_frame = tk.Frame(self.master_frame)
         self.basics_frame.grid(column=0, row=0)
+        self.basics_frame.columnconfigure(2, minsize=25)
 
         # Create Genre input
         self.genre_var = tk.StringVar()
@@ -143,11 +144,11 @@ class WindowMonster(CreatureCreatorApp):
         # Generate Skills input
         self.skills_var = tk.StringVar()
         self.skills_label = tk.Label(self.basics_frame, padx='5', text='Skills: ', font=(DISPLAY_FONT, 14))
-        self.skills_entry = tk.Text(self.basics_frame, wrap='word', width=30, height=2)
+        self.skills_entry = tk.Text(self.basics_frame, wrap='word', width=30, height=3)
         self.skills_gen_check = tk.BooleanVar()
         self.skills_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Skills", variable=self.skills_gen_check)
         self.skills_label.grid(column=0, row=6, sticky=tk.E)
-        self.skills_entry.grid(column=1, row=6, sticky=tk.W)
+        self.skills_entry.grid(column=1, row=6, sticky=tk.W, pady="8")
         self.skills_gen_check_box.grid(column=3, row=6, sticky=tk.W)
         self.skills_entry.bind("<<Modified>>", lambda event: gfn.update_variable_from_widget(self.skills_var, event))
         self.skills_var.trace_add("write", lambda *args: gfn.update_widget_from_variable(self.skills_var, self.skills_entry))
@@ -156,9 +157,9 @@ class WindowMonster(CreatureCreatorApp):
         # Generate Scrollbar for skills, display when necessary
 
         self.skills_scroll_bar = tk.Scrollbar(self.basics_frame, command=self.skills_entry.yview)
-        self.skills_scroll_bar.grid(column=2, row=6, sticky=tk.W)
+        self.skills_scroll_bar.grid(column=2, row=6, sticky=tk.NS)
         self.skills_entry.config(yscrollcommand=self.skills_scroll_bar.set)
-        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 2, 30, 2, 6)
+        gfn.check_scrollbar_visibility(self.skills_entry, self.skills_scroll_bar, 3, 30, 2, 6)
 
         # Create Stat line labels & inputs
         # Frames for stats and Stat buttons
@@ -167,7 +168,8 @@ class WindowMonster(CreatureCreatorApp):
 
         self.stats_values = tk.Frame(self.stats)
         self.stats_values.grid(column=0, row=0)
-        
+
+
         # Create a list to track entry widgets for generation and input gathering
         self.stat_entries = []
         # Create the label and input widgets for stats
@@ -190,6 +192,7 @@ class WindowMonster(CreatureCreatorApp):
         # Frame for how-to-play information
         self.play_info_frame = tk.Frame(self.master_frame)
         self.play_info_frame.grid(column=0, row=2)
+        self.play_info_frame.columnconfigure(2, minsize=30)
         
         # Create Abilities input
         
@@ -203,7 +206,7 @@ class WindowMonster(CreatureCreatorApp):
 
         # Generate Scrollbar for abilities, display when necessary
         self.abilities_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.abilities_entry.yview)
-        self.abilities_scroll_bar.grid(column=2, row=0, sticky=tk.W)
+        self.abilities_scroll_bar.grid(column=2, row=0, sticky=tk.NS)
         self.abilities_entry.config(yscrollcommand=self.abilities_scroll_bar.set)
         gfn.check_scrollbar_visibility(self.abilities_entry, self.abilities_scroll_bar, 7, 45, 2, 0)  
 
@@ -222,7 +225,7 @@ class WindowMonster(CreatureCreatorApp):
 
         # Generate Scrollbar for motivations, display when necessary
         self.motivations_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.motivations_entry.yview)
-        self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.W)
+        self.motivations_scroll_bar.grid(column=2, row=0, sticky=tk.NS)
         self.motivations_entry.config(yscrollcommand=self.motivations_scroll_bar.set)
         gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 45, 2, 1)  
 
@@ -237,7 +240,7 @@ class WindowMonster(CreatureCreatorApp):
 
         # Generate Scrollbar for tactics, display when necessary
         self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)
-        self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.W)
+        self.tactics_scroll_bar.grid(column=2, row=1, sticky=tk.NS)
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
         gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 45, 2, 2)
 

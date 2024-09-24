@@ -4,9 +4,10 @@ import tkinter as tk
 from constants import *
 from classes import *
 import json as jn
+import os
 
 def initialize_client():
-    return OpenAI(base_url="http://172.21.224.1:4321/v1", api_key="lm-studio")
+    return OpenAI(base_url="https://api.openai.com/v1/", api_key=os.environ.get("API_KEY"))
 
 def creature_type(creature_type):
     if creature_type == "monster":
@@ -21,7 +22,7 @@ def creature_type(creature_type):
 def generate_npc_name_lists(client, creature, gui): 
 
     first_names = client.chat.completions.create(
-    model = "",
+    model = "gpt-4o-mini",
     messages = NAME_PAYLOAD + FIRST_NAME(creature.species, creature.genre, creature.gender),
     temperature = 1.0,
     top_p = 1.0,
@@ -31,7 +32,7 @@ def generate_npc_name_lists(client, creature, gui):
     )
     
     last_names = client.chat.completions.create(
-    model = "",
+    model = "gpt-4o-mini",
     messages = NAME_PAYLOAD + LAST_NAME(creature.species, creature.genre),
     temperature = 1.0,
     top_p = 1.0,
@@ -52,9 +53,9 @@ def generate_npc_name_lists(client, creature, gui):
 def generate_name_list(client, creature, gui):
     
     names = client.chat.completions.create(
-    model = "",
+    model = "gpt-4o-mini",
     messages = MONSTER_NAME_PAYLOAD,
-    response_format = LIST_SHCEMA,
+    # response_format = {"type": "json_object", "schema": LIST_SHCEMA},
     temperature = 1.0,
     max_tokens = 500,
     presence_penalty = 1
@@ -83,7 +84,7 @@ def generate_genre(creature, gui):
     creature.genre = GENRES[genre]
     gui.genre_var.set(GENRES[genre])
 
-def generate_species(client, creature, gui):
+def generate_species(client, creature, gui): # Not required for monster generation, implement with NPCs
     pass
 
 def generate_category(creature, gui):
@@ -108,13 +109,14 @@ def generate_skills(creature, gui):
     skills_string = process_json_to_string(creature.skills)
     gui.skills_var.set(skills_string)
     
-
-
 def generate_stats(creature, gui):
     for stat in creature.stat_block:
         creature.stat_block[stat] = str(random.randint(1, 10) + random.randint(1, 10) + random.randint(1, 10))
     for i in range(0, len(creature.stat_block)):
         gui.stat_entries[i][2].set(creature.stat_block[gui.stat_entries[i][0]])
+
+def generate_abilities(client, creture, gui):
+    pass
 
 def generate_motivations(client, creature, gui):
     if isinstance(creature, NPC):
@@ -123,9 +125,9 @@ def generate_motivations(client, creature, gui):
         species = creature.name
 
     motivations = client.chat.completions.create(
-    model = "",
+    model = "gpt-4o-mini",
     messages = MOTIVATIONS_PAYLOAD + MOTIVATIONS_INFO(creature, species, MOTIVATIONS),
-    response_format = MOTIVATIONS_SCHEMA,
+    # response_format = {"type": "json_object", "schema": MOTIVATIONS_SCHEMA},
     temperature = 1.0,
     max_tokens = 500,
     )
