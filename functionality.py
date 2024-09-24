@@ -138,22 +138,33 @@ def generate_dict_to_text_field(client, payload, payload_info, creature, creatur
     )
 
     try:
-        creature_field = jn.loads(generations.choices[0].message.content)
+        generated_dict = jn.loads(generations.choices[0].message.content)
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
         print(generations.choices[0].message.content)
         # generate_dict_to_text_field(client, payload, payload_info, creature, creature_field, gui_variable)
     
-    dict_string = process_json_to_string(creature_field)
+    
+    dict_string = process_json_to_string(generated_dict)
     gui_variable.set(dict_string)
 
     token_usage["total_tokens"] += generations.usage.total_tokens
     token_usage["completion_tokens"] += generations.usage.completion_tokens
     token_usage["prompt_tokens"] += generations.usage.prompt_tokens
 
+    match creature_field:
+        case "abilities": set_abilities(creature, generated_dict)
+        case "motivations": set_motivations(creature, generated_dict)
+
 
 def generate_tactics(client, creature, gui):
     pass
+
+def set_abilities(creature, abilities):
+    creature.abilities = abilities
+
+def set_motivations(creature, motivations):
+    creature.motivations = motivations
 
 def process_json_to_string(json_object, indent_level=0):
     # Recursively process a dictionary into a human-readable string format
@@ -201,8 +212,6 @@ def state_check(creature, gui): # This is just being used for building and debug
     for stat in gui.stat_entries:
         stats += f"{stat[2].get()} "
     
-    print(stats)
-    print(creature.genre)
     print(creature)
 
 
@@ -261,12 +270,12 @@ def main(creature, gui):
             creature.stat_block[stat[0]] = stat[2].get()
 
     if gui.abilities_gen_check.get():
-        generate_dict_to_text_field(client, ABILITY_PAYLOAD, ABILITY_INFO, creature, creature.abilities, gui.abilities_var)
+        generate_dict_to_text_field(client, ABILITY_PAYLOAD, ABILITY_INFO, creature, "abilities", gui.abilities_var)
     else:
         pass
     
     if gui.motivations_gen_check.get():
-        generate_dict_to_text_field(client, MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, creature.motivations, gui.motivations_var)
+        generate_dict_to_text_field(client, MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, "motivations", gui.motivations_var)
     else:
         pass
 

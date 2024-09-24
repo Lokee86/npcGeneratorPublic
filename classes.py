@@ -10,14 +10,14 @@ class Monster:
         self.category: str  = ""
         self.size_class: str = ""
         self.habitat: str = ""
-
-        self.skills = []
+        
 
         self.stat_block: dict = STATS
         self.motivations: dict = MOTIVATIONS
         self.tactics : dict  = TACTICS
         self.abilities: dict = {}
         self.actions: dict = ACTIONS
+        self.skills: list = []
 
     def __str__(self):
         return self._generate_str()
@@ -47,7 +47,7 @@ class Monster:
                                 formatted_output += f"{' ' * (indent + 4)}- {item.capitalize()}\n"
                         non_empty = True
                 elif value:  # Check for non-empty string values
-                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}: {str(value).capitalize()}\n"
+                    formatted_output += f"{' ' * indent}{key.replace('_', ' ').capitalize()}: {str(value).title()}\n"
                     non_empty = True
             return formatted_output, non_empty
 
@@ -61,8 +61,13 @@ class Monster:
                 nested_output, is_non_empty = format_dict(value)
                 if is_non_empty:
                     output += f"{attr.replace('_', ' ').capitalize()}:\n{nested_output}"
+            elif isinstance(value, list):
+                if value:
+                    output += f"{attr.replace('_', ' ').capitalize()}:\n"
+                    for item in value:
+                        output += f" -{str(item).replace('_', ' ').title()}\n"
             elif value:
-                output += f"{attr.replace('_', ' ').capitalize()}: {str(value).capitalize()}\n"
+                output += f"{attr.replace('_', ' ').capitalize()}: {str(value).title()}\n"
 
         return output
 

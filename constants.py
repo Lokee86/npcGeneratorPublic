@@ -246,8 +246,8 @@ ABILITY_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured j
                     Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
                     It is very important that only the json text be provided and NOTHING ELSE is present in the response.
                     It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used.
-                    Return only a json obect in the format of { "<Ability Name>" : "<Ability Description>" } for a random number of DnD creature abilities for the provided creature profile.
-                    Every creature MUST have a single basic attack in addition to abilities within the guidelines below.
+                    Return only a json obect in the format of { "<Ability Name>" : "<Ability Description>" } for a random number of creature abilities for the provided creature profile.
+                    Every creature MUST have a single basic attack in addition to abilities within the guidelines below. Do not label this ability "Basic Attack" label it appropriately to whatever it is.
                     Of critical note, ALWAYS include at least one attack, and ANY attack you mention in the multi-attack option if present. Maintain consistency in power level, both in damage output, and style. Keep the nature of the abilites consistent with each other.
                     High power level creatures should posess more abilites with a broader damage profile. Simpler creatures should have less. Use the Following guidelines non-combatant: 0-2, minion: 0-2, normal enemies: 0-2, elite enemies: 1-3, super-elites: 2-4, boss enemies: 3-7, epic boss: 4-10, and legendary boss: 6+
                     Lower CR creatures should have less abilities than higher CR creatures would.
