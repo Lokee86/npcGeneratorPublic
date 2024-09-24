@@ -252,7 +252,7 @@ def main(creature, gui):
         
         generate_name(creature, gui)
     else:
-        creature.genre = gui.name_var.get()
+        creature.name = gui.name_var.get()
 
     if gui.stat_gen_check.get():
         generate_stats(creature, gui)
