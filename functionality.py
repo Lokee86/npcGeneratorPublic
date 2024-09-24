@@ -6,7 +6,9 @@ from classes import *
 import json as jn
 import os
 
-token_usage = {}
+token_usage = {"total_tokens" : 0,
+               "completion_tokens" : 0,
+               "prompt_tokens" : 0}
 
 def initialize_client():
     return OpenAI(base_url="https://api.openai.com/v1/", api_key=os.environ.get("API_KEY"))
@@ -51,8 +53,6 @@ def generate_npc_name_lists(client, creature, gui):
     for name in names:
         if name:
             gui.random_names["lasts"].append(name.replace("\n", "").strip('()\'.<>?"[]\\[] ,'))
-    
-    token_usage["total_tokens"] = first_names
 
 def generate_name_list(client, creature, gui):
     
@@ -70,6 +70,10 @@ def generate_name_list(client, creature, gui):
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
         generate_name_list(client, creature, gui)
+
+    token_usage["total_tokens"] += names.usage.total_tokens
+    token_usage["completion_tokens"] += names.usage.completion_tokens
+    token_usage["prompt_tokens"] += names.usage.prompt_tokens
 
 def generate_name(creature, gui):
     firsts = gui.random_names["firsts"]
@@ -139,6 +143,11 @@ def generate_dict_to_text_field(client, payload, payload_info, creature, creatur
     dict_string = process_json_to_string(creature_field)
     gui_variable.set(dict_string)
 
+    token_usage["total_tokens"] += generations.usage.total_tokens
+    token_usage["completion_tokens"] += generations.usage.completion_tokens
+    token_usage["prompt_tokens"] += generations.usage.prompt_tokens
+
+
 def generate_tactics(client, creature, gui):
     pass
 
@@ -190,19 +199,6 @@ def state_check(creature, gui): # This is just being used for building and debug
     
     print(stats)
     print(creature.stat_block)
-
-def generate_dict_to_text_field2(client, payload, payload_info, creature):
-
-    generation = client.chat.completions.create(
-    model = "gpt-4o-mini",
-    messages = payload + payload_info(creature),
-    temperature = 1.0,
-    max_tokens = 500,
-    )
-
-    testing =  jn.loads(generation.choices[0].message.content)
-    return testing
-
 
 def main(creature, gui):
 
@@ -265,4 +261,5 @@ def main(creature, gui):
     else:
         pass
 
+    print(token_usage)
     
