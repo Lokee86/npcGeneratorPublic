@@ -234,6 +234,7 @@ class MonsterWindow(CreatureCreatorApp):
         gfn.check_scrollbar_visibility(self.motivations_entry, self.motivations_scroll_bar, 7, 45, 2, 1)  
 
         # Create Tactics input
+        self.tactics_var = tk.StringVar()
         self.tactics_label = tk.Label(self.play_info_frame, padx='5', text='Tactics: ', font=(DISPLAY_FONT, 14))
         self.tactics_entry = tk.Text(self.play_info_frame, wrap='word', width=45, height=7)
         self.tactics_gen_check = tk.BooleanVar()
@@ -241,6 +242,8 @@ class MonsterWindow(CreatureCreatorApp):
         self.tactics_label.grid(column=0, row=2, sticky=tk.NE)
         self.tactics_entry.grid(column=1, row=2, sticky=tk.W, pady='5')
         self.tactics_gen_check_box.grid(column=3, row=2, sticky=tk.W)
+        self.tactics_entry.bind("<<Modified>>", lambda event: gfn.update_variable_from_widget(self.tactics_var, event))
+        self.tactics_var.trace_add("write", lambda *args: gfn.update_widget_from_variable(self.tactics_var, self.tactics_entry))
 
         # Generate Scrollbar for tactics, display when necessary
         self.tactics_scroll_bar = tk.Scrollbar(self.play_info_frame, command=self.tactics_entry.yview)

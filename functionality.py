@@ -155,10 +155,11 @@ def generate_dict_to_text_field(client, payload, payload_info, creature, creatur
     match creature_field:
         case "abilities": set_abilities(creature, generated_dict)
         case "motivations": set_motivations(creature, generated_dict)
+        case "tactics": set_tactics(creature, generated_dict)
 
 
-def generate_tactics(client, creature, gui):
-    pass
+def set_tactics(creature, tactics):
+    creature.tactics = tactics
 
 def set_abilities(creature, abilities):
     creature.abilities = abilities
@@ -275,12 +276,12 @@ def main(creature, gui):
         pass
     
     if gui.motivations_gen_check.get():
-        generate_dict_to_text_field(client, MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, "motivations", gui.motivations_var)
+        generate_dict_to_text_field(client, TACTICS_MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, "motivations", gui.motivations_var)
     else:
         pass
 
     if gui.tactics_gen_check.get():
-        pass
+        generate_dict_to_text_field(client, TACTICS_MOTIVATIONS_PAYLOAD, TACTICS_INFO, creature, "tactics", gui.tactics_var)
     else:
         pass
 

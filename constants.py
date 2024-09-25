@@ -133,30 +133,8 @@ Be certain to use non-specific, original, and creative monster names, declining 
 
 def MONSTER_INFO(creature):
   return [{"role": "user", "content": f"Provide a list of 25 creative and original monster names in a json array format. Consider this information when formulating the names {str(creature.formatted_str('name'))}"}]
-# EXAMPLE MONSTER NAMES: 
-# Hydra, Medusa, Torrasque, Shengin, Cerberus, Sleipnir, Gravelurk, Skynthorn, 
-# Blightcrawler, Shardbeast, Driftshade, Wraithvine, Frostgnash, Mirefiend, 
-# Scorchwing, Riftclaw, Gloomhusk, Thunderjaw, Voidstalker, Spitegrub, Silkshiver, 
-# Venomspire, Goremaw, Dreadspire, Blazeclaw, Netherspite, Fleshrender, Emberwight, 
-# Shadowfang, Glimmertide, Rotweaver, Stormdrift, Ashbrute, Whisperclaw, Grimroot, 
-# Cinderwraith, Murkstalker, Frostbane, Gorebound, Blightmaw, Hollowscreech, 
-# Snarethorn, Voidreaver, Shardfang, Sablewretch, Blazeshade, Nightleech, Stormwrack, 
-# Riftshade, Veilrend, Embergrasp, Shatterfiend, Grimquill, Venomfang, Dusksnare, 
-# Ironspine, Void Serpent, Android, Space Marine, Gravity Shifter, Alien Diplomat, 
-# Fungal Colonizer, Telepathic Species, Hyper-Evolved Human, Astro-Mechanic, Jovian, 
-# Black Hole Entity, Interdimensional Traveler, Wormhole Navigator, Space Mercenary, 
-# Galactic Researcher, Cloning Experiment, Bio-Synthetic Hybrid, Telekinetic, Quantum 
-# Parasite, Transhuman, Star Harvester, Solar Entity, Elf, Dwarf, Orc, Goblin, Troll, 
-# Dragon, Gnome, Ogre, Faerie, Vampire, Werewolf, Centaur, Minotaur, Griffin, Phoenix, 
-# Chimera, Unicorn, Merfolk, Dryad, Nymph, Basilisk, Hydra, Cyclops, Wraith, Djinn, 
-# Yeti, Kraken, Leviathan, Lich, Specter, Zombie, Necromancer, Succubus, Incubus, Sprite, 
-# Banshee, Ghost, Witch, Warlock, Shape-shifter, Giant, Manticore, Harpy, Imp, Demon, 
-# Archangel, Gorgon, Pegasus, Beholder, Hobgoblin, Wyvern, Flesh Golem, Wendigo, 
-# Skinwalker, Bogeyman, Changeling, Doppelganger, Headless Horseman, Scarecrow, Swamp 
-# Creature, Cursed Doll, Haunted Armor, Undead Knight, Evil Clown, Plague Doctor, Evil 
-# Puppet, Dark Sorcerer, Grim Reaper, Shadow Monster, Alien Parasite, Dark Spirit, 
-# Undead Pirate, Flesh-Eating Monster, Evil Spirit, Voodoo Priest, Corpse Bride
-MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
+
+TACTICS_MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
                 You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided key lacking one already.
                 Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
                 Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
@@ -165,6 +143,8 @@ MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structur
 
 def MOTIVATIONS_INFO(creature):
   return [{"role": "user", "content": f"Please generate these {MOTIVATIONS} motivations for a creature or NPC. Consider all of the following profile {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
+def TACTICS_INFO(creature):
+  return [{"role": "user", "content": f"Please generate these {TACTICS} motivations for a creature or NPC, 'high_defensive' refers when a creature is defending it's young, it's home, or something similar. Consider all of the following profile {str(creature.formatted_str('tactics'))} Please provide the returned response in matching Json format."}]
 
 ABILITY_EXAMPLES = """Multiattack. The Monster makes two attacks.
 
@@ -322,10 +302,8 @@ Cornered: Fight aggressively, using brute strength to overcome enemies in close 
 Threatened: Charge head-on at the biggest threat, attempting to crush it with sheer power.
 High Defensive: Use its knowledge of complex terrain to set traps and ambushes, defending its lair or offspring with ferocity, never allowing enemies to advance easily."""
 
-TACTICS_PAYLOAD = []
 
-def TACTICS_INFOR(creature):
-  return
+
 
 
 
