@@ -251,7 +251,7 @@ class MonsterWindow(CreatureCreatorApp):
         self.tactics_entry.config(yscrollcommand=self.tactics_scroll_bar.set)
         gfn.check_scrollbar_visibility(self.tactics_entry, self.tactics_scroll_bar, 7, 45, 2, 2)
 
-        # Radio button frame
+        # Radio button frames
         self.select_enemy_frame = tk.Frame(self.master_frame)
         self.select_enemy_frame.grid(column=3, row=3, pady='5')
         
@@ -265,6 +265,8 @@ class MonsterWindow(CreatureCreatorApp):
         self.select_boss_enemy = tk.Radiobutton(self.select_enemy_frame, text="Boss Enemy", variable=self.select_enemy_var, value="boss_enemy")
         self.select_epic_boss = tk.Radiobutton(self.select_enemy_frame, text="Epic Boss", variable=self.select_enemy_var, value="epic_boss")
         self.select_legendary_boss = tk.Radiobutton(self.select_enemy_frame, text="Legendary Boss", variable=self.select_enemy_var, value="legendary_boss")
+        self.select_enemy_gen_check = tk.BooleanVar()
+        self.select_enemy_gen_check_box = tk.Checkbutton(self.select_enemy_frame, text="Generate Creature Type", variable=self.select_enemy_gen_check)
 
         self.select_non_combatant.grid(column=1, row=1, pady='5', padx='5')
         self.select_minions.grid(column=1, row=2, pady='5', padx='5')
@@ -274,6 +276,7 @@ class MonsterWindow(CreatureCreatorApp):
         self.select_boss_enemy.grid(column=3, row=2, pady='5', padx='5')
         self.select_epic_boss.grid(column=4, row=1, pady='5', padx='5')
         self.select_legendary_boss.grid(column=4, row=2, pady='5', padx='5')
+        self.select_enemy_gen_check_box.grid(column=1, row=3, pady='5', columnspan=3, sticky=tk.EW)
 
 
         # Frame for buttons

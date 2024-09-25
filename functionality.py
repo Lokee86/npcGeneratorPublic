@@ -222,10 +222,12 @@ def main(creature, gui):
     for total in token_usage:
         token_usage[total] = 0
 
-    if gui.select_enemy_var.get():
-        creature.NPC_class = gui.select_enemy_var.get()
-    else:
+    if not gui.select_enemy_var.get():
         list_picker(creature, "NPC_class", gui.select_enemy_var, ENEMY_CLASSES)
+    elif gui.select_enemy_gen_check.get():
+        list_picker(creature, "NPC_class", gui.select_enemy_var, ENEMY_CLASSES)
+    else:
+        creature.NPC_class = gui.select_enemy_var.get()
 
     if gui.genre_gen_check.get():
         list_picker(creature, "genre", gui.genre_var, GENRES)
