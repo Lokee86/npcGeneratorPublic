@@ -106,6 +106,10 @@ SPECIES = ["Elf", "Dwarf", "Orc", "Goblin", "Troll", "Dragon", "Gnome", "Ogre", 
     "Goblin", "Hobgoblin", "Redcap", "Trollkin", "Firbolg", "Fomorian", "Sidhe", "Tuatha Dé Danann", "Bean Nighe", "Cat Sith", "Cu Sith", "Nuckelavee", 
     "Kelpie", "Selkie", "Finfolk", "Sasquatch", "Yowie"]
 
+CATEGORIES = ["Aberration", "Beast", "Celestial", "Construct", "Techo-Construct", "Dragon", "Dragonkin", "Inter-Dimensional", "Other", "Elemental", "Fey", "Fiend", "Giant", "Humanoid", "Monstrosity", "Ooze", "Plant", "Undead", "Lycanthrope", "Shapeshifter",
+            "Demon", "Devil", "Archon", "Archfey", "Primordial", "Cyborg", "AI", "Mutant", "Alien", "Synth", "Android", "Traveler", "Cursed Construct", "Abomination"]
+
+
 ENEMY_CLASSES = ["minions", "normal_enemy", "elite_enemy", "super_eliy", "boss_enemy", "epic_boss", "legendary_boss", "non_combatant"]
 
 # SYTEM PROMPTS
@@ -146,26 +150,29 @@ def MOTIVATIONS_INFO(creature):
 def TACTICS_INFO(creature):
   return [{"role": "user", "content": f"Please generate these {TACTICS} motivations for a creature or NPC, 'high_defensive' refers when a creature is defending it's young, it's home, or something similar. Consider all of the following profile {str(creature.formatted_str('tactics'))} Please provide the returned response in matching Json format."}]
 
-ABILITY_EXAMPLES = """Multiattack. The Monster makes two attacks.
+ABILITY_EXAMPLES = """
+Beast of Burden. The Monster is considered to be a ??? animal for the purpose of determining its carrying capacity.
 
-Spellcasting. The Monster is a ???-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 10, +2 to hit with spell attacks). The Monster has the following ??? spells prepared:
 
-Cantrips (at will): spell, spell, spell, spell
-1st level (4 slots): spell, spell, spell
-2nd level (3 slots): spell, spell, spell
-3rd level (2 slots): spell, spell
+Charge. If the Monster moves at least ??? ft. straight toward a target and then hits it with a ??? attack on the same turn, the target takes an extra [???D???] ??? damage. If the target is a creature, it must succeed on a DC ??? Strength saving throw or be knocked prone.
 
-Legendary Resistance (3/day). If the Monster fails a saving throw, it can choose to succeed instead.
+Confer ??? Resistance. The Monster can grant resistance to ??? damage to anyone riding it.
 
-Berserk. Whenever the Monster starts its turn with ??? hit points or fewer, roll a d6. On a 6, the Monster goes berserk. On each of its turns while berserk, the Monster attacks the nearest creature it can see. If no creature is near enough to move to and attack, the Monster attacks an object, with preference for an object smaller than itself. Once the Monster goes berserk, it continues to do so until it is destroyed or regains all its hit points.
+Constrict. Melee Weapon Attack: +2 to hit, reach 5 ft., one creature. Hit: [STR ???D???] bludgeoning damage, and the target is grappled (escape DC ???). Until this grapple ends, the creature is restrained, and the Monster can't constrict another target.
 
-Amorphous. The Monster can move through a space as narrow as 1 inch wide without squeezing.
+Assassinate. During its first turn, the Monster has advantage on attack rolls against any creature that hasn't taken a turn. Any hit the Monster scores against a surprised creature is a critical hit.
 
-Innate Spellcasting. The Monster's innate spellcasting ability is Intelligence (spell save DC 10, +2 to hit with spell attacks). It can innately cast the following spells, requiring no material components:
+??? Attack. The Monster makes a ??? attack.
 
-At will: spell, spell, spell
-3/day each: spell, spell, spell
-1/day each: spell, spell
+Aversion to ???. If the Monster takes ??? damage, it has disadvantage on attack rolls and ability checks until the end of its next turn.
+
+Dark Devotion. The Monster has advantage on saving throws against being charmed or frightened.
+
+Death Burst. When the Monster dies, it explodes in a burst of ???. Each creature within ??? ft. of it must make a DC ??? Dexterity saving throw, taking [???D???] ??? damage on a failed save, or half as much damage on a successful one.
+
+Detect. The Monster makes a Wisdom (Perception) check.
+
+Devil's Sight. Magical darkness doesn't impede the devil's darkvision
 
 Aggressive. As a bonus action, the Monster can move up to its speed toward a hostile creature that it can see.
 
@@ -179,19 +186,19 @@ Angelic Weapons. The Monster's weapon attacks are magical. When the Monster hits
 
 Antimagic Susceptibility. The Monster is incapacitated while in the area of an antimagic field. If targeted by dispel magic, the Monster must succeed on a Constitution saving throw against the caster's spell save DC or fall unconscious for 1 minute.
 
-Assassinate. During its first turn, the Monster has advantage on attack rolls against any creature that hasn't taken a turn. Any hit the Monster scores against a surprised creature is a critical hit.
-
-??? Attack. The Monster makes a ??? attack.
-
-Aversion to ???. If the Monster takes ??? damage, it has disadvantage on attack rolls and ability checks until the end of its next turn.
-
-Beast of Burden. The Monster is considered to be a ??? animal for the purpose of determining its carrying capacity.
-
+Standing Leap. The Monster's long jump is up to ??? ft. and its high jump is up to ??? ft., with or without a running start.
 Blind Senses. The Monster can't use its blindsight while deafened and unable to smell.
 
 Blood Frenzy. The Monster has advantage on melee attack rolls against any creature that doesn't have all its hit points.
 
 Brave. The Monster has advantage on saving throws against being frightened.
+
+Innate Spellcasting. The Monster's innate spellcasting ability is Intelligence (spell save DC 10, +2 to hit with spell attacks). It can innately cast the following spells, requiring no material components:
+
+At will: spell, spell, spell
+3/day each: spell, spell, spell
+1/day each: spell, spell
+wtc
 
 Breath Weapon (Recharge ???). The Monster exhales ??? in a ???-foot line that is ??? feet wide. Each creature in that line must make a DC ??? Dexterity saving throw, taking [???D???] ??? damage on a failed save, or half as much damage on a successful one.
 
@@ -199,30 +206,52 @@ Brute. A melee weapon deals one extra die of its damage when the Monster hits wi
 
 ??? Camouflage. The Monster has advantage on Dexterity (Stealth) checks made to hide in ??? terrain.
 
-Change Shape. The Monster magically polymorphs into a small or medium humanoid, or back into its true form. Its statistics are the same in each form. Any equipment the Monster is wearing or carrying isn't transformed. If the Monster dies, it reverts to its true form.
+Inscrutable. The Monster is immune to any effect that would sense its emotions or read its thoughts, as well as any divination spell that it refuses. Wisdom (Insight) checks made to ascertain the Monster's intentions or sincerity have disadvantage.
 
-Charge. If the Monster moves at least ??? ft. straight toward a target and then hits it with a ??? attack on the same turn, the target takes an extra [???D???] ??? damage. If the target is a creature, it must succeed on a DC ??? Strength saving throw or be knocked prone.
+Fear Aura. Any creature hostile to the Monster that starts its turn within ??? feet of the Monster must make a DC ??? Wisdom saving throw, unless the Monster is incapacitated. On a failed save, the creature is frightened until the start of its next turn. If a creature's saving throw is successful, the creature is immune to the Monster's Fear Aura for the next 24 hours.
 
-Confer ??? Resistance. The Monster can grant resistance to ??? damage to anyone riding it.
+Incorporeal. The Monster can move through other creatures and objects as if they were difficult terrain. It takes [???D???] force damage if it ends its turn inside an object.
 
-Constrict. Melee Weapon Attack: +2 to hit, reach 5 ft., one creature. Hit: [STR ???D???] bludgeoning damage, and the target is grappled (escape DC ???). Until this grapple ends, the creature is restrained, and the Monster can't constrict another target.
+False Appearance. While the Monster remains motionless, it is indistinguishable from ???.
+
+Halfling Nimbleness. The halfling can move through the space of any creature that is of a size larger than its own.
 
 Corrode Metal. Any nonmagical weapon made of metal that hits the Monster corrodes. After dealing damage, the weapon takes a permanent and cumulative -1 penalty to damage rolls. If its penalty drops to -5, the weapon is destroyed. Non magical ammunition made of metal that hits the Monster is destroyed after dealing damage.
 The Monster can eat through 2-inch-thick, nonmagical metal in 1 round.
+
+Spellcasting. The Monster is a ???-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 10, +2 to hit with spell attacks). The Monster has the following ??? spells prepared:
+
+Cantrips (at will): spell, spell, spell, spell
+1st level (4 slots): spell, spell, spell
+2nd level (3 slots): spell, spell, spell
+3rd level (2 slots): spell, spell
+etc
+
+Legendary Resistance (3/day). If the Monster fails a saving throw, it can choose to succeed instead.
+
+Berserk. Whenever the Monster starts its turn with ??? hit points or fewer, roll a d6. On a 6, the Monster goes berserk. On each of its turns while berserk, the Monster attacks the nearest creature it can see. If no creature is near enough to move to and attack, the Monster attacks an object, with preference for an object smaller than itself. Once the Monster goes berserk, it continues to do so until it is destroyed or regains all its hit points.
+
+Amorphous. The Monster can move through a space as narrow as 1 inch wide without
+Change Shape. The Monster magically polymorphs into a small or medium humanoid, or back into its true form. Its statistics are the same in each form. Any equipment the Monster is wearing or carrying isn't transformed. If the Monster dies, it reverts to its true form.
 
 Cunning Action. On each of its turns, the Monster can use a bonus action to take the Dash, Disengage, or Hide action.
 
 ??? Absorption. Whenever the Monster is subjected to ??? damage, it takes no damage and instead regains a number of hit points equal to the ??? damage dealt.
 
 Damage Transfer. While it is grappling a creature, the Monster takes only half the damage dealt to it, and the creature grappled by the Monster takes the other half.
+Multiattack. The Monster makes two attacks.
 
-Dark Devotion. The Monster has advantage on saving throws against being charmed or frightened.
+Sickle. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) slashing damage.
 
-Death Burst. When the Monster dies, it explodes in a burst of ???. Each creature within ??? ft. of it must make a DC ??? Dexterity saving throw, taking [???D???] ??? damage on a failed save, or half as much damage on a successful one.
+Whip. Melee Weapon Attack: +2 to hit, reach 10 ft., one target. Hit: 2 (1d4) slashing damage.
 
-Detect. The Monster makes a Wisdom (Perception) check.
 
-Devil's Sight. Magical darkness doesn't impede the devil's darkvision."""
+Regeneration. The Monster regains ??? hit points at the start of its turn if it has at least 1 hit point.
+
+Greatclub. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 4 (1d8) bludgeoning damage.
+
+Spear. Melee or Ranged Weapon Attack: +2 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 3 (1d6) piercing damage, or 4 (1d8) piercing damage if used with two hands to make a melee attack.
+"""
     
 ABILITY_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
                     You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided key lacking one already.

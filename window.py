@@ -125,8 +125,9 @@ class MonsterWindow(CreatureCreatorApp):
         self.category_gen_check_box.grid(column=3, row=3, sticky=tk.W)
 
         # Generate Size input
+        self.size_var = tk.StringVar()
         self.size_label = tk.Label(self.basics_frame, padx='5', text='Size: ', font=(DISPLAY_FONT, 14))
-        self.size_entry = tk.Entry(self.basics_frame, width=12)
+        self.size_entry = tk.Entry(self.basics_frame, width=12, textvariable=self.size_var)
         self.size_gen_check = tk.BooleanVar()
         self.size_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Size", variable=self.size_gen_check)
         self.size_label.grid(column=0, row=4, sticky=tk.E)
@@ -134,8 +135,9 @@ class MonsterWindow(CreatureCreatorApp):
         self.size_gen_check_box.grid(column=3, row=4, sticky=tk.W)
 
         # Generate Habitat input
+        self.habitat_var = tk.StringVar()
         self.habitat_label = tk.Label(self.basics_frame, padx='5', text='Habitat: ', font=(DISPLAY_FONT, 14))
-        self.habitat_entry = tk.Entry(self.basics_frame, width=12)
+        self.habitat_entry = tk.Entry(self.basics_frame, width=12, textvariable=self.habitat_var)
         self.habitat_gen_check = tk.BooleanVar()
         self.habitat_gen_check_box = tk.Checkbutton(self.basics_frame, text="Generate Habitat", variable=self.habitat_gen_check)
         self.habitat_label.grid(column=0, row=5, sticky=tk.E)

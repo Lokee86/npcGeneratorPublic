@@ -239,7 +239,7 @@ def main(creature, gui):
     #         list_picker(creature.species, gui.species_var, SPECIES)
 
     if gui.category_gen_check.get():
-        pass
+        list_picker(creature, "genre", gui.category_var, CATEGORIES)
     else:
         creature.category = gui.category_var.get()
 
