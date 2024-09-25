@@ -84,7 +84,7 @@ class MonsterWindow(CreatureCreatorApp):
         
         # Generate Basics frames
         self.basics_frame = tk.Frame(self.master_frame)
-        self.basics_frame.grid(column=0, row=0)
+        self.basics_frame.grid(column=3, row=0)
         self.basics_frame.columnconfigure(2, minsize=25)
 
         # Create Genre input
@@ -165,7 +165,7 @@ class MonsterWindow(CreatureCreatorApp):
         # Create Stat line labels & inputs
         # Frames for stats and Stat buttons
         self.stats = tk.Frame(self.master_frame)
-        self.stats.grid(column=0, row=1)
+        self.stats.grid(column=3, row=1)
 
         self.stats_values = tk.Frame(self.stats)
         self.stats_values.grid(column=0, row=0)
@@ -192,7 +192,7 @@ class MonsterWindow(CreatureCreatorApp):
         
         # Frame for how-to-play information
         self.play_info_frame = tk.Frame(self.master_frame)
-        self.play_info_frame.grid(column=0, row=2)
+        self.play_info_frame.grid(column=3, row=2)
         self.play_info_frame.columnconfigure(2, minsize=30)
         
         # Create Abilities input
@@ -222,7 +222,7 @@ class MonsterWindow(CreatureCreatorApp):
         self.motivations_gen_check_box = tk.Checkbutton(self.play_info_frame, text="Generate Motivations", variable=self.motivations_gen_check)
         self.motivations_label.grid(column=0, row=1, sticky=tk.NE)
         self.motivations_entry.grid(column=1, row=1, sticky=tk.W, pady='5')
-        self.motivations_gen_check_box.grid(column=3, row=1, sticky=tk.W)
+        self.motivations_gen_check_box.grid(column=3, row=1, sticky=tk.W, padx=(0, 20))
         self.motivations_entry.bind("<<Modified>>", lambda event: gfn.update_variable_from_widget(self.motivations_var, event))
         self.motivations_var.trace_add("write", lambda *args: gfn.update_widget_from_variable(self.motivations_var, self.motivations_entry))
 
@@ -250,7 +250,7 @@ class MonsterWindow(CreatureCreatorApp):
 
         # Radio button frame
         self.select_enemy_frame = tk.Frame(self.master_frame)
-        self.select_enemy_frame.grid(column=0, row=3, pady='5')
+        self.select_enemy_frame.grid(column=3, row=3, pady='5')
         
         # Creature style selection
         self.select_enemy_var = tk.StringVar()
@@ -275,7 +275,7 @@ class MonsterWindow(CreatureCreatorApp):
 
         # Frame for buttons
         self.button_frame = tk.Frame(self.master_frame)
-        self.button_frame.grid(column=0, row=4, pady='5')
+        self.button_frame.grid(column=3, row=4, pady='5')
 
         # Save and Generate buttons
         self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
