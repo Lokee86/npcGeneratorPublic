@@ -62,7 +62,7 @@ def generate_name_list(client, creature, gui):
     
     names = client.chat.completions.create(
     model = "gpt-4o-mini",
-    messages = MONSTER_NAME_PAYLOAD,
+    messages = MONSTER_NAME_PAYLOAD + MONSTER_INFO(creature),
     # response_format = {"type": "json_object", "schema": LIST_SHCEMA},
     temperature = 1.0,
     max_tokens = 500,
