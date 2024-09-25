@@ -247,14 +247,14 @@ def main(creature, gui):
         creature.category = gui.category_var.get()
 
     if gui.size_gen_check.get():
-        pass
+        list_picker(creature, "size", gui.size_var, SIZES)
     else:
-        pass
+        creature.size = gui.size_var.get()
 
     if gui.habitat_gen_check.get():
-        pass
+        list_picker(creature, "habitat", gui.habitat_var, HABITATS)
     else:
-        pass
+        creature.habitat = gui.habitat_var
 
     if gui.skills_gen_check.get():
         generate_skills(creature, gui)

@@ -110,6 +110,119 @@ CATEGORIES = ["Aberration", "Beast", "Celestial", "Construct", "Techo-Construct"
             "Demon", "Devil", "Archon", "Archfey", "Primordial", "Cyborg", "AI", "Mutant", "Alien", "Synth", "Android", "Traveler", "Cursed Construct", "Abomination"]
 
 
+SIZES = ["Tiny",
+        "Small",
+        "Medium",
+        "Large",
+        "Huge",
+        "Gargantuan"]
+
+HABITATS = ["Enchanted Forests",
+            "Underground Caverns",
+            "Mystical Swamps",
+            "Floating Islands",
+            "Ancient Ruins",
+            "Crystal Caves",
+            "Forgotten Dungeons",
+            "Volcanic Mountains",
+            "Frozen Wastelands",
+            "Dark Forests",
+            "Elven Cities",
+            "Dwarven Strongholds",
+            "Sacred Groves",
+            "Haunted Woods",
+            "Dragon’s Lair",
+            "Cloud Kingdoms",
+            "Faerie Glades",
+            "Underwater Kingdoms",
+            "Deserted Castles",
+            "Hidden Valleys",
+            
+            "Alien Planets",
+            "Space Stations",
+            "Asteroid Fields",
+            "Cyberpunk Metropolises",
+            "Terraforming Colonies",
+            "Dyson Spheres",
+            "Quantum Realms",
+            "Starship Interiors",
+            "Holographic Simulations",
+            "Black Hole Vortices",
+            "Artificial Ecosystems",
+            "Extraterrestrial Hives",
+            "Plasma Storms",
+            "Warped Dimensions",
+            "Alien Cities",
+            "Orbital Habitats",
+            "Frozen Moons",
+            "Nanobot Swarms",
+            "Time Dilation Fields",
+            "Clone Laboratories",
+            
+            "Abandoned Asylums",
+            "Cursed Mansions",
+            "Haunted Houses",
+            "Graveyards",
+            "Foggy Moors",
+            "Dilapidated Hospitals",
+            "Eldritch Temples",
+            "Underground Catacombs",
+            "Desolate Ghost Towns",
+            "Blood-soaked Altars",
+            "Dark, Endless Corridors",
+            "Ruined Churches",
+            "Ancient Burial Grounds",
+            "Forgotten Tombs",
+            "Abandoned Amusement Parks",
+            "Swamps of the Damned",
+            "Vampire Crypts",
+            "Creepy Forest Clearings",
+            "Isolated Cabins",
+            "Monster-infested Sewers",
+            
+            "Prehistoric Jungles",
+            "Medieval Castles",
+            "Victorian London",
+            "Futuristic Megacities",
+            "Time Loops",
+            "Ancient Civilizations",
+            "Post-apocalyptic Wastelands",
+            "Quantum Fields",
+            "Alternate Realities",
+            "Steampunk Factories",
+            "Temporal Anomalies",
+            "Dimensional Rifts",
+            "Forgotten Timelines",
+            "Dystopian Governments",
+            "Parallel Universes",
+            "Chrono Towers",
+            "Temporal Deserts",
+            "Shifting Historical Battlefields",
+            "Lost Futures",
+            "Collapsing Time Bubbles",
+            
+            "Fairy Rings",
+            "Mountain Caves",
+            "Enchanted Springs",
+            "Old Mill Houses",
+            "Troll Bridges",
+            "Wishing Wells",
+            "Sacred Mountains",
+            "Mysterious Glens",
+            "Cursed Rivers",
+            "Ancient Woodlands",
+            "Giant's Causeway",
+            "Hidden Meadows",
+            "Celtic Stone Circles",
+            "Mermaid Lagoons",
+            "Ghostly Moorlands",
+            "Dark Forest Paths",
+            "Witch's Cottages",
+            "Elven Enclaves",
+            "Changelings' Hideaways",
+            "Pixie Hollow"]
+
+
 ENEMY_CLASSES = ["minions", "normal_enemy", "elite_enemy", "super_eliy", "boss_enemy", "epic_boss", "legendary_boss", "non_combatant"]
 
 # SYTEM PROMPTS
@@ -118,7 +231,10 @@ ENEMY_CLASSES = ["minions", "normal_enemy", "elite_enemy", "super_eliy", "boss_e
 
 NAME_PAYLOAD = [{"role": "system", "content": """[Instruct]: Explicitly provide the requested outpout. Do not ever include any extra comments, explanations, justifications any kind of text, numbering or punctuation beyond what
 is necessary to complete the request for any reason. You are a high quality name generator for all genres that is only capable of outputting names and nothing else, you do not know how
-to output words that are not names and you can only produce lists of names. This list is always provided in a json array format."""}]
+to output words that are not names and you can only produce lists of names. 
+It is very important that only the json text be provided and NOTHING ELSE is present in the response.
+It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parsing, ensure the exact syntax is correct and used.
+This list is always provided in a json array format."""}]
 
 def FIRST_NAME(species, genre, gender):
   return [{"role": "user", "content": f"Give me a list of 25 {species} {genre} setting first names for a {gender}."}]
@@ -143,7 +259,7 @@ TACTICS_MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use 
                 Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
                 Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
                 It is very important that only the json text be provided and NOTHING ELSE is present in the response.
-                It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parse, ensure the exacty syntax is correct and used."""}]
+                It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parsing, ensure the exact syntax is correct and used."""}]
 
 def MOTIVATIONS_INFO(creature):
   return [{"role": "user", "content": f"Please generate these {MOTIVATIONS} motivations for a creature or NPC. Consider all of the following profile {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
