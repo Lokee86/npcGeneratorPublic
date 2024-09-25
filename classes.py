@@ -11,13 +11,13 @@ class Monster:
         self.size_class: str = ""
         self.habitat: str = ""
         
+        self.skills: list = []
 
         self.stat_block: dict = STATS
         self.motivations: dict = MOTIVATIONS
         self.tactics : dict  = TACTICS
         self.abilities: dict = {}
         self.actions: dict = ACTIONS
-        self.skills: list = []
 
     def __str__(self):
         return self._generate_str()
