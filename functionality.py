@@ -206,10 +206,7 @@ def process_json_to_string(json_object, indent_level=0):
 
     return output_str
 
-def add_name_list_check(gui):
-    if gui.random_names["firsts"]:
-        gui.name_list_gen_check_box = tk.Checkbutton(gui.button_frame, text="Generate New Name List", variable=gui.name_list_gen_check)
-        gui.name_list_gen_check_box.grid(column=0, row=1, columnspan=2, sticky=tk.EW)
+
 
 
 def state_check(creature, gui): # This is just being used for building and debugging. Currently tied to the save button.
@@ -220,8 +217,10 @@ def state_check(creature, gui): # This is just being used for building and debug
     
     print(creature)
 
+name_flag = True
 def main(creature, gui):
 
+    
     client = initialize_client()
     for total in token_usage:
         token_usage[total] = 0
@@ -263,7 +262,9 @@ def main(creature, gui):
         pass
     
     if gui.name_gen_check.get():
-        if not gui.random_names["firsts"] or gui.name_list_gen_check.get():
+        if not gui.random_names["firsts"]:
+            generate_name_list(client, creature, gui)
+        elif gui.name_list_gen_check.get():
             generate_name_list(client, creature, gui)
         
         generate_name(creature, gui)
@@ -294,7 +295,9 @@ def main(creature, gui):
     for total in token_usage:
         session_tokens["session_totals"][total] += token_usage[total]
 
-    add_name_list_check(gui)
+    
+    gui.add_name_list_check()
+    
     print(token_usage)
     print(session_tokens)
     

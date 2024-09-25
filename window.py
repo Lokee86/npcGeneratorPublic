@@ -288,11 +288,18 @@ class MonsterWindow(CreatureCreatorApp):
         # Save and Generate buttons
         self.generate_button = tk.Button(self.button_frame, text="Generate", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.main(self.creature, self))
         self.save_button = tk.Button(self.button_frame, text="Save", font=(DISPLAY_FONT, 14), width=10, height=1, command=lambda: fn.state_check(self.creature, self))
-        self.generate_button.grid(column=0, row=0, padx='5')
-        self.save_button.grid(column=1, row=0)
+        self.generate_button.grid(column=0, row=1, padx='5')
+        self.save_button.grid(column=1, row=1, padx='5')
 
-        
-        self.name_list_gen_check = tk.BooleanVar()
+        self.name_list_flag = False
+
+    def add_name_list_check(self):
+        if self.random_names["firsts"]:
+            if self.name_list_flag == False:
+                self.name_list_gen_check = tk.BooleanVar()
+                self.name_list_gen_check_box = tk.Checkbutton(self.button_frame, text="Generate New Name List", variable=self.name_list_gen_check)
+                self.name_list_gen_check_box.grid(column=0, row=0, columnspan=2, sticky=tk.EW)
+                self.name_list_flag = True
 
 
 
