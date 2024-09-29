@@ -8,7 +8,7 @@ class Monster:
         self.species: str = ""
         self.name: str = ""
         self.category: str  = ""
-        self.size_class: str = ""
+        self.size: str = ""
         self.habitat: str = ""
         
         self.skills: list = []

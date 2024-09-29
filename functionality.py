@@ -70,9 +70,10 @@ def generate_name_list(client, creature, gui):
     )
 
     try:
-        gui.random_names["firsts"] = jn.loads(names.choices[0].message.content)
+        gui.random_names["firsts"] = jn.loads(names.choices[0].message.content.strip('`json'))
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
+        print(names.choices[0].message.content)
         generate_name_list(client, creature, gui)
 
     token_usage["total_tokens"] += names.usage.total_tokens
@@ -95,18 +96,6 @@ def list_picker(creature, field_name, variable, choices): # Will only work for *
     picked = random.randint(0, len(choices) - 1)
     setattr(creature, field_name, choices[picked])
     variable.set(choices[picked])
-
-def generate_species(client, creature, gui): # Not required for monster generation, implement with NPCs
-    pass
-
-def generate_category(creature, gui):
-    pass
-
-def generate_size(creature, gui):
-    pass
-
-def generate_habitat(creature, gui):
-    pass
 
 def generate_skills(creature, gui):
     skill_count = random.randint(0, 5)
@@ -138,11 +127,11 @@ def generate_dict_to_text_field(client, payload, payload_info, creature, creatur
     )
 
     try:
-        generated_dict = jn.loads(generations.choices[0].message.content)
+        generated_dict = jn.loads(generations.choices[0].message.content.strip('`json'))
     except jn.JSONDecodeError as e:
         print(f"Error: {e}.\nBad json format: Attepmting generation again")
         print(generations.choices[0].message.content)
-        # generate_dict_to_text_field(client, payload, payload_info, creature, creature_field, gui_variable)
+        generate_dict_to_text_field(client, payload, payload_info, creature, creature_field, gui_variable)
     
     
     dict_string = process_json_to_string(generated_dict)
@@ -217,7 +206,6 @@ def state_check(creature, gui): # This is just being used for building and debug
     
     print(creature)
 
-name_flag = True
 def main(creature, gui):
 
     
@@ -283,12 +271,12 @@ def main(creature, gui):
         pass
     
     if gui.motivations_gen_check.get():
-        generate_dict_to_text_field(client, TACTICS_MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, "motivations", gui.motivations_var)
+        generate_dict_to_text_field(client, MOTIVATIONS_PAYLOAD, MOTIVATIONS_INFO, creature, "motivations", gui.motivations_var)
     else:
         pass
 
     if gui.tactics_gen_check.get():
-        generate_dict_to_text_field(client, TACTICS_MOTIVATIONS_PAYLOAD, TACTICS_INFO, creature, "tactics", gui.tactics_var)
+        generate_dict_to_text_field(client, TACTICS_PAYLOAD, TACTICS_INFO, creature, "tactics", gui.tactics_var)
     else:
         pass
 

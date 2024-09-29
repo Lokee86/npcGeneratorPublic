@@ -260,10 +260,10 @@ class MonsterWindow(CreatureCreatorApp):
         # Creature style selection
         self.select_enemy_var = tk.StringVar()
         self.select_non_combatant = tk.Radiobutton(self.select_enemy_frame, text="Non-Combatant", variable=self.select_enemy_var, value="non_combatant")
-        self.select_minions = tk.Radiobutton(self.select_enemy_frame, text="Minions", variable=self.select_enemy_var, value="minions")
+        self.select_minions = tk.Radiobutton(self.select_enemy_frame, text="Minion", variable=self.select_enemy_var, value="minions")
         self.select_normal_enemy = tk.Radiobutton(self.select_enemy_frame, text="Normal Enemy", variable=self.select_enemy_var, value="normal_enemy")
         self.select_elite_enemy = tk.Radiobutton(self.select_enemy_frame, text="Elite Enemy", variable=self.select_enemy_var, value="elite_enemy")
-        self.select_super_elites = tk.Radiobutton(self.select_enemy_frame, text="Super Elites", variable=self.select_enemy_var, value="super_eliy")
+        self.select_super_elites = tk.Radiobutton(self.select_enemy_frame, text="Super Elite", variable=self.select_enemy_var, value="super_elite")
         self.select_boss_enemy = tk.Radiobutton(self.select_enemy_frame, text="Boss Enemy", variable=self.select_enemy_var, value="boss_enemy")
         self.select_epic_boss = tk.Radiobutton(self.select_enemy_frame, text="Epic Boss", variable=self.select_enemy_var, value="epic_boss")
         self.select_legendary_boss = tk.Radiobutton(self.select_enemy_frame, text="Legendary Boss", variable=self.select_enemy_var, value="legendary_boss")

@@ -110,12 +110,7 @@ CATEGORIES = ["Aberration", "Beast", "Celestial", "Construct", "Techo-Construct"
             "Demon", "Devil", "Archon", "Archfey", "Primordial", "Cyborg", "AI", "Mutant", "Alien", "Synth", "Android", "Traveler", "Cursed Construct", "Abomination"]
 
 
-SIZES = ["Tiny",
-        "Small",
-        "Medium",
-        "Large",
-        "Huge",
-        "Gargantuan"]
+SIZES = ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
 
 HABITATS = ["Enchanted Forests",
             "Underground Caverns",
@@ -127,99 +122,129 @@ HABITATS = ["Enchanted Forests",
             "Volcanic Mountains",
             "Frozen Wastelands",
             "Dark Forests",
-            "Elven Cities",
-            "Dwarven Strongholds",
             "Sacred Groves",
             "Haunted Woods",
-            "Dragon’s Lair",
+            "Dragon's Lair",
             "Cloud Kingdoms",
             "Faerie Glades",
-            "Underwater Kingdoms",
-            "Deserted Castles",
+            "Underwater",
             "Hidden Valleys",
+
+            "Mangroves",
+            "Salt Flats",
+            "Glacial Ice Fields",
+            "Volcanic Craters",
+            "Coral Atolls",
+            "Kelp Forests",
+            "Underground Aquifers",
+            "Fumaroles",
+            "Thermal Springs",
+            "Highland Plateaus",
+            "Cloud Forests",
+            "Cenotes",
+            "Salt Marshes",
+            "Tidal Pools",
+            "Oases",
+            "Bamboo Forests",
+            "Karst Landscapes",
+            "Fjords",
+            "Sand Dunes",
+            "Scree Slopes",
+
+            "Forests",
+            "Deserts",
+            "Mountains",
+            "Plains",
+            "Rivers",
+            "Lakes",
+            "Oceans",
+            "Tundras",
+            "Wetlands",
+            "Savannas",
+            "Jungles",
+            "Caves",
+            "Swamps",
+            "Beaches",
+            "Coral Reefs",
+            "Grasslands",
+            "Rainforests",
+            "Valleys",
+            "Islands",
+            "Meadows",
+
+            "Floating Islands",
+            "Crystal Caves",
+            "Endless Deserts",
+            "Shifting Sands",
+            "Fire Plains",
+            "Skybound Peaks",
+            "Glowing Mushroom Forests",
+            "Shadowed Groves",
+            "Lava Lakes",
+            "Gravity Wells",
+            "Frozen Oceans",
+            "Living Forests",
+            "Mirror Realms",
+            "Blood Marshes",
+            "Astral Planes",
+            "Eternal Storms",
+            "Ethereal Wastelands",
+            "Void Chasms",
+            "Dreamscapes",
+            "Time-twisted Ruins",
             
-            "Alien Planets",
             "Space Stations",
             "Asteroid Fields",
-            "Cyberpunk Metropolises",
-            "Terraforming Colonies",
-            "Dyson Spheres",
-            "Quantum Realms",
             "Starship Interiors",
-            "Holographic Simulations",
-            "Black Hole Vortices",
             "Artificial Ecosystems",
-            "Extraterrestrial Hives",
             "Plasma Storms",
-            "Warped Dimensions",
-            "Alien Cities",
             "Orbital Habitats",
             "Frozen Moons",
-            "Nanobot Swarms",
             "Time Dilation Fields",
-            "Clone Laboratories",
             
             "Abandoned Asylums",
             "Cursed Mansions",
             "Haunted Houses",
             "Graveyards",
-            "Foggy Moors",
+            "Moors",
             "Dilapidated Hospitals",
-            "Eldritch Temples",
-            "Underground Catacombs",
-            "Desolate Ghost Towns",
-            "Blood-soaked Altars",
-            "Dark, Endless Corridors",
+            "Temples",
+            "Catacombs",
+            "Ghost Towns",
             "Ruined Churches",
             "Ancient Burial Grounds",
-            "Forgotten Tombs",
+            "Burial Grounds",
+            "Tombs",
             "Abandoned Amusement Parks",
-            "Swamps of the Damned",
-            "Vampire Crypts",
-            "Creepy Forest Clearings",
-            "Isolated Cabins",
-            "Monster-infested Sewers",
+            "Swamps",
+            "Crypts",
+            "Forest",
+            "Sewers",
             
-            "Prehistoric Jungles",
-            "Medieval Castles",
-            "Victorian London",
-            "Futuristic Megacities",
-            "Time Loops",
-            "Ancient Civilizations",
+            "Jungles",
             "Post-apocalyptic Wastelands",
             "Quantum Fields",
-            "Alternate Realities",
-            "Steampunk Factories",
             "Temporal Anomalies",
             "Dimensional Rifts",
-            "Forgotten Timelines",
-            "Dystopian Governments",
             "Parallel Universes",
             "Chrono Towers",
             "Temporal Deserts",
             "Shifting Historical Battlefields",
-            "Lost Futures",
-            "Collapsing Time Bubbles",
             
             "Fairy Rings",
             "Mountain Caves",
             "Enchanted Springs",
-            "Old Mill Houses",
             "Troll Bridges",
             "Wishing Wells",
             "Sacred Mountains",
             "Mysterious Glens",
             "Cursed Rivers",
             "Ancient Woodlands",
-            "Giant's Causeway",
             "Hidden Meadows",
             "Celtic Stone Circles",
             "Mermaid Lagoons",
             "Ghostly Moorlands",
             "Dark Forest Paths",
-            "Witch's Cottages",
-            "Elven Enclaves",
-            "Changelings' Hideaways",
             "Pixie Hollow"]
 
 
@@ -254,7 +279,7 @@ Be certain to use non-specific, original, and creative monster names, declining 
 def MONSTER_INFO(creature):
   return [{"role": "user", "content": f"Provide a list of 25 creative and original monster names in a json array format. Consider this information when formulating the names {str(creature.formatted_str('name'))}"}]
 
-TACTICS_MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
+MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
                 You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided key lacking one already.
                 Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
                 Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
@@ -263,8 +288,18 @@ TACTICS_MOTIVATIONS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use 
 
 def MOTIVATIONS_INFO(creature):
   return [{"role": "user", "content": f"Please generate these {MOTIVATIONS} motivations for a creature or NPC. Consider all of the following profile {str(creature.formatted_str('motivations'))} Please provide the returned response in matching Json format."}]
+
+TACTICS_PAYLOAD = [{"role": "system", "content": """[Instruct]: Use structured json object in key:value format to provide a response. All values within the parent object will be in a json array.
+                You are an adept character creation analyst and expert psychologist that specializes in discerning motivation and drive. You can succinctly and expertly provide a value to match each provided key lacking one already.
+                Maintaint the format and layout, do not add keys, do not un-nest dictionaries. Fill in all keys provided in the prompt.
+                Do not provide any form of superfluous conversational text or information, provide only a single formatted json output.
+                It is very important that only the json text be provided and NOTHING ELSE is present in the response.
+                It is extremely critical that the provided syntax in the json string be accurate as to not cause errors when parsing, ensure the exact syntax is correct and used."""}]
+
 def TACTICS_INFO(creature):
-  return [{"role": "user", "content": f"Please generate these {TACTICS} motivations for a creature or NPC, 'high_defensive' refers when a creature is defending it's young, it's home, or something similar. Consider all of the following profile {str(creature.formatted_str('tactics'))} Please provide the returned response in matching Json format."}]
+  return [{"role": "user", "content": f"""Please generate these {TACTICS} motivations for a creature or NPC, 'high_defensive' refers when a creature is defending it's young, it's home, or something similar. 
+           Proved details about how the creature or NPC would act in each of these situations during combat.
+           Consider all of the following profile {str(creature.formatted_str('tactics'))} Please provide the returned response in matching Json format."""}]
 
 ABILITY_EXAMPLES = """
 Beast of Burden. The Monster is considered to be a ??? animal for the purpose of determining its carrying capacity.
@@ -394,7 +429,7 @@ Threatened: Look for weaknesses or distractions, then escape if possible. Avoids
 High Defensive: Use the environment and set traps to defend their home or young. Avoids direct confrontation, relying on clever tactics to repel intruders.
 
 With Backup: Charge into combat with aggression, using brute strength to overwhelm enemies. Allies can distract, allowing the creature to focus on dealing damage.
-Alone: Focus on single-target attacks, aiming to eliminate threats quickly. This creature is relentless and won’t back down.
+Alone: Focus on single-target attacks, aiming to eliminate threats quickly. This creature is relentless and won't back down.
 Cornered: Fight fiercely, using multi-attacks to strike hard and fast. This creature will not surrender.
 Threatened: Lash out at the nearest threat with full force, using all available might to eliminate the danger.
 High Defensive: Guard the nest aggressively, attacking anything that gets too close. Will not retreat if its young are at risk.
@@ -412,7 +447,7 @@ Threatened: Summon reinforcements or undead to create a buffer while preparing p
 High Defensive: Layer defenses around important areas, using minions and traps to ensure its secrets or valuables remain hidden and safe. Avoids direct confrontation if what is being protected is threatened.
 
 With Backup: Stay at range, supporting ground forces from a distance, using special abilities or breath weapons to control the battlefield.
-Alone: Attack from range, using movement or flight to retreat if necessary. This creature won’t risk injury without reason.
+Alone: Attack from range, using movement or flight to retreat if necessary. This creature won't risk injury without reason.
 Cornered: Fight with full force, using every available resource to destroy immediate threats.
 Threatened: Intimidate foes with roars or displays of power before striking decisively.
 High Defensive: Defend its nest or hoard with aggression, using its most potent attacks to keep intruders away from what it values most.
@@ -514,7 +549,7 @@ MOTIVATIONS_NPC = {"likes" : [],
                    "wants" : [],
                    "needs" : [],
                    "goals" : {"short_term" : [],
-                               "long_term" : []},}
+                              "long_term" : []},}
 
 ROLE_PLAY = {"bargaining": "",
              "with_backup": "",
