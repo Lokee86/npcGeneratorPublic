@@ -30,7 +30,7 @@ def creature_type(creature_type):
 def generate_npc_name_lists(client, creature, gui): 
 
     first_names = client.chat.completions.create(
-    model = "gpt-4o-mini",
+    model = MODEL,
     messages = NAME_PAYLOAD + FIRST_NAME(creature.species, creature.genre, creature.gender),
     temperature = 1.0,
     top_p = 1.0,
@@ -40,7 +40,7 @@ def generate_npc_name_lists(client, creature, gui):
     )
     
     last_names = client.chat.completions.create(
-    model = "gpt-4o-mini",
+    model = MODEL,
     messages = NAME_PAYLOAD + LAST_NAME(creature.species, creature.genre),
     temperature = 1.0,
     top_p = 1.0,
@@ -61,7 +61,7 @@ def generate_npc_name_lists(client, creature, gui):
 def generate_name_list(client, creature, gui):
     
     names = client.chat.completions.create(
-    model = "gpt-4o-mini",
+    model = MODEL,
     messages = MONSTER_NAME_PAYLOAD + MONSTER_INFO(creature),
     # response_format = {"type": "json_object", "schema": LIST_SHCEMA},
     temperature = 1.0,
@@ -119,7 +119,7 @@ def generate_stats(creature, gui):
 def generate_dict_to_text_field(client, payload, payload_info, creature, creature_field, gui_variable):
 
     generations = client.chat.completions.create(
-    model = "gpt-4o-mini",
+    model = MODEL,
     messages = payload + payload_info(creature),
     # response_format = {"type": "json_object", "schema": MOTIVATIONS_SCHEMA},
     temperature = 1.0,

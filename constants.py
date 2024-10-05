@@ -24,6 +24,8 @@ def WINDOW_TITLE(name):
 
 # PREDETERMINED GEN-LISTS
 
+DAMAGE_TYPES = ["Bludgeoning", "Piercing", "Slashing", "Acid", "Cold", "Fire", "Lightning", "Poison", "Thunder", "Force", "Necrotic", "Radiant", "Psychic"]
+
 GENRES = ["Fantasy",
           "Science Fiction",
           "Horror",
@@ -106,8 +108,9 @@ SPECIES = ["Elf", "Dwarf", "Orc", "Goblin", "Troll", "Dragon", "Gnome", "Ogre", 
     "Goblin", "Hobgoblin", "Redcap", "Trollkin", "Firbolg", "Fomorian", "Sidhe", "Tuatha Dé Danann", "Bean Nighe", "Cat Sith", "Cu Sith", "Nuckelavee", 
     "Kelpie", "Selkie", "Finfolk", "Sasquatch", "Yowie"]
 
-CATEGORIES = ["Aberration", "Beast", "Celestial", "Construct", "Techo-Construct", "Dragon", "Dragonkin", "Inter-Dimensional", "Other", "Elemental", "Fey", "Fiend", "Giant", "Humanoid", "Monstrosity", "Ooze", "Plant", "Undead", "Lycanthrope", "Shapeshifter",
-            "Demon", "Devil", "Archon", "Archfey", "Primordial", "Cyborg", "AI", "Mutant", "Alien", "Synth", "Android", "Traveler", "Cursed Construct", "Abomination"]
+CATEGORIES = ["Aberration", "Beast", "Celestial", "Construct", "Techo-Construct", "Dragon", "Dragonkin", "Inter-Dimensional", "Other", "Elemental", "Fey", "Fiend", "Giant",
+              "Humanoid", "Monstrosity", "Ooze", "Plant", "Undead", "Lycanthrope", "Shapeshifter", "Demon", "Devil", "Archon", "Archfey", "Primordial", "Cyborg", "AI", "Mutant",
+              "Alien", "Synth", "Android", "Traveler", "Cursed Construct", "Abomination"]
 
 
 SIZES = ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
@@ -304,7 +307,6 @@ def TACTICS_INFO(creature):
 ABILITY_EXAMPLES = """
 Beast of Burden. The Monster is considered to be a ??? animal for the purpose of determining its carrying capacity.
 
-
 Charge. If the Monster moves at least ??? ft. straight toward a target and then hits it with a ??? attack on the same turn, the target takes an extra [???D???] ??? damage. If the target is a creature, it must succeed on a DC ??? Strength saving throw or be knocked prone.
 
 Confer ??? Resistance. The Monster can grant resistance to ??? damage to anyone riding it.
@@ -484,9 +486,6 @@ High Defensive: Use its knowledge of complex terrain to set traps and ambushes, 
 
 
 
-
-
-
 # Schemas for structured responses.
 
 LIST_SHCEMA = {"type": "array", "items": {"type": "string"}}
@@ -583,3 +582,8 @@ CONNECTIONS = {"parents" : [],
                "ethnic" : "",
                "personal_associates": [],
                "memberships" : [],}
+
+
+# OTHER CONSTANTS
+
+MODEL = "gpt-4o-mini"

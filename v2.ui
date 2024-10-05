@@ -1,0 +1,712 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">testpyui</setting>
+      <setting id="description">test</setting>
+      <setting id="module_name">testpyui</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">toplevel1</setting>
+      <setting id="main_classname">test</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Toplevel" id="monster_window" named="True">
+    <property name="geometry">685x800</property>
+    <property name="height">200</property>
+    <property name="resizable">none</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="master_frame" named="True">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Game Play Information</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="pady">15 0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="basic_info_frame" named="True">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="pady">21 0</property>
+              <property name="row">1</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="name_label" named="True">
+                <property name="text" translatable="yes">Name:</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">0 5</property>
+                  <property name="row">0</property>
+                  <property name="sticky">e</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="type_label" named="True">
+                <property name="text" translatable="yes">Monster Type:</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">0 5</property>
+                  <property name="row">1</property>
+                  <property name="sticky">e</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="size_label" named="True">
+                <property name="text" translatable="yes">Size:</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">0 5</property>
+                  <property name="row">2</property>
+                  <property name="sticky">e</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="habitat_label" named="True">
+                <property name="text" translatable="yes">Habitat:</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">0 5</property>
+                  <property name="row">3</property>
+                  <property name="sticky">e</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="name_entry" named="True">
+                <property name="width">25</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="type_entry" named="True">
+                <property name="width">15</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="pady">5</property>
+                  <property name="row">1</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="size_entry" named="True">
+                <property name="width">10</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="habitat_entry" named="True">
+                <property name="width">15</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="pady">5 0</property>
+                  <property name="row">3</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="ac_label" named="True">
+                <property name="text" translatable="yes">AC: </property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">4</property>
+                  <property name="sticky">e</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="armor_type_frame" named="True">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="columnspan">2</property>
+                  <property name="padx">8</property>
+                  <property name="pady">5</property>
+                  <property name="row">4</property>
+                  <property name="sticky">e</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="armor_type_label" named="True">
+                    <property name="text" translatable="yes">Armor Type: </property>
+                    <layout manager="grid">
+                      <property name="column">2</property>
+                      <property name="padx">15 0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="armor_type_entry" named="True">
+                    <layout manager="grid">
+                      <property name="column">3</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="ac_entry" named="True">
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">4</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="hp_label" named="True">
+                <property name="text" translatable="yes">HP: </property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">5</property>
+                  <property name="sticky">e</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="hp_entry" named="True">
+                <property name="width">5</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">5</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="hit_dice_frame" named="True">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">5</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="hitdice_label" named="True">
+                    <property name="text" translatable="yes">Hit Dice: </property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="hitdice_entry" named="True">
+                    <property name="width">8</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Labelframe" id="combat_role_frame" named="True">
+            <property name="height">200</property>
+            <property name="text" translatable="yes">Combat Role</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="ipadx">3</property>
+              <property name="ipady">2</property>
+              <property name="pady">10</property>
+              <property name="row">2</property>
+            </layout>
+            <child>
+              <object class="tk.Radiobutton" id="artillery_radio" named="True">
+                <property name="text" translatable="yes">Artillery</property>
+                <property name="value">artillery</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="brute_radio" named="True">
+                <property name="text" translatable="yes">Brute</property>
+                <property name="value">brute</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="controller_radio" named="True">
+                <property name="text" translatable="yes">Cotnroller</property>
+                <property name="value">controller</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="no_role_radio" named="True">
+                <property name="overrelief">flat</property>
+                <property name="text" translatable="yes">None</property>
+                <property name="value">no_role</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="lurker_radio" named="True">
+                <property name="text" translatable="yes">Lurker</property>
+                <property name="value">lurker</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="skirmisher_radio" named="True">
+                <property name="text" translatable="yes">Skirmisher</property>
+                <property name="value">skirmisher</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="soldier_radio" named="True">
+                <property name="text" translatable="yes">Soldier</property>
+                <property name="value">soldier</property>
+                <property name="variable">string:combat_role</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Labelframe" id="unit_type_frame" named="True">
+            <property name="height">200</property>
+            <property name="text" translatable="yes">Unit Type</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">2</property>
+              <property name="sticky">w</property>
+            </layout>
+            <child>
+              <object class="tk.Radiobutton" id="noncombatant_radio" named="True">
+                <property name="text" translatable="yes">Non-Combatant</property>
+                <property name="value">noncombatant</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="minion_radio" named="True">
+                <property name="text" translatable="yes">Minion</property>
+                <property name="value">minion</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="normal_enemy_radio" named="True">
+                <property name="text" translatable="yes">Normal Enemy</property>
+                <property name="value">normal_enemy</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="elite_radio" named="True">
+                <property name="text" translatable="yes">Elite</property>
+                <property name="value">elite</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="mini_boss_radio" named="True">
+                <property name="text" translatable="yes">Mini-Boss</property>
+                <property name="value">mini_boss</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="boss_radio" named="True">
+                <property name="state">normal</property>
+                <property name="text" translatable="yes">Boss</property>
+                <property name="value">boss</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="epic_boss_radio" named="True">
+                <property name="text" translatable="yes">Epic Boss</property>
+                <property name="value">epic_boss</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Radiobutton" id="legendary_boss_radio" named="True">
+                <property name="text" translatable="yes">Legendary Boss</property>
+                <property name="value">legendary_boss</property>
+                <property name="variable">string:unit_type</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">0 05</property>
+                  <property name="row">3</property>
+                  <property name="sticky">w</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+            <child>
+              <object class="ttk.Labelframe" id="abilities_frame" named="True">
+                <property name="height">200</property>
+                <property name="text" translatable="yes">Abilities</property>
+                <property name="width">200</property>
+                <layout manager="pack" />
+                <child>
+                  <object class="ttk.Label" id="str_label" named="True">
+                    <property name="text" translatable="yes">STR</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="padx">5 0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="dex_label" named="True">
+                    <property name="text" translatable="yes">DEX</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="padx">5</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="con_label" named="True">
+                    <property name="text" translatable="yes">CON</property>
+                    <layout manager="grid">
+                      <property name="column">2</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="int_label" named="True">
+                    <property name="text" translatable="yes">INT</property>
+                    <layout manager="grid">
+                      <property name="column">4</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="wis_label" named="True">
+                    <property name="text" translatable="yes">WIS</property>
+                    <layout manager="grid">
+                      <property name="column">3</property>
+                      <property name="padx">5</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="cha_label" named="True">
+                    <property name="text" translatable="yes">CHA</property>
+                    <layout manager="grid">
+                      <property name="column">5</property>
+                      <property name="padx">5</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry8">
+                    <property name="width">2</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="pady">0 5</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry9">
+                    <property name="width">2</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">1</property>
+                      <property name="sticky">n</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry10">
+                    <property name="width">2</property>
+                    <layout manager="grid">
+                      <property name="column">2</property>
+                      <property name="row">1</property>
+                      <property name="sticky">n</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry11">
+                    <property name="width">2</property>
+                    <layout manager="grid">
+                      <property name="column">3</property>
+                      <property name="row">1</property>
+                      <property name="sticky">n</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry12">
+                    <property name="width">2</property>
+                    <layout manager="grid">
+                      <property name="column">4</property>
+                      <property name="row">1</property>
+                      <property name="sticky">n</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry13">
+                    <property name="width">2</property>
+                    <layout manager="grid">
+                      <property name="column">5</property>
+                      <property name="row">1</property>
+                      <property name="sticky">n</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Labelframe" id="saving_throw_frame" named="True">
+                <property name="height">200</property>
+                <property name="text" translatable="yes">Saving Throws</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="pady">5</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="str_save_label" named="True">
+                    <property name="text" translatable="yes">STR</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="padx">5 0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="dex_save_label" named="True">
+                    <property name="text" translatable="yes">DEX</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="padx">5</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="con_save_label" named="True">
+                    <property name="text" translatable="yes">CON</property>
+                    <layout manager="grid">
+                      <property name="column">2</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="int_save_label" named="True">
+                    <property name="text" translatable="yes">INT</property>
+                    <layout manager="grid">
+                      <property name="column">3</property>
+                      <property name="padx">5</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="wis_save_label" named="True">
+                    <property name="text" translatable="yes">WIS</property>
+                    <layout manager="grid">
+                      <property name="column">4</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="cha_save_label" named="True">
+                    <property name="text" translatable="yes">CHA</property>
+                    <layout manager="grid">
+                      <property name="column">5</property>
+                      <property name="padx">5</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Checkbutton" id="str_save_check_box" named="True">
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Checkbutton" id="dex_save_check_box" named="True">
+                    <property name="compound">top</property>
+                    <property name="state">normal</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Checkbutton" id="con_save_check_box" named="True">
+                    <layout manager="grid">
+                      <property name="column">2</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Checkbutton" id="int_save_check_box" named="True">
+                    <property name="justify">center</property>
+                    <layout manager="grid">
+                      <property name="column">3</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Checkbutton" id="wis_save_check_box" named="True">
+                    <layout manager="grid">
+                      <property name="column">4</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Checkbutton" id="cha_save_check_box" named="True">
+                    <layout manager="grid">
+                      <property name="column">5</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
