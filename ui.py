@@ -10,6 +10,14 @@ class Main(CreatureWindow):
         # self.style = ttk.Style()
         # self.style.theme_use("winnative")
 
+    def generate_creature(self):
+        print("test generate")
+
+    def save_creature(self):
+        print("test save")
+
+    def load_creature(self):
+        print("test load")
 
 if __name__ == "__main__":
     app = Main()
