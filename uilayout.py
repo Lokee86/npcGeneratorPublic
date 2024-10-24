@@ -8,7 +8,7 @@ class testUI:
         # build ui
         self.monster_window = tk.Tk() if master is None else tk.Toplevel(master)
         self.monster_window.configure(height=200, width=200)
-        self.monster_window.geometry("1525x750")
+        self.monster_window.geometry("1422x735")
         self.monster_window.resizable(False, False)
         self.monster_window.title("Creature Creator")
         self.gameplay_frame = ttk.Frame(
@@ -180,7 +180,7 @@ class testUI:
             columnspan=2,
             ipadx=3,
             ipady=2,
-            padx=15,
+            padx="0 5",
             pady="0 10",
             row=6,
             sticky="sw")
@@ -233,7 +233,7 @@ class testUI:
             column=1,
             columnspan=3,
             ipady=2,
-            padx="10 0",
+            padx="0 33",
             pady="0 10",
             row=6,
             sticky="s")
@@ -426,12 +426,12 @@ class testUI:
             pady=10,
             row=2,
             sticky="s")
-        self.vuln_resis_immune_frame = ttk.Labelframe(
-            self.gameplay_frame, name="vuln_resis_immune_frame")
-        self.vuln_resis_immune_frame.configure(
+        self.vuln_resist_immune_frame = ttk.Labelframe(
+            self.gameplay_frame, name="vuln_resist_immune_frame")
+        self.vuln_resist_immune_frame.configure(
             height=200, text='Damage Tuning', width=200)
         self.std_tuning_frame = ttk.Frame(
-            self.vuln_resis_immune_frame,
+            self.vuln_resist_immune_frame,
             name="std_tuning_frame")
         self.std_tuning_frame.configure(height=200, width=200)
         self.std_tuning_label = ttk.Label(
@@ -515,7 +515,7 @@ class testUI:
         self.std_tuning_radio_frame.grid(column=0, row=1)
         self.std_tuning_frame.grid(column=0, row=0)
         self.vuln_tuning_frame = ttk.Frame(
-            self.vuln_resis_immune_frame,
+            self.vuln_resist_immune_frame,
             name="vuln_tuning_frame")
         self.vuln_tuning_frame.configure(height=200, width=200)
         self.vuln_tuning_label = ttk.Label(
@@ -589,7 +589,7 @@ class testUI:
         self.vuln_tuning_radio_frame.grid(column=0, padx="5 0", row=1)
         self.vuln_tuning_frame.grid(column=1, row=0)
         self.resist_tuning_frame = ttk.Frame(
-            self.vuln_resis_immune_frame,
+            self.vuln_resist_immune_frame,
             name="resist_tuning_frame")
         self.resist_tuning_frame.configure(height=200, width=200)
         self.resist_tuning_label = ttk.Label(
@@ -664,7 +664,7 @@ class testUI:
         self.resist_tuning_vuln_frame.grid(column=0, padx="10 0", row=1)
         self.resist_tuning_frame.grid(column=2, row=0)
         self.immune_tuning_frame = ttk.Frame(
-            self.vuln_resis_immune_frame,
+            self.vuln_resist_immune_frame,
             name="immune_tuning_frame")
         self.immune_tuning_frame.configure(height=200, width=200)
         self.immune_tuning_label = ttk.Label(
@@ -745,8 +745,8 @@ class testUI:
         self.psychic_immune_radio.grid(column=0, row=12, sticky="w")
         self.immune_tuning_radio_frame.grid(column=0, padx=10, row=1)
         self.immune_tuning_frame.grid(column=3, row=0)
-        self.vuln_resis_immune_frame.grid(
-            column=0, padx=15, pady=0, row=3, sticky="ns")
+        self.vuln_resist_immune_frame.grid(
+            column=0, padx="0 5", pady=0, row=3, sticky="ns")
         self.language_frame = ttk.Labelframe(
             self.gameplay_frame, name="language_frame")
         self.language_frame.configure(height=200, text='Languages', width=200)
@@ -1045,7 +1045,7 @@ class testUI:
         self.skills_frame.grid(
             column=2,
             ipady=0,
-            padx=15,
+            padx=5,
             row=1,
             rowspan=3,
             sticky="nw")
@@ -1106,7 +1106,7 @@ class testUI:
         self.weapon_tuning_other_entry.grid(
             column=0, columnspan=2, padx=5, pady="0 5", row=4, sticky="w")
         self.weapon_tuning_frame.grid(
-            column=2, padx=15, row=2, rowspan=2, sticky="sew")
+            column=2, padx=5, row=2, rowspan=2, sticky="sew")
         self.senses_frame = ttk.Labelframe(
             self.gameplay_frame, name="senses_frame")
         self.senses_frame.configure(
@@ -1271,18 +1271,18 @@ class testUI:
             self.abilities_and_actions_frame,
             name="abilities_label")
         self.abilities_label.configure(text='Abilities:')
-        self.abilities_label.grid(column=0, padx=10, pady=5, row=0, sticky="w")
+        self.abilities_label.grid(column=0, pady=5, row=0, sticky="w")
         self.abilities_entry = tk.Text(
             self.abilities_and_actions_frame,
             name="abilities_entry")
         self.abilities_entry.configure(
             height=8, undo=True, width=35, wrap="word")
-        self.abilities_entry.grid(column=0, padx=10, row=1, sticky="w")
+        self.abilities_entry.grid(column=0, padx="0 5", row=1, sticky="w")
         self.actions_label = ttk.Label(
             self.abilities_and_actions_frame,
             name="actions_label")
         self.actions_label.configure(text='Actions:')
-        self.actions_label.grid(column=0, padx=10, pady=5, row=2, sticky="w")
+        self.actions_label.grid(column=0, pady=5, row=2, sticky="w")
         self.actions_entry = tk.Text(
             self.abilities_and_actions_frame,
             name="actions_entry")
@@ -1293,82 +1293,82 @@ class testUI:
             takefocus=True,
             width=35,
             wrap="word")
-        self.actions_entry.grid(column=0, padx=10, row=3, sticky="w")
+        self.actions_entry.grid(column=0, padx="0 5", row=3, sticky="w")
         self.bonus_actions_label = ttk.Label(
             self.abilities_and_actions_frame,
             name="bonus_actions_label")
         self.bonus_actions_label.configure(text='Bonus Actions:')
         self.bonus_actions_label.grid(
-            column=0, padx=10, pady=5, row=4, sticky="w")
+            column=0, pady=5, row=4, sticky="w")
         self.bonus_actions_entry = tk.Text(
             self.abilities_and_actions_frame,
             name="bonus_actions_entry")
         self.bonus_actions_entry.configure(height=8, width=35, wrap="word")
         self.bonus_actions_entry.grid(
-            column=0, padx=10, pady="0 10", row=5, sticky="w")
+            column=0, padx="0 5", pady="0 10", row=5, sticky="w")
         self.reactions_label = ttk.Label(
             self.abilities_and_actions_frame,
             name="reactions_label")
         self.reactions_label.configure(text='Reactions:')
-        self.reactions_label.grid(column=1, padx=10, pady=5, row=0, sticky="w")
+        self.reactions_label.grid(column=1, pady=5, row=0, sticky="w")
         self.reactions_entry = tk.Text(
             self.abilities_and_actions_frame,
             name="reactions_entry")
         self.reactions_entry.configure(height=8, width=35, wrap="word")
-        self.reactions_entry.grid(column=1, padx=10, row=1)
+        self.reactions_entry.grid(column=1, row=1)
         self.legendary_actions_label = ttk.Label(
             self.abilities_and_actions_frame,
             name="legendary_actions_label")
         self.legendary_actions_label.configure(text='Legendary Actions:')
-        self.legendary_actions_label.grid(column=1, padx=10, row=2, sticky="w")
+        self.legendary_actions_label.grid(column=1, row=2, sticky="w")
         self.legendary_actions_entry = tk.Text(
             self.abilities_and_actions_frame,
             name="legendary_actions_entry")
         self.legendary_actions_entry.configure(height=8, width=35, wrap="word")
-        self.legendary_actions_entry.grid(column=1, padx=10, row=3, sticky="w")
+        self.legendary_actions_entry.grid(column=1, row=3, sticky="w")
         self.mythic_actions_label = ttk.Label(
             self.abilities_and_actions_frame,
             name="mythic_actions_label")
         self.mythic_actions_label.configure(text='Mythic Actions:')
-        self.mythic_actions_label.grid(column=1, padx=10, row=4, sticky="w")
+        self.mythic_actions_label.grid(column=1, row=4, sticky="w")
         self.mythic_actions_entry = tk.Text(
             self.abilities_and_actions_frame,
             name="mythic_actions_entry")
         self.mythic_actions_entry.configure(height=8, width=35, wrap="word")
         self.mythic_actions_entry.grid(
-            column=1, padx=10, pady="0 10", row=5, sticky="w")
+            column=1, pady="0 10", row=5, sticky="w")
         self.abilities_scrollbar = ttk.Scrollbar(
             self.abilities_and_actions_frame,
             name="abilities_scrollbar")
         self.abilities_scrollbar.configure(orient="vertical")
-        self.abilities_scrollbar.grid(column=0, padx=10, row=1, sticky="nse")
+        self.abilities_scrollbar.grid(
+            column=0, padx="0 5", row=1, sticky="nse")
         self.actions_scrollbar = ttk.Scrollbar(
             self.abilities_and_actions_frame,
             name="actions_scrollbar")
         self.actions_scrollbar.configure(orient="vertical")
-        self.actions_scrollbar.grid(column=0, padx=10, row=3, sticky="nse")
+        self.actions_scrollbar.grid(column=0, padx="0 5", row=3, sticky="nse")
         self.bonus_actions_scrollbar = ttk.Scrollbar(
             self.abilities_and_actions_frame, name="bonus_actions_scrollbar")
         self.bonus_actions_scrollbar.configure(orient="vertical")
         self.bonus_actions_scrollbar.grid(
-            column=0, padx=10, pady="0 10", row=5, sticky="nse")
+            column=0, padx="0 5", pady="0 10", row=5, sticky="nse")
         self.reactions_scrollbar = ttk.Scrollbar(
             self.abilities_and_actions_frame,
             name="reactions_scrollbar")
         self.reactions_scrollbar.configure(orient="vertical")
-        self.reactions_scrollbar.grid(column=1, padx=10, row=1, sticky="nse")
+        self.reactions_scrollbar.grid(column=1, row=1, sticky="nse")
         self.legendary_actions_scrollbar = ttk.Scrollbar(
             self.abilities_and_actions_frame, name="legendary_actions_scrollbar")
         self.legendary_actions_scrollbar.configure(orient="vertical")
-        self.legendary_actions_scrollbar.grid(
-            column=1, padx=10, row=3, sticky="nse")
+        self.legendary_actions_scrollbar.grid(column=1, row=3, sticky="nse")
         self.mythic_actions_scrollbar = ttk.Scrollbar(
             self.abilities_and_actions_frame, name="mythic_actions_scrollbar")
         self.mythic_actions_scrollbar.configure(orient="vertical")
         self.mythic_actions_scrollbar.grid(
-            column=1, padx=10, pady="0 10", row=5, sticky="nse")
+            column=1, pady="0 10", row=5, sticky="nse")
         self.abilities_and_actions_frame.grid(
-            column=4, padx="15 0", pady=0, row=2, rowspan=2, sticky="sew")
+            column=4, padx="5", pady=0, row=2, rowspan=2, sticky="sew")
         self.description_frame = ttk.Frame(
             self.gameplay_frame, name="description_frame")
         self.description_frame.configure(height=200, width=200)
@@ -1379,13 +1379,13 @@ class testUI:
         self.description_entry = tk.Text(
             self.description_frame, name="description_entry")
         self.description_entry.configure(
-            height=8, setgrid=False, width=76, wrap="word")
+            height=8, setgrid=False, width=71, wrap="word")
         self.description_entry.grid(column=0, padx=5, row=1)
         self.description_scrollbar = ttk.Scrollbar(
             self.description_frame, name="description_scrollbar")
         self.description_scrollbar.configure(orient="vertical")
-        self.description_scrollbar.grid(column=0, padx=5, row=1, sticky="nse")
-        self.description_frame.grid(column=4, padx="15 0", row=1, sticky="nsw")
+        self.description_scrollbar.grid(column=0, row=1, sticky="nse")
+        self.description_frame.grid(column=4, padx="5", row=1, sticky="nsw")
         self.button__frame = ttk.Frame(
             self.gameplay_frame, name="button__frame")
         self.button__frame.configure(height=200, width=200)
