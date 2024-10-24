@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
-import uilayout as baseui
+from uilayout import *
 
 
-class test(baseui.testUI):
+class Main(CreatureWindow):
     def __init__(self, master=None):
         super().__init__(master)
         # self.style = ttk.Style()
@@ -12,5 +12,5 @@ class test(baseui.testUI):
 
 
 if __name__ == "__main__":
-    app = test()
+    app = Main()
     app.run()
