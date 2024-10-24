@@ -3,7 +3,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-class CreatureWindow:
+class testUI:
     def __init__(self, master=None):
         # build ui
         self.monster_window = tk.Tk() if master is None else tk.Toplevel(master)
@@ -301,7 +301,7 @@ class CreatureWindow:
         self.str_save_label = ttk.Label(
             self.saving_throw_frame, name="str_save_label")
         self.str_save_label.configure(font="{DejaVu Sans} 7 {}", text='STR')
-        self.str_save_label.grid(column=0, padx="10 0", row=0)
+        self.str_save_label.grid(column=0, row=0)
         self.dex_save_label = ttk.Label(
             self.saving_throw_frame, name="dex_save_label")
         self.dex_save_label.configure(font="{DejaVu Sans} 7 {}", text='DEX')
@@ -1390,13 +1390,13 @@ class CreatureWindow:
             self.gameplay_frame, name="button__frame")
         self.button__frame.configure(height=200, width=200)
         self.generate_button = ttk.Button(
-            self.button__frame, name="generate_button", command=self.generate_creature)
+            self.button__frame, name="generate_button")
         self.generate_button.configure(text='Generate Creature', width=18)
         self.generate_button.grid(column=0, row=3)
-        self.save_button = ttk.Button(self.button__frame, name="save_button", command=self.save_creature)
+        self.save_button = ttk.Button(self.button__frame, name="save_button")
         self.save_button.configure(text='Save Creature', width=18)
         self.save_button.grid(column=0, pady=10, row=4)
-        self.load_button = ttk.Button(self.button__frame, name="load_button", command=self.load_creature)
+        self.load_button = ttk.Button(self.button__frame, name="load_button")
         self.load_button.configure(text='Load Creature', width=18)
         self.load_button.grid(column=0, row=5)
         self.logo_label = ttk.Label(self.button__frame, name="logo_label")
@@ -1408,19 +1408,10 @@ class CreatureWindow:
         # Main widget
         self.mainwindow = self.monster_window
 
-    def generate_creature(self):
-        pass
-
-    def save_creature(self):
-        pass
-
-    def load_creature(self):
-        pass
-    
     def run(self):
         self.mainwindow.mainloop()
 
 
 if __name__ == "__main__":
-    app = CreatureWindow()
+    app = testUI()
     app.run()
